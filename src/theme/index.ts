@@ -13,14 +13,26 @@ Initialize the theme with base theme elements (excluding typography styles and s
 let theme = createTheme({
     palette,
     breakpoints,
-    mixins,
-    components,
+    mixins: { ...mixins },
+    components: {
+        ...components,
+        MuiButton: {
+            styleOverrides: {
+                root: {
+                    textTransform: 'none',
+                },
+            },
+        },
+    },
     typography: {
         fontFamily: 'Inter',
         ...typography.typographyUtil,
     },
     spacing: (factor: number) =>
         theme.typography.pxToRem(factor * SCALING_FACTOR),
+    shape: {
+        borderRadius: 16,
+    },
 });
 
 /* Extend the base theme with additional configurations */

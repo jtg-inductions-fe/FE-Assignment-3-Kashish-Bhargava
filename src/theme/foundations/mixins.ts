@@ -16,6 +16,27 @@ const lineClamp = (lines: number = 1): CSSProperties => ({
     WebkitLineClamp: lines,
 });
 
+const flexCenter = (): CSSProperties => ({
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+});
+
+const flex = (
+    justify: CSSProperties['justifyContent'] = 'flex-start',
+    align: CSSProperties['alignItems'] = 'stretch',
+    gap: CSSProperties['gap'] = 0,
+    direction: CSSProperties['flexDirection'] = 'row',
+): CSSProperties => ({
+    display: 'flex',
+    justifyContent: justify,
+    alignItems: align,
+    gap,
+    flexDirection: direction,
+});
+
 export const mixins: MixinsOptions = {
     lineClamp,
+    flexCenter,
+    flex,
 };
