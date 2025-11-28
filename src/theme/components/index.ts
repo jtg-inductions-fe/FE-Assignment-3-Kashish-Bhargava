@@ -4,7 +4,6 @@ import type { Components } from '@mui/material/styles';
 import InterRegularTTF from '@assets/fonts/inter/inter-regular.ttf';
 import InterRegularWOFF2 from '@assets/fonts/inter/inter-regular.woff2';
 
-// TODO: Add necessary font face declarations here
 const fontFaceDeclarations = `
        @font-face {
         font-display: swap; 
@@ -18,11 +17,11 @@ const fontFaceDeclarations = `
 
 export const components: Components = {
     MuiCssBaseline: {
-        styleOverrides: {
-            html: {
-                fontSize: '62.5%',
-            },
-            fontFaceDeclarations,
-        },
+        styleOverrides: `
+           ${fontFaceDeclarations}
+            html {
+                font-size: 62.5%;
+            }
+        `,
     },
 };

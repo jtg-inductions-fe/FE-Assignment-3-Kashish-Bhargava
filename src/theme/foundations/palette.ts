@@ -5,35 +5,36 @@ import { COLORS } from '@constant';
 /* Custom Palette */
 export const palette: PaletteOptions = {
     primary: {
-        main: COLORS.RED[235],
-        light: COLORS.RED[255],
+        main: COLORS.RED.main,
+        light: COLORS.RED.light,
+        contrastText: COLORS.WHITE.main,
     },
     background: {
-        paper: COLORS.BLUE[53],
-        default: COLORS.WHITE[245],
+        paper: COLORS.BLUE.dark,
+        default: COLORS.WHITE.secondary,
     },
     info: {
-        main: COLORS.BLUE[73],
+        main: COLORS.BLUE.main,
     },
     secondary: {
-        main: COLORS.BLUE[67],
-        dark: COLORS.GREY[229],
-        light: COLORS.GREY[238],
+        main: COLORS.BLUE.medium,
+        dark: COLORS.GREY.light,
+        light: COLORS.GREY.lighter,
     },
     text: {
-        primary: COLORS.GREY[102],
-        secondary: COLORS.GREY[153],
-        disabled: COLORS.BLUE[162],
+        primary: COLORS.GREY.dark,
+        secondary: COLORS.GREY.medium,
+        disabled: COLORS.BLUE.light,
     },
     warning: {
         main: COLORS.YELLOW,
     },
     success: {
-        main: COLORS.GREEN[166],
-        light: COLORS.GREEN[255],
+        main: COLORS.GREEN.main,
+        light: COLORS.GREEN.light,
     },
     common: {
-        black: COLORS.GREY[900],
-        white: COLORS.WHITE[255],
+        black: COLORS.GREY.darkest,
+        white: COLORS.WHITE.main,
     },
 };

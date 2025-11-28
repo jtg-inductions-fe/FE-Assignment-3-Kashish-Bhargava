@@ -8,7 +8,7 @@
             "@pages": ["pages/index"],
             "@utils": ["utils/index"],
             "@layouts": ["layouts/index"],
-            "@features": ["feature/index"],
+            "@features": ["features/index"],
             "@components": ["components/index"],
             "@app": ["app/index"],
             "@routes": ["routes/index"],

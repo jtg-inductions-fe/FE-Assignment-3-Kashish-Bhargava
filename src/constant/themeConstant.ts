@@ -4,30 +4,30 @@
  */
 export const COLORS = {
     RED: {
-        235: '#EB4E62',
-        255: '#FFE4E1',
+        main: '#EB4E62',
+        light: '#FFE4E1',
     },
     GREY: {
-        102: '#666666',
-        153: '#999999',
-        229: '#E5E5E5',
-        238: '#EEEEEE',
-        900: '#111827',
+        dark: '#666666',
+        medium: '#999999',
+        light: '#E5E5E5',
+        lighter: '#EEEEEE',
+        darkest: '#111827',
     },
     WHITE: {
-        245: '#F5F5F5',
-        255: '#FFFFFF',
+        main: '#FFFFFF',
+        secondary: '#F5F5F5',
     },
     BLUE: {
-        53: '#313035',
-        67: '#404043',
-        73: '#2B3149',
-        162: '#9C9FA2',
+        dark: '#313035',
+        medium: '#404043',
+        main: '#2B3149',
+        light: '#9C9FA2',
     },
     YELLOW: '#F1B103',
     GREEN: {
-        166: '#1FAD3E',
-        255: '#EFFFEA',
+        main: '#1FAD3E',
+        light: '#EFFFEA',
     },
 };
 

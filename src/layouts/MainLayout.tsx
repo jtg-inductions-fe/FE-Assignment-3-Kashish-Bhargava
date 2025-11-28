@@ -1,7 +1,11 @@
-import { Counter } from 'features/counter/Counter';
+import { Outlet } from 'react-router-dom';
+
 export const MainLayout = () => (
     <>
-        <div>MainLayout</div>
-        <Counter />
+        <header>Navbar</header>
+        <main>
+            <Outlet />
+        </main>
+        <footer>Footer</footer>
     </>
 );

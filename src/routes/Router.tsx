@@ -36,7 +36,6 @@ export const router = createBrowserRouter([
     },
     //Auth Routes (Visible only to users not logged in)
     {
-        path: '/',
         element: <NonProtectedRoute />,
         errorElement: <ErrorPage />,
         children: [
@@ -46,7 +45,6 @@ export const router = createBrowserRouter([
     },
     //Protected Routes
     {
-        path: '/',
         element: <ProtectedRoute />,
         errorElement: <ErrorPage />,
         children: [
