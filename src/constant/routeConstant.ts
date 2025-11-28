@@ -13,4 +13,5 @@ export const ROUTES = {
     BOOK_SEATS: '/cinemas/:slug/slot/:slotId/bookings',
 
     PURCHASE_HISTORY: '/bookings/history',
+    ERROR: '/error',
 } as const;
