@@ -3,8 +3,7 @@ export const StyledButton = styled(Button)(
     ({
         theme: {
             palette: {
-                primary: { main },
-                common: { white },
+                primary: { main, contrastText },
                 text: { primary },
             },
             spacing,
@@ -13,7 +12,7 @@ export const StyledButton = styled(Button)(
         },
     }) => ({
         backgroundColor: main,
-        color: white,
+        color: contrastText,
         borderRadius: buttonBorderRadius,
         padding: spacing(2.25, 4.25),
         ...typographyButton,
