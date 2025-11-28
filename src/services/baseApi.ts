@@ -1,10 +1,9 @@
 import type { RootState } from '@app';
-import { COMMON } from '@constant';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const baseApi = createApi({
     reducerPath: 'api',
     baseQuery: fetchBaseQuery({
-        baseUrl: COMMON.API_BASE_URL, //Backend base URL
+        baseUrl: import.meta.env.VITE_API_BASE_URL, //Backend base URL
         prepareHeaders: (headers, { getState }) => {
             // Extract the access token from the Redux auth state
             const token = (getState() as RootState).auth.accessToken;

@@ -17,7 +17,9 @@ import {
     SeatBooking,
     Signup,
 } from '@pages';
-import { NonProtectedRoute, ProtectedRoute } from '@routes';
+
+import { NonProtectedRoute } from './NonProtectedRoute';
+import { ProtectedRoute } from './ProtectedRoute';
 
 export const router = createBrowserRouter([
     //Public routes

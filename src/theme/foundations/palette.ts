@@ -27,7 +27,7 @@ export const palette: PaletteOptions = {
         disabled: COLORS.BLUE.light,
     },
     warning: {
-        main: COLORS.YELLOW,
+        main: COLORS.YELLOW.main,
     },
     success: {
         main: COLORS.GREEN.main,

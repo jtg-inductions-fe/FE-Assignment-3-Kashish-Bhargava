@@ -24,7 +24,9 @@ export const COLORS = {
         main: '#2B3149',
         light: '#9C9FA2',
     },
-    YELLOW: '#F1B103',
+    YELLOW: {
+        main: '#F1B103',
+    },
     GREEN: {
         main: '#1FAD3E',
         light: '#EFFFEA',
