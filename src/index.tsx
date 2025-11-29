@@ -9,6 +9,7 @@ import { CssBaseline, ThemeProvider } from '@mui/material';
 import { store } from '@app';
 import { router } from '@routes';
 import { theme } from '@theme';
+
 const rootElement = document.getElementById('root') as HTMLElement;
 
 createRoot(rootElement).render(
