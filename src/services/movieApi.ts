@@ -1,6 +1,6 @@
 import { baseApi } from '@services';
 
-interface Movie {
+export interface Movie {
     id: number;
     name: string;
     genres: string[];
@@ -10,7 +10,7 @@ interface Movie {
     release_date: string;
 }
 
-interface MoviesResponse {
+export interface MoviesResponse {
     next: string | null;
     previous: string | null;
     results: Movie[];
