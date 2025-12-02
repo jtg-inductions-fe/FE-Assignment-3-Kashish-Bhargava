@@ -4,12 +4,14 @@ export const Wrapper = styled(Box)(
     ({
         theme: {
             spacing,
-            mixins: { flex },
             breakpoints: { up },
         },
     }) => ({
         minHeight: spacing(126.75),
-        ...flex('flex-start', 'center', spacing(7.5), 'column'),
+        display: 'flex',
+        alignItems: 'center',
+        flexDirection: 'column',
+        gap: spacing(7.5),
         textAlign: 'center',
         boxSizing: 'border-box',
         padding: spacing(14, 0),
@@ -25,12 +27,14 @@ export const ContentWrapper = styled(Box)(
     ({
         theme: {
             spacing,
-            mixins: { flex },
             breakpoints: { up },
         },
     }) => ({
         minHeight: 'auto',
-        ...flex('flex-start', 'center', spacing(5.75), 'column'),
+        display: 'flex',
+        alignItems: 'center',
+        flexDirection: 'column',
+        gap: spacing(5.75),
         [up('lg')]: {
             minHeight: spacing(39.25),
             gap: spacing(5),
@@ -42,12 +46,14 @@ export const TextWrapper = styled(Box)(
     ({
         theme: {
             spacing,
-            mixins: { flex },
             breakpoints: { up },
         },
     }) => ({
         minHeight: 'auto',
-        ...flex('flex-start', 'center', spacing(2.5), 'column'),
+        display: 'flex',
+        alignItems: 'center',
+        flexDirection: 'column',
+        gap: spacing(2.5),
         textAlign: 'center',
         [up('lg')]: {
             minHeight: spacing(25),
