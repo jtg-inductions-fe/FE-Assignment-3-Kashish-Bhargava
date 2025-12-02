@@ -1,17 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import authReducer from '../features/auth/authSlice';
-import { baseApi } from '../services/baseApi';
+import { baseApi } from '@services/baseApi';
+
+import { rootReducer } from './rootReducer';
 
 //Redux store configuration
 export const store = configureStore({
-    reducer: {
-        auth: authReducer, //Authentication slice
-        [baseApi.reducerPath]: baseApi.reducer, //RTK Query API that stores cached responses
-    },
+    reducer: rootReducer,
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(baseApi.middleware), //Adds RTK Query middleware
+        getDefaultMiddleware().concat(baseApi.middleware), //Adds RTK Query Middleware
+    devTools: import.meta.env.DEV, //dev tools enabled during development and disabled during production
 });
-
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;

@@ -8,11 +8,12 @@
             "@pages": ["pages/index"],
             "@utils": ["utils/index"],
             "@layouts": ["layouts/index"],
-            "@features": ["features/index"],
+            "@features/*": ["features/*"],
             "@components": ["components/index"],
             "@app": ["app/index"],
             "@routes": ["routes/index"],
-            "@services": ["services/index"]
+            "@services/*": ["services/*"],
+            "@models/*": ["models/*"]
         }
     }
 }

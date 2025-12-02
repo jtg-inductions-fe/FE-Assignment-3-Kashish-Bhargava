@@ -1,9 +1,11 @@
 import { createBrowserRouter } from 'react-router-dom';
 
-import { NonProtectedRoute } from './NonProtectedRoute';
-import { ProtectedRoute } from './ProtectedRoute';
-import { RouteConfig } from './route.types';
-import { routeConfig } from './routeConfig';
+import {
+    NonProtectedRoute,
+    ProtectedRoute,
+    RouteConfig,
+    routeConfig,
+} from '@routes';
 
 const wrapWithGuards = (config: RouteConfig) => {
     if (config.guard === 'protected') {
