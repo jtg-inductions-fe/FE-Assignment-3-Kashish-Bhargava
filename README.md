@@ -121,8 +121,8 @@ To set up the project on your local environment, follow these steps:
     cp .env.template .env
     ```
 
-    2. Open the newly created .env file and update the following variable with your backend API URL:
+    2. Open the newly created .env file and update the base url with your backend API URL :
 
     ```bash
-    VITE_API_BASE_URL=<Backend API URL>
+    VITE_API_BASE_URL=http://localhost:8000
     ```

@@ -1,63 +1,42 @@
 import { createBrowserRouter } from 'react-router-dom';
 
-import { ROUTES } from '@constant';
-import { MainLayout } from '@layouts';
-import {
-    CinemaList,
-    CinemaMovieSlot,
-    ErrorPage,
-    Home,
-    Login,
-    MovieCinemaSlot,
-    MovieDetail,
-    MovieList,
-    NotFound,
-    Profile,
-    PurchaseHistory,
-    SeatBooking,
-    Signup,
-} from '@pages';
-
 import { NonProtectedRoute } from './NonProtectedRoute';
 import { ProtectedRoute } from './ProtectedRoute';
+import { RouteConfig } from './route.types';
+import { routeConfig } from './routeConfig';
 
-export const router = createBrowserRouter([
-    //Public routes
-    {
-        path: '/',
-        element: <MainLayout />,
-        errorElement: <ErrorPage />,
-        children: [
-            { index: true, element: <Home /> },
-            { path: ROUTES.MOVIES, element: <MovieList /> },
-            { path: ROUTES.MOVIE_DETAIL, element: <MovieDetail /> },
-            { path: ROUTES.CINEMAS, element: <CinemaList /> },
-            { path: ROUTES.CINEMA_MOVIE_SLOTS, element: <CinemaMovieSlot /> },
-            { path: ROUTES.MOVIE_CINEMA_SLOTS, element: <MovieCinemaSlot /> },
-        ],
-    },
-    //Auth Routes (Visible only to users not logged in)
-    {
-        element: <NonProtectedRoute />,
-        errorElement: <ErrorPage />,
-        children: [
-            { path: ROUTES.LOGIN, element: <Login /> },
-            { path: ROUTES.SIGNUP, element: <Signup /> },
-        ],
-    },
-    //Protected Routes
-    {
-        element: <ProtectedRoute />,
-        errorElement: <ErrorPage />,
-        children: [
-            { path: ROUTES.PROFILE, element: <Profile /> },
-            { path: ROUTES.BOOK_SEATS, element: <SeatBooking /> },
-            { path: ROUTES.PURCHASE_HISTORY, element: <PurchaseHistory /> },
-        ],
-    },
-    //Not Found
-    {
-        path: '*',
-        element: <NotFound />,
-    },
-]);
+const wrapWithGuards = (config: RouteConfig) => {
+    if (config.guard === 'protected') {
+        return <ProtectedRoute />;
+    }
+    if (config.guard === 'nonProtected') {
+        return <NonProtectedRoute />;
+    }
+    return config.layout ? <config.layout /> : undefined;
+};
+
+export const router = createBrowserRouter(
+    routeConfig.map((config: RouteConfig) => {
+        const element = wrapWithGuards(config);
+
+        // If it has child routes
+        if (config.routes) {
+            return {
+                path: config.path,
+                element,
+                errorElement: config.errorElement && <config.errorElement />,
+                children: config.routes.map((r) => ({
+                    index: r.index,
+                    path: r.path,
+                    element: <r.element />,
+                })),
+            };
+        }
+
+        // If it’s a standalone route
+        return {
+            path: config.path,
+            element: config.element ? <config.element /> : undefined,
+        };
+    }),
+);
