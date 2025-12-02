@@ -1,8 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 
+import { rootReducer } from '@app/rootReducer';
 import { baseApi } from '@services/baseApi';
-
-import { rootReducer } from './rootReducer';
 
 //Redux store configuration
 export const store = configureStore({

@@ -10,7 +10,7 @@
             "@layouts": ["layouts/index"],
             "@features/*": ["features/*"],
             "@components": ["components/index"],
-            "@app": ["app/index"],
+            "@app/*": ["app/*"],
             "@routes": ["routes/index"],
             "@services/*": ["services/*"],
             "@models/*": ["models/*"]
