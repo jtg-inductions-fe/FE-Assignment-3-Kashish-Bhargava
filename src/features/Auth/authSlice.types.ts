@@ -38,7 +38,7 @@ export interface AuthState {
  */
 export interface SetCredentialsPayload {
     /** Authenticated user's information */
-    user: User;
+    user: User | null;
 
     /** New access token received from the backend */
     accessToken: string;
