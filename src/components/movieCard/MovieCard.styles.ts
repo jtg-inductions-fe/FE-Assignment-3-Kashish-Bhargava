@@ -9,10 +9,10 @@ export const StyledCard = styled(Card)(
                 secondary: { light },
                 background: { paper },
             },
-            mixins: { flex },
         },
     }) => ({
-        ...flex('flex-start', 'stretch', spacing(0), 'column'),
+        display: 'flex',
+        flexDirection: 'column',
         width: '100%',
         borderRadius: spacing(3),
         boxShadow: `0px 4px 12px ${light}`,

@@ -1,4 +1,4 @@
-import errorPageImage from '@assets/images/error-boundary.png';
+import errorPageImage from '@assets/images/error-page.png';
 import { ErrorLayout } from '@components';
 export const ErrorPage = () => (
     <ErrorLayout

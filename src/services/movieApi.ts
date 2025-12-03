@@ -1,4 +1,4 @@
-import { baseApi } from '@services';
+import { baseApi } from '@services/baseApi';
 
 export interface Movie {
     id: number;

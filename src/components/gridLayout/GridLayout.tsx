@@ -1,5 +1,8 @@
-import { Container } from '@mui/material';
-import Grid from '@mui/material/Grid2';
+import {
+    GridCell,
+    GridContainer,
+    GridLayoutContainer,
+} from './GridLayout.styles';
 
 interface GridLayoutProps<T extends { id?: string | number }> {
     items: T[];
@@ -10,17 +13,16 @@ export const GridLayout = <T extends { id?: string | number }>({
     items,
     renderItem,
 }: GridLayoutProps<T>) => (
-    <Container sx={{ px: 0 }}>
-        <Grid container columnSpacing={3} rowGap={5}>
+    <GridLayoutContainer>
+        <GridContainer container columnSpacing={3} rowGap={5}>
             {items.map((item, index) => (
-                <Grid
+                <GridCell
                     key={item.id ?? index}
                     size={{ xs: 6, sm: 4, md: 3, lg: 2 }}
-                    sx={{ display: 'flex', justifyContent: 'center' }}
                 >
                     {renderItem(item)}
-                </Grid>
+                </GridCell>
             ))}
-        </Grid>
-    </Container>
+        </GridContainer>
+    </GridLayoutContainer>
 );
