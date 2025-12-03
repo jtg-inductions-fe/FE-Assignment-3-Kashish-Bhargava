@@ -5,7 +5,13 @@ import type { RootState } from '@models/store';
 export const baseApi = createApi({
     reducerPath: 'api',
     baseQuery: fetchBaseQuery({
-        baseUrl: import.meta.env.VITE_API_BASE_URL, //Backend base URL
+        baseUrl:
+            import.meta.env.VITE_API_BASE_URL ||
+            (() => {
+                throw new Error(
+                    'VITE_API_BASE_URL environment variable is not defined',
+                );
+            })(), //Backend base URL
         prepareHeaders: (headers, { getState }) => {
             // Extract the access token from the Redux auth state
             const token = (getState() as RootState).auth.accessToken;

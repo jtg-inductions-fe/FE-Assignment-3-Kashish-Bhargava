@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { AuthState, User } from '@features/auth/authSlice.types';
+import { AuthState, SetCredentialsPayload } from './authSlice.types';
 
 const initialState: AuthState = {
     user: null,
@@ -8,6 +8,7 @@ const initialState: AuthState = {
     refreshToken: null,
     isAuthenticated: false,
 };
+
 const authSlice = createSlice({
     name: 'auth',
     initialState,
@@ -15,11 +16,7 @@ const authSlice = createSlice({
         // Sets user data and tokens after successful login/signup
         setCredentials: (
             state,
-            action: PayloadAction<{
-                user: User;
-                accessToken: string;
-                refreshToken: string;
-            }>,
+            action: PayloadAction<SetCredentialsPayload>,
         ) => {
             state.user = action.payload.user;
             state.accessToken = action.payload.accessToken;

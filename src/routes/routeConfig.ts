@@ -15,7 +15,8 @@ import {
     SeatBooking,
     Signup,
 } from '@pages';
-import { RouteConfig } from '@routes';
+
+import type { RouteConfig } from './route.types';
 
 export const routeConfig: RouteConfig[] = [
     // Public Routes
