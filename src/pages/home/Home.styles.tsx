@@ -1,17 +1,13 @@
 import { Box, Stack, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
-export const HomeLayout = styled(Box)(
-    ({
-        theme: {
-            spacing,
-            mixins: { flex },
-        },
-    }) => ({
-        ...flex('space-between', 'stretch', spacing(5), 'column'),
-        marginBottom: spacing(2),
-    }),
-);
+export const HomeLayout = styled(Box)(({ theme: { spacing } }) => ({
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexDirection: 'column',
+    gap: spacing(5),
+    marginBottom: spacing(2),
+}));
 
 export const HomePageBanner = styled(Box)(
     ({
@@ -30,16 +26,11 @@ export const HomePageBanner = styled(Box)(
     }),
 );
 
-export const HomePageHeading = styled(Box)(
-    ({
-        theme: {
-            spacing,
-            mixins: { flex },
-        },
-    }) => ({
-        ...flex('space-between', 'center', spacing(0), 'row'),
-    }),
-);
+export const HomePageHeading = styled(Box)(() => ({
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+}));
 
 export const MovieHeading = styled(Typography)(
     ({
@@ -83,17 +74,11 @@ export const SeeAllText = styled(Typography)(
     }),
 );
 
-export const LoadingBox = styled(Box)(
-    ({
-        theme: {
-            mixins: { flex },
-            spacing,
-        },
-    }) => ({
-        ...flex('center', 'stretch', spacing(0), 'row'),
-        marginTop: spacing(4),
-    }),
-);
+export const LoadingBox = styled(Box)(({ theme: { spacing } }) => ({
+    display: 'flex',
+    justifyContent: 'center',
+    marginTop: spacing(4),
+}));
 
 export const ErrorMessageBox = styled(Box)(
     ({
@@ -113,7 +98,6 @@ export const ErrorMessageBox = styled(Box)(
 export const CinemaBlock = styled(Box)(
     ({
         theme: {
-            mixins: { flex },
             spacing,
             palette: {
                 primary: { light },
@@ -121,7 +105,9 @@ export const CinemaBlock = styled(Box)(
             breakpoints: { up },
         },
     }) => ({
-        ...flex('flex-start', 'center', spacing(1), 'row'),
+        display: 'flex',
+        alignItems: 'center',
+        gap: spacing(1),
         backgroundColor: light,
         borderRadius: spacing(4),
         cursor: 'pointer',
@@ -154,28 +140,21 @@ export const StyledImage = styled('img')(() => ({
     display: 'block',
 }));
 
-export const CinemaBlockContent = styled(Box)(
-    ({
-        theme: {
-            mixins: { flex },
-            spacing,
-        },
-    }) => ({
-        ...flex('flex-start', 'stretch', spacing(0), 'column'),
-    }),
-);
+export const CinemaBlockContent = styled(Box)(() => ({
+    display: 'flex',
+    flexDirection: 'column',
+}));
 
 export const BrowseByCinema = styled(Box)(
     ({
         theme: {
-            mixins: { flex },
-            spacing,
             palette: {
                 common: { black },
             },
         },
     }) => ({
-        ...flex('flex-start', 'center', spacing(0), 'row'),
+        display: 'flex',
+        alignItems: 'center',
         color: black,
     }),
 );
@@ -183,13 +162,13 @@ export const BrowseByCinema = styled(Box)(
 export const BrowseByCinemaHeading = styled(Typography)(
     ({
         theme: {
-            typography: { subtitle1, body2 },
+            typography: { subtitle1, body1 },
             breakpoints: { up },
         },
     }) => ({
         ...subtitle1,
         [up('md')]: {
-            ...body2,
+            ...body1,
         },
     }),
 );

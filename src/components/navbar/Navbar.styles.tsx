@@ -17,16 +17,11 @@ export const StyledAppBar = styled(AppBar)(
     }),
 );
 
-export const StyledToolbar = styled(Toolbar)(
-    ({
-        theme: {
-            mixins: { flex },
-            spacing,
-        },
-    }) => ({
-        ...flex('space-between', 'center', spacing(0), 'row'),
-    }),
-);
+export const StyledToolbar = styled(Toolbar)(() => ({
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+}));
 
 export const LogoBox = styled(Box)(({ theme: { spacing } }) => ({
     cursor: 'pointer',

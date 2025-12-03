@@ -6,7 +6,7 @@ import { CircularProgress } from '@mui/material';
 import BrowseByCinemaImage from '@assets/images/browse-by-cinema.svg';
 import MovieBanner from '@assets/images/movie-banner.png';
 import { MovieGrid } from '@components';
-import { useGetLatestMoviesQuery } from '@services';
+import { useGetLatestMoviesQuery } from '@services/movieApi';
 
 import {
     BrowseByCinema,
