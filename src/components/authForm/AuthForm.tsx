@@ -62,12 +62,14 @@ export const AuthForm = <T extends object>({
             {isSignup && (
                 <>
                     <TextField
+                        required
                         label="Name"
                         name="name"
                         fullWidth
                         onChange={handleChange}
                     />
                     <TextField
+                        required
                         label="Phone Number"
                         name="phone_number"
                         fullWidth
@@ -77,6 +79,7 @@ export const AuthForm = <T extends object>({
             )}
 
             <TextField
+                required
                 label="Email"
                 name="email"
                 type="email"
@@ -84,6 +87,7 @@ export const AuthForm = <T extends object>({
                 onChange={handleChange}
             />
             <TextField
+                required
                 label="Password"
                 name="password"
                 type="password"
@@ -93,6 +97,7 @@ export const AuthForm = <T extends object>({
 
             {isSignup && (
                 <TextField
+                    required
                     label="Confirm Password"
                     name="confirm_password"
                     type="password"

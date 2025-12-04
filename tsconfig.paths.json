@@ -13,7 +13,8 @@
             "@app/*": ["app/*"],
             "@routes": ["routes/index"],
             "@services/*": ["services/*"],
-            "@models/*": ["models/*"]
+            "@models/*": ["models/*"],
+            "@validation": ["validation/index"]
         }
     }
 }
