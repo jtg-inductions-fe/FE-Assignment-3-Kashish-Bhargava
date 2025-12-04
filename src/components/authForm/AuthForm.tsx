@@ -1,5 +1,4 @@
-import { useState } from 'react';
-
+import { FieldValues, Path, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
@@ -20,38 +19,55 @@ import {
 } from './AuthForm.styles';
 import type { AuthFormProps } from './AuthForm.types';
 
-export const AuthForm = <T extends object>({
+// Regex patterns
+const phoneRegex = /^\+?\d{7,15}$/;
+const passwordRegex =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%?&])[A-Za-z\d@$!%?&]{8,}$/;
+const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
+
+export const AuthForm = <T extends FieldValues>({
     mode,
     onSubmit,
     isLoading = false,
 }: AuthFormProps<T>) => {
     const navigate = useNavigate();
-    const [formData, setFormData] = useState<T>({} as T);
-
-    const handleChange = (
-        event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    ) => {
-        const { name, value } = event.target;
-        setFormData((prev) => ({ ...prev, [name]: value }));
-    };
-
-    const handleSubmit = (event: React.FormEvent) => {
-        event.preventDefault();
-        void onSubmit(formData);
-    };
     const isSignup = mode === 'signup';
 
+    const {
+        register,
+        handleSubmit,
+        watch,
+        formState: { errors },
+    } = useForm<T>({ mode: 'onBlur' });
+
+    const password = watch('password' as Path<T>);
+
+    // Validation rules
+    const validateEmail = (value: string) =>
+        emailRegex.test(value) || 'Enter a valid email';
+
+    const validatePassword = (value: string) =>
+        passwordRegex.test(value) ||
+        'Must include at least one uppercase, lowercase, number & special character';
+
+    const validatePhone = (value: string) =>
+        phoneRegex.test(value) || 'Enter a valid phone number (7–15 digits)';
+
+    const validateConfirmPassword = (value: string) =>
+        value === password || 'Passwords do not match';
+
     return (
-        <FormContainer onSubmit={handleSubmit}>
+        <FormContainer onSubmit={(e) => void handleSubmit(onSubmit)(e)}>
             <GoBackHomeButton onClick={() => void navigate(ROUTES.HOME)}>
                 <ArrowBackIosNewIcon />
             </GoBackHomeButton>
+
             <FormTitle>{isSignup ? 'Sign Up' : 'Login'}</FormTitle>
+
             <FormHeadingContainer>
                 <FormHeading>
                     {isSignup ? 'Create Account' : 'Welcome Back'}
                 </FormHeading>
-
                 <FormSubtitle>
                     {isSignup
                         ? 'Sign up to book your favorite movies effortlessly!'
@@ -62,47 +78,63 @@ export const AuthForm = <T extends object>({
             {isSignup && (
                 <>
                     <TextField
-                        required
                         label="Name"
-                        name="name"
                         fullWidth
-                        onChange={handleChange}
+                        {...register('name' as Path<T>, {
+                            required: 'Name is required',
+                        })}
+                        error={!!errors.name}
+                        helperText={errors.name?.message as string}
                     />
+
                     <TextField
-                        required
                         label="Phone Number"
-                        name="phone_number"
                         fullWidth
-                        onChange={handleChange}
+                        {...register('phone_number' as Path<T>, {
+                            required: 'Phone number is required',
+                            validate: validatePhone,
+                        })}
+                        error={!!errors.phone_number}
+                        helperText={errors.phone_number?.message as string}
                     />
                 </>
             )}
 
             <TextField
-                required
                 label="Email"
-                name="email"
                 type="email"
                 fullWidth
-                onChange={handleChange}
+                {...register('email' as Path<T>, {
+                    required: 'Email is required',
+                    validate: validateEmail,
+                })}
+                error={!!errors.email}
+                helperText={errors.email?.message as string}
             />
+
             <TextField
-                required
                 label="Password"
-                name="password"
                 type="password"
                 fullWidth
-                onChange={handleChange}
+                {...register('password' as Path<T>, {
+                    required: 'Password is required',
+                    validate: validatePassword,
+                })}
+                error={!!errors.password}
+                helperText={errors.password?.message as string}
             />
 
             {isSignup && (
                 <TextField
-                    required
                     label="Confirm Password"
-                    name="confirm_password"
                     type="password"
                     fullWidth
-                    onChange={handleChange}
+                    {...register('confirm_password' as Path<T>, {
+                        required: 'Confirm your password',
+                        validate: validateConfirmPassword,
+                    })}
+                    error={!!errors.confirm_password}
+                    helperText={errors.confirm_password?.message as string}
                 />
             )}
 
