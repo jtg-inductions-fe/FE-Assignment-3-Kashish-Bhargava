@@ -21,7 +21,6 @@ export const Navbar = () => {
     const isAuthenticated = useAppSelector(
         (state) => state.auth.isAuthenticated,
     );
-    // const isAuthenticated=true
     const navigate = useNavigate();
 
     return (
