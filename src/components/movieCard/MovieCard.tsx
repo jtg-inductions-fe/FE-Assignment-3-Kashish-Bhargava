@@ -7,23 +7,10 @@ import {
     StyledCardContent,
     StyledCardMedia,
 } from './MovieCard.styles';
-
-interface Movie {
-    id: number;
-    name: string;
-    genres: string[];
-    languages: string[];
-    description: string;
-    duration: string;
-    release_date: string;
-}
-
-interface MovieCardProps {
-    movie: Movie;
-}
+import { MovieCardProps } from './movieCard.types';
 
 export const MovieCard = ({ movie }: MovieCardProps) => (
-    <StyledCard>
+    <StyledCard tabIndex={0}>
         <StyledCardMedia image={dummyPoster} title={movie.name} />
         <StyledCardContent>
             <MovieName>{movie.name}</MovieName>

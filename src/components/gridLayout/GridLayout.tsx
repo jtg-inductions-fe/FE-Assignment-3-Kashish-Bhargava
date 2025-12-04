@@ -3,11 +3,7 @@ import {
     GridContainer,
     GridLayoutContainer,
 } from './GridLayout.styles';
-
-interface GridLayoutProps<T extends { id?: string | number }> {
-    items: T[];
-    renderItem: (item: T) => React.ReactNode;
-}
+import { GridLayoutProps } from './GridLayout.types';
 
 export const GridLayout = <T extends { id?: string | number }>({
     items,

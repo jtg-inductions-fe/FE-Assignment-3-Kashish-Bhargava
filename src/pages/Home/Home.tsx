@@ -6,7 +6,8 @@ import { CircularProgress } from '@mui/material';
 import BrowseByCinemaImage from '@assets/images/browse-by-cinema.svg';
 import MovieBanner from '@assets/images/movie-banner.png';
 import { MovieGrid } from '@components';
-import { useGetLatestMoviesQuery } from '@services/movieApi';
+import { ROUTES } from '@constant';
+import { useGetLatestMoviesQuery } from '@services/movieApi/movieApi';
 
 import {
     BrowseByCinema,
@@ -41,7 +42,10 @@ export const Home = () => {
                 </HomePageBanner>
                 <HomePageHeading>
                     <MovieHeading>Latest Movies</MovieHeading>
-                    <SeeAll onClick={() => void navigate('/movies')}>
+                    <SeeAll
+                        onClick={() => void navigate(ROUTES.MOVIES)}
+                        tabIndex={0}
+                    >
                         <SeeAllText>See All</SeeAllText>
                         <NavigateNextIcon fontSize="medium" />
                     </SeeAll>
@@ -56,7 +60,10 @@ export const Home = () => {
                 ) : (
                     <MovieGrid movies={movies} />
                 )}
-                <CinemaBlock onClick={() => void navigate('/cinemas')}>
+                <CinemaBlock
+                    onClick={() => void navigate(ROUTES.CINEMAS)}
+                    tabIndex={0}
+                >
                     <CinemaBlockImage>
                         <StyledImage
                             src={BrowseByCinemaImage}
