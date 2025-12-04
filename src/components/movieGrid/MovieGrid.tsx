@@ -1,19 +1,7 @@
 import { GridLayout } from '@components';
 import { MovieCard } from '@components';
 
-interface Movie {
-    id: number;
-    name: string;
-    genres: string[];
-    languages: string[];
-    description: string;
-    duration: string;
-    release_date: string;
-}
-
-interface MovieGridProps {
-    movies: Movie[];
-}
+import { MovieGridProps } from './movieGrid.types';
 
 export const MovieGrid = ({ movies }: MovieGridProps) => (
     <GridLayout

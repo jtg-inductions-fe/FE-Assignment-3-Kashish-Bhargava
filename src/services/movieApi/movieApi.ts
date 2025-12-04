@@ -1,20 +1,7 @@
+import { Movie } from '@models/movie';
 import { baseApi } from '@services/baseApi';
 
-export interface Movie {
-    id: number;
-    name: string;
-    genres: string[];
-    languages: string[];
-    description: string;
-    duration: string;
-    release_date: string;
-}
-
-export interface MoviesResponse {
-    next: string | null;
-    previous: string | null;
-    results: Movie[];
-}
+import { MoviesResponse } from './movieApi.types';
 
 export const movieApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
