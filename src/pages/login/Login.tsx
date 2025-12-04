@@ -1,70 +1,15 @@
-// import { useAppDispatch } from '@app/hooks';
-// import { AuthForm } from '@components';
-// import { setCredentials } from '@features/auth/authSlice';
-// import { useLoginMutation } from '@services/userApi';
-// import type { AuthResponse, LoginRequest } from '@services/userApi.types';
+import { useState } from 'react';
 
-// export const Login = () => {
-//     const [login, { isLoading }] = useLoginMutation();
-//     const dispatch = useAppDispatch();
+import { useNavigate } from 'react-router-dom';
 
-//     const handleLogin = async (data: LoginRequest) => {
-//         try {
-//             const response: AuthResponse = await login(data).unwrap();
-//             dispatch(setCredentials(response));
-//         } catch (error: unknown) {
-//             //eslint-disable-next-line no-console
-//             console.error('Login failed:', error);
-//         }
-//     };
+import { Alert, Snackbar } from '@mui/material';
 
-//     return (
-//         <AuthForm<LoginRequest>
-//             mode="login"
-//             onSubmit={handleLogin}
-//             isLoading={isLoading}
-//         />
-//     );
-// };
+import type { SerializedError } from '@reduxjs/toolkit';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 
-// import { useAppDispatch } from '@app/hooks';
-// import { AuthForm } from '@components';
-// import { setCredentials } from '@features/auth/authSlice';
-// import { useLoginMutation } from '@services/userApi';
-// import type { LoginRequest, LoginResponse } from '@services/userApi.types';
-
-// export const Login = () => {
-//     const [login, { isLoading }] = useLoginMutation();
-//     const dispatch = useAppDispatch();
-
-//     const handleLogin = async (data: LoginRequest) => {
-//         try {
-//             const response: LoginResponse = await login(data).unwrap();
-
-//             // Store JWT in redux state
-//             dispatch(
-//                 setCredentials({
-//                     user: null, // Backend doesn’t send user in login response
-//                     accessToken: response.access,
-//                     refreshToken: '', // If your backend later adds refresh token, add here
-//                 }),
-//             );
-//         } catch (error) {
-//             //eslint-disable-next-line no-console
-//             console.error('Login failed:', error);
-//         }
-//     };
-
-//     return (
-//         <AuthForm<LoginRequest>
-//             mode="login"
-//             onSubmit={handleLogin}
-//             isLoading={isLoading}
-//         />
-//     );
-// };
 import { useAppDispatch } from '@app/hooks';
 import { AuthForm } from '@components';
+import { ROUTES } from '@constant';
 import { setCredentials } from '@features/auth/authSlice';
 import { useLoginMutation } from '@services/userApi';
 import type { LoginRequest } from '@services/userApi.types';
@@ -72,28 +17,101 @@ import type { LoginRequest } from '@services/userApi.types';
 export const Login = () => {
     const [login, { isLoading }] = useLoginMutation();
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+
+    // Snackbar state
+    const [snackbar, setSnackbar] = useState<{
+        open: boolean;
+        message: string;
+        severity: 'success' | 'error';
+    }>({ open: false, message: '', severity: 'success' });
+
+    const handleCloseSnackbar = () => {
+        setSnackbar((prev) => ({ ...prev, open: false }));
+    };
 
     const handleLogin = async (data: LoginRequest) => {
         try {
             const response = await login(data).unwrap();
-            dispatch(
-                setCredentials({
-                    user: null,
-                    accessToken: response.access,
-                    refreshToken: '',
-                }),
-            );
+
+            //200 — successful login
+            if (response) {
+                dispatch(
+                    setCredentials({
+                        user: null,
+                        accessToken: response.access,
+                        refreshToken: '',
+                    }),
+                );
+
+                setSnackbar({
+                    open: true,
+                    message: 'Login successful! Redirecting to home...',
+                    severity: 'success',
+                });
+
+                // Redirect after a short delay
+                setTimeout(() => {
+                    void navigate(ROUTES.HOME);
+                }, 1500);
+            }
         } catch (error) {
+            const err = error as FetchBaseQueryError | SerializedError;
+
+            if ('status' in err) {
+                const status = err.status;
+
+                // Handle 401 Unauthorized (wrong credentials or no account)
+                if (status === 401) {
+                    setSnackbar({
+                        open: true,
+                        message:
+                            'Incorrect credentials or user does not exist. Please sign up first.',
+                        severity: 'error',
+                    });
+                } else {
+                    //Handle all other backend errors like server error (500)
+                    setSnackbar({
+                        open: true,
+                        message: 'Login failed. Please try again later.',
+                        severity: 'error',
+                    });
+                }
+            } else {
+                // Handle unexpected or client-side errors like no internet
+                setSnackbar({
+                    open: true,
+                    message:
+                        'Unexpected error occurred. Please try again later.',
+                    severity: 'error',
+                });
+            }
             //eslint-disable-next-line no-console
             console.error('Login failed:', error);
         }
     };
 
     return (
-        <AuthForm<LoginRequest>
-            mode="login"
-            onSubmit={handleLogin}
-            isLoading={isLoading}
-        />
+        <>
+            <AuthForm<LoginRequest>
+                mode="login"
+                onSubmit={handleLogin}
+                isLoading={isLoading}
+            />
+            <Snackbar
+                open={snackbar.open}
+                autoHideDuration={3000}
+                onClose={handleCloseSnackbar}
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+            >
+                <Alert
+                    onClose={handleCloseSnackbar}
+                    severity={snackbar.severity}
+                    sx={{ width: '100%' }}
+                >
+                    {snackbar.message}
+                </Alert>
+            </Snackbar>
+        </>
     );
 };
