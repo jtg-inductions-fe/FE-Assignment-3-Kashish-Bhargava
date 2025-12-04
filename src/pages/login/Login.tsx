@@ -11,8 +11,8 @@ import { useAppDispatch } from '@app/hooks';
 import { AuthForm } from '@components';
 import { ROUTES } from '@constant';
 import { setCredentials } from '@features/auth/authSlice';
-import { useLoginMutation } from '@services/userApi';
-import type { LoginRequest } from '@services/userApi.types';
+import { useLoginMutation } from '@services/userApi/userApi';
+import type { LoginRequest } from '@services/userApi/userApi.types';
 
 export const Login = () => {
     const [login, { isLoading }] = useLoginMutation();
