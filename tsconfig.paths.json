@@ -4,7 +4,16 @@
         "paths": {
             "@assets/*": ["assets/*"],
             "@constant": ["constant/index"],
-            "@theme": ["theme/index"]
+            "@theme": ["theme/index"],
+            "@pages": ["pages/index"],
+            "@utils": ["utils/index"],
+            "@layouts": ["layouts/index"],
+            "@features/*": ["features/*"],
+            "@components": ["components/index"],
+            "@app/*": ["app/*"],
+            "@routes": ["routes/index"],
+            "@services/*": ["services/*"],
+            "@models/*": ["models/*"]
         }
     }
 }

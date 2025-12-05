@@ -112,3 +112,17 @@ To set up the project on your local environment, follow these steps:
     ```bash
     yarn postinstall
     ```
+
+12. **Environment Setup**
+
+    1. Copy the environment template file:
+
+    ```bash
+    cp .env.template .env
+    ```
+
+    2. Open the newly created .env file and update the base url with your backend API URL :
+
+    ```bash
+    VITE_API_BASE_URL=http://localhost:8000
+    ```

@@ -16,29 +16,77 @@ const typographyUtil: TypographyUtils = {
     pxToRem: (px: number) => `${px / HTML_FONT_SIZE}` + 'rem',
 };
 
-// TODO: Add the necessary typographies here.
 /**
  * Creates a typography block with various styles
  * @param theme - Theme object to access the breakpoints.
  * @returns The function returns a TypographyOptions object, which includes various typography settings,
  */
 const typographyStyle = (theme: Theme): TypographyOptions => ({
-    fontFamily: 'Inter',
+    fontFamily: 'Inter,Arial,sans-serif',
     htmlFontSize: HTML_FONT_SIZE,
-
-    fontWeightLight: 400,
-    fontWeightRegular: 500,
-    fontWeightMedium: 600,
 
     h1: {
         fontSize: typographyUtil.pxToRem(30),
         fontWeight: 700,
         lineHeight: typographyUtil.pxToRem(45),
 
-        [theme.breakpoints.up('md')]: {
+        [theme.breakpoints.up('lg')]: {
             fontSize: typographyUtil.pxToRem(48),
-            lineHeight: typographyUtil.pxToRem(62.5),
+            lineHeight: typographyUtil.pxToRem(62.4),
         },
+    },
+
+    h2: {
+        fontSize: typographyUtil.pxToRem(20),
+        fontWeight: 600,
+        lineHeight: typographyUtil.pxToRem(30),
+    },
+
+    h3: {
+        fontSize: typographyUtil.pxToRem(16),
+        fontWeight: 600,
+        lineHeight: typographyUtil.pxToRem(24),
+    },
+
+    h4: {
+        fontSize: typographyUtil.pxToRem(12),
+        lineHeight: typographyUtil.pxToRem(18),
+        fontWeight: 600,
+    },
+
+    body1: {
+        fontSize: typographyUtil.pxToRem(16),
+        fontWeight: 500,
+        lineHeight: typographyUtil.pxToRem(24),
+    },
+
+    body2: {
+        fontSize: typographyUtil.pxToRem(12),
+        fontWeight: 500,
+        lineHeight: typographyUtil.pxToRem(18),
+    },
+
+    button: {
+        fontWeight: 600,
+        fontSize: typographyUtil.pxToRem(14),
+        lineHeight: typographyUtil.pxToRem(20),
+    },
+
+    subtitle1: {
+        fontWeight: 400,
+        fontSize: typographyUtil.pxToRem(14),
+        lineHeight: typographyUtil.pxToRem(20),
+    },
+
+    subtitle2: {
+        fontWeight: 400,
+        fontSize: typographyUtil.pxToRem(16),
+        lineHeight: typographyUtil.pxToRem(24),
+    },
+    caption: {
+        fontWeight: 400,
+        fontSize: typographyUtil.pxToRem(12),
+        lineHeight: typographyUtil.pxToRem(18),
     },
 });
 
