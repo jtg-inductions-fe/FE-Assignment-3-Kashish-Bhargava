@@ -10,14 +10,22 @@ import {
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
-export const StyledDrawer = styled(Drawer)(() => ({
-    '& .MuiPaper-root': {
-        backgroundColor: '#fff',
-    },
-}));
+export const StyledDrawer = styled(Drawer)(
+    ({
+        theme: {
+            palette: {
+                common: { white },
+            },
+        },
+    }) => ({
+        '& .MuiPaper-root': {
+            backgroundColor: white,
+        },
+    }),
+);
 
-export const DrawerContent = styled(Box)(({ theme }) => ({
-    padding: theme.spacing(2),
+export const DrawerContent = styled(Box)(({ theme: { spacing } }) => ({
+    padding: spacing(2),
 }));
 
 export const DrawerHeader = styled(Box)(() => ({
@@ -30,13 +38,19 @@ export const DrawerTitle = styled(Typography)(() => ({
     fontWeight: 600,
 }));
 
-export const ResetButton = styled(Button)(({ theme }) => ({
-    color: theme.palette.error.main,
-    textTransform: 'none',
-}));
+export const ResetButton = styled(Button)(
+    ({
+        theme: {
+            palette: {
+                primary: { main },
+            },
+        },
+    }) => ({
+        color: main,
+    }),
+);
 
-export const SectionTitle = styled(Typography)(({ theme }) => ({
-    marginTop: theme.spacing(2),
+export const SectionTitle = styled(Typography)(() => ({
     fontWeight: 500,
 }));
 
