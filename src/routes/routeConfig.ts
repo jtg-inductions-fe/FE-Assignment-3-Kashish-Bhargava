@@ -67,9 +67,4 @@ export const routeConfig: RouteConfig[] = [
         path: ROUTES.NOTFOUND,
         element: NotFound,
     },
-    //Only for developing ErrorPage (will be removed later)
-    {
-        path: ROUTES.ERROR,
-        element: ErrorPage,
-    },
 ];
