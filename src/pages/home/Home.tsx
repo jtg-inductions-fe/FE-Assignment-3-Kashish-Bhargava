@@ -58,7 +58,11 @@ export const Home = () => {
                 ) : isError ? (
                     <ErrorMessageBox>Failed to load movies</ErrorMessageBox>
                 ) : (
-                    <MovieGrid movies={movies} />
+                    <MovieGrid
+                        movies={movies}
+                        layoutKey="HomeMovieGrid"
+                        columns={{ xs: 6, sm: 4, md: 3, lg: 2 }}
+                    />
                 )}
                 <CinemaBlock
                     onClick={() => void navigate(ROUTES.CINEMAS)}
