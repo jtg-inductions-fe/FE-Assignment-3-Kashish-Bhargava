@@ -18,13 +18,13 @@ export const StyledCard = styled(Card)(
         boxShadow: `0px 4px 12px ${light}`,
         height: '100%',
         backgroundColor: paper,
-        maxWidth: spacing(50),
     }),
 );
 
 export const StyledCardMedia = styled(CardMedia)(({ theme: { spacing } }) => ({
+    aspectRatio: 2 / 3,
     objectFit: 'cover',
-    height: spacing(60),
+    minHeight: spacing(60),
 }));
 
 export const StyledCardContent = styled(CardContent)(() => ({
