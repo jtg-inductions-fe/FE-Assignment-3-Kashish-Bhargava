@@ -8,6 +8,8 @@ import { CssBaseline, ThemeProvider } from '@mui/material';
 import { Provider } from 'react-redux';
 
 import { store } from '@app/store';
+import { ErrorBoundary } from '@components';
+import { ErrorPage } from '@pages';
 import { router } from '@routes';
 import { theme } from '@theme';
 
@@ -18,7 +20,9 @@ createRoot(rootElement).render(
         <Provider store={store}>
             <ThemeProvider theme={theme}>
                 <CssBaseline />
-                <RouterProvider router={router} />
+                <ErrorBoundary fallback={<ErrorPage />}>
+                    <RouterProvider router={router} />
+                </ErrorBoundary>
             </ThemeProvider>
         </Provider>
     </StrictMode>,

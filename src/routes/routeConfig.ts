@@ -1,3 +1,9 @@
+/*This routing setup follows a configuration-driven approach where all routes are defined in a single routeConfig file. 
+Each route specifies details like its path, element, layout, guard, and errorElement. 
+The wrapWithGuards function automatically applies route protection based on the guard type — wrapping routes with ProtectedRoute for authenticated users,
+NonProtectedRoute for unauthenticated users, and leaving public routes open to all. Using createBrowserRouter,
+the app dynamically maps these configurations to create both nested and standalone routes like NotFound*/
+
 import { ROUTES } from '@constant';
 import { AuthLayout, MainLayout } from '@layouts';
 import {
@@ -60,5 +66,10 @@ export const routeConfig: RouteConfig[] = [
     {
         path: '*',
         element: NotFound,
+    },
+    //Only for developing ErrorPage (will be removed later)
+    {
+        path: '/error',
+        element: ErrorPage,
     },
 ];
