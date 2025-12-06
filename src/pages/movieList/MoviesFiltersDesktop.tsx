@@ -42,7 +42,7 @@ export const MovieFiltersDesktop = ({
     return (
         <FiltersContainer>
             <FiltersHeader>
-                <FilterTitle variant="h6">Filters</FilterTitle>
+                <FilterTitle>Filters</FilterTitle>
                 <ClearButton onClick={handleReset}>Clear All</ClearButton>
             </FiltersHeader>
 

@@ -19,9 +19,15 @@ export const FiltersHeader = styled(Box)(() => ({
     alignItems: 'center',
 }));
 
-export const FilterTitle = styled(Typography)(() => ({
-    fontWeight: 600,
-}));
+export const FilterTitle = styled(Typography)(
+    ({
+        theme: {
+            typography: { h2 },
+        },
+    }) => ({
+        ...h2,
+    }),
+);
 
 export const ClearButton = styled(Button)(() => ({
     textTransform: 'none',
