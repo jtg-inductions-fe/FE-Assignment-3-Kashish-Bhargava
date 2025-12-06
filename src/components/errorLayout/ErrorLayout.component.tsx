@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-import Button from '@mui/material/Button';
-
+import { Button } from '@components';
 import { ROUTES } from '@constant';
 
 import {
@@ -36,12 +35,10 @@ export const ErrorLayout = ({
                 </TextWrapper>
 
                 <Button
+                    text="Go Back Home"
                     onClick={() => void navigate(ROUTES.HOME)}
                     variant="contained"
-                    size="large"
-                >
-                    Go back home
-                </Button>
+                />
             </ContentWrapper>
         </Wrapper>
     );
