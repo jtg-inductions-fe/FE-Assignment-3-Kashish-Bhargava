@@ -61,7 +61,7 @@ export const Home = () => {
                     <MovieGrid
                         movies={movies}
                         layoutKey="HomeMovieGrid"
-                        columns={{ xs: 6, sm: 4, md: 3, lg: 2 }}
+                        columns={{ xs: 6, sm: 3, md: 2, lg: 2 }}
                     />
                 )}
                 <CinemaBlock

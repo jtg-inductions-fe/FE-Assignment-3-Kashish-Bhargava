@@ -2,10 +2,10 @@ import { useNavigate } from 'react-router-dom';
 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import HomeIcon from '@mui/icons-material/Home';
+import { Button } from '@mui/material';
 
 import { useAppSelector } from '@app/hooks';
 import bookMyShowLogo from '@assets/images/book-my-show-logo.png';
-import { Button } from '@components';
 import { ROUTES } from '@constant';
 
 import {
@@ -45,7 +45,7 @@ export const Navbar = () => {
                     </ProfileButton>
                 ) : (
                     <Button
-                        text="Login"
+                        variant="contained"
                         onClick={() => void navigate(ROUTES.LOGIN)}
                     >
                         Login
