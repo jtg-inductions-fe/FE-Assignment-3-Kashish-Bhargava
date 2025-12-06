@@ -22,7 +22,7 @@ export const GridLayout = <T extends { id?: string | number }>({
             },
     );
     return (
-        <GridLayoutContainer>
+        <GridLayoutContainer disableGutters>
             <GridContainer container columnSpacing={3} rowGap={5}>
                 {items.map((item, index) => (
                     <GridCell key={item.id ?? index} size={gridColumns}>
