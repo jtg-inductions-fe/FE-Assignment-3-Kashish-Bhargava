@@ -2,14 +2,13 @@ import { useNavigate } from 'react-router-dom';
 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import HomeIcon from '@mui/icons-material/Home';
-import { Button } from '@mui/material';
 
 import { useAppSelector } from '@app/hooks';
 import bookMyShowLogo from '@assets/images/book-my-show-logo.png';
+import { Button } from '@components';
 import { ROUTES } from '@constant';
 
 import {
-    HomeButton,
     LogoBox,
     ProfileButton,
     StyledAppBar,
@@ -30,12 +29,13 @@ export const Navbar = () => {
                     <StyledImage src={bookMyShowLogo} alt="BookMyShow Logo" />
                 </LogoBox>
 
-                <HomeButton
+                <Button
+                    variant="outlined"
                     onClick={() => void navigate(ROUTES.HOME)}
                     aria-label="Home button"
                 >
-                    <HomeIcon />
-                </HomeButton>
+                    {<HomeIcon />}
+                </Button>
 
                 {isAuthenticated ? (
                     <ProfileButton

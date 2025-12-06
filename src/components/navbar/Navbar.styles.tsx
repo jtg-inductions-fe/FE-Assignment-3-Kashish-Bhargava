@@ -1,4 +1,4 @@
-import { AppBar, Box, Button, IconButton, Toolbar } from '@mui/material';
+import { AppBar, Box, IconButton, Toolbar } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 export const StyledAppBar = styled(AppBar)(
@@ -43,17 +43,5 @@ export const ProfileButton = styled(IconButton)(
         },
     }) => ({
         color: main,
-    }),
-);
-
-export const HomeButton = styled(Button)(
-    ({
-        theme: {
-            palette: {
-                primary: { main },
-            },
-        },
-    }) => ({
-        border: `1px solid ${main}`,
     }),
 );

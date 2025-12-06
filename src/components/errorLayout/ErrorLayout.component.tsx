@@ -35,10 +35,11 @@ export const ErrorLayout = ({
                 </TextWrapper>
 
                 <Button
-                    text="Go Back Home"
                     onClick={() => void navigate(ROUTES.HOME)}
                     variant="contained"
-                />
+                >
+                    Go Back Home
+                </Button>
             </ContentWrapper>
         </Wrapper>
     );
