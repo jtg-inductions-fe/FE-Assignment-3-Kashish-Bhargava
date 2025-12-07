@@ -1,9 +1,9 @@
+import { Button } from '@components';
+
 import {
-    ApplyButton,
     DrawerContent,
     DrawerHeader,
     DrawerTitle,
-    ResetButton,
     SectionTitle,
     StyledCheckbox,
     StyledDivider,
@@ -11,17 +11,7 @@ import {
     StyledList,
     StyledListItemButton,
 } from './MovieFiltersMobile.styles';
-
-interface Props {
-    open: boolean;
-    onClose: () => void;
-    availableLanguages: string[];
-    availableGenres: string[];
-    selectedLanguages: string[];
-    selectedGenres: string[];
-    setSelectedLanguages: (langs: string[]) => void;
-    setSelectedGenres: (genres: string[]) => void;
-}
+import { MovieFiltersMobileProps } from './MovieFiltersMobile.types';
 
 export const MovieFiltersMobile = ({
     open,
@@ -32,32 +22,23 @@ export const MovieFiltersMobile = ({
     selectedGenres,
     setSelectedLanguages,
     setSelectedGenres,
-}: Props) => {
+    onApply,
+    onReset,
+}: MovieFiltersMobileProps) => {
     const toggleValue = (list: string[], value: string) =>
         list.includes(value)
             ? list.filter((v) => v !== value)
             : [...list, value];
 
-    const handleApply = () => onClose();
-
-    const handleReset = () => {
-        setSelectedLanguages([]);
-        setSelectedGenres([]);
-    };
-
     return (
         <StyledDrawer anchor="bottom" open={open} onClose={onClose}>
             <DrawerContent>
                 <DrawerHeader>
-                    <DrawerTitle variant="h6">Filters</DrawerTitle>
-                    <ResetButton onClick={handleReset} color="error">
-                        Reset All
-                    </ResetButton>
+                    <DrawerTitle>Filters</DrawerTitle>
+                    <Button onClick={onReset}>Reset All</Button>
                 </DrawerHeader>
 
-                <SectionTitle variant="subtitle1" mt={2}>
-                    Languages
-                </SectionTitle>
+                <SectionTitle>Languages</SectionTitle>
                 <StyledList dense>
                     {availableLanguages.map((lang) => (
                         <StyledListItemButton
@@ -78,7 +59,7 @@ export const MovieFiltersMobile = ({
 
                 <StyledDivider />
 
-                <SectionTitle variant="subtitle1">Genres</SectionTitle>
+                <SectionTitle>Genres</SectionTitle>
                 <StyledList dense>
                     {availableGenres.map((genre) => (
                         <StyledListItemButton
@@ -97,13 +78,9 @@ export const MovieFiltersMobile = ({
                     ))}
                 </StyledList>
 
-                <ApplyButton
-                    variant="contained"
-                    fullWidth
-                    onClick={handleApply}
-                >
+                <Button variant="contained" fullWidth onClick={onApply}>
                     Apply
-                </ApplyButton>
+                </Button>
             </DrawerContent>
         </StyledDrawer>
     );

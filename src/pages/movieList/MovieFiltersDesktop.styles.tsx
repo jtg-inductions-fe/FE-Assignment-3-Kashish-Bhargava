@@ -2,7 +2,6 @@ import {
     Accordion,
     AccordionDetails,
     Box,
-    Button,
     Checkbox,
     FormControlLabel,
     Typography,
@@ -11,6 +10,9 @@ import { styled } from '@mui/material/styles';
 
 export const FiltersContainer = styled(Box)(({ theme }) => ({
     marginBottom: theme.spacing(3),
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(3),
 }));
 
 export const FiltersHeader = styled(Box)(() => ({
@@ -29,15 +31,21 @@ export const FilterTitle = styled(Typography)(
     }),
 );
 
-export const ClearButton = styled(Button)(() => ({
-    textTransform: 'none',
-}));
-
-export const StyledAccordion = styled(Accordion)(({ theme }) => ({
-    backgroundColor: '#fff',
-    padding: theme.spacing(2),
-    boxShadow: theme.shadows[1],
-}));
+export const StyledAccordion = styled(Accordion)(
+    ({
+        theme: {
+            palette: {
+                common: { white },
+            },
+            spacing,
+            shadows,
+        },
+    }) => ({
+        backgroundColor: white,
+        padding: spacing(2),
+        boxShadow: shadows[1],
+    }),
+);
 
 export const StyledAccordionDetails = styled(AccordionDetails)(() => ({
     display: 'flex',
@@ -49,6 +57,6 @@ export const StyledFormControlLabel = styled(FormControlLabel)(() => ({
     marginLeft: 0,
 }));
 
-export const StyledCheckbox = styled(Checkbox)(() => ({
-    padding: '4px 8px',
+export const StyledCheckbox = styled(Checkbox)(({ theme: { spacing } }) => ({
+    padding: spacing(1, 2),
 }));

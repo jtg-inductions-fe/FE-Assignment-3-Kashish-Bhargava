@@ -1,8 +1,9 @@
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { AccordionSummary, Typography } from '@mui/material';
 
+import { Button } from '@components';
+
 import {
-    ClearButton,
     FiltersContainer,
     FiltersHeader,
     FilterTitle,
@@ -11,15 +12,7 @@ import {
     StyledCheckbox,
     StyledFormControlLabel,
 } from './MovieFiltersDesktop.styles';
-
-interface Props {
-    availableLanguages: string[];
-    availableGenres: string[];
-    selectedLanguages: string[];
-    selectedGenres: string[];
-    setSelectedLanguages: (langs: string[]) => void;
-    setSelectedGenres: (genres: string[]) => void;
-}
+import { MovieFilterDesktopProps } from './MovieFiltersDesktop.types';
 
 export const MovieFiltersDesktop = ({
     availableLanguages,
@@ -28,7 +21,7 @@ export const MovieFiltersDesktop = ({
     selectedGenres,
     setSelectedLanguages,
     setSelectedGenres,
-}: Props) => {
+}: MovieFilterDesktopProps) => {
     const toggleValue = (list: string[], value: string) =>
         list.includes(value)
             ? list.filter((v) => v !== value)
@@ -43,10 +36,10 @@ export const MovieFiltersDesktop = ({
         <FiltersContainer>
             <FiltersHeader>
                 <FilterTitle>Filters</FilterTitle>
-                <ClearButton onClick={handleReset}>Clear All</ClearButton>
+                <Button onClick={handleReset}>Clear All</Button>
             </FiltersHeader>
 
-            <StyledAccordion defaultExpanded>
+            <StyledAccordion defaultExpanded disableGutters>
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                     <Typography>Languages</Typography>
                 </AccordionSummary>
@@ -73,7 +66,7 @@ export const MovieFiltersDesktop = ({
                 </StyledAccordionDetails>
             </StyledAccordion>
 
-            <StyledAccordion defaultExpanded>
+            <StyledAccordion defaultExpanded disableGutters>
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                     <Typography>Genres</Typography>
                 </AccordionSummary>

@@ -1,6 +1,5 @@
 import {
     Box,
-    Button,
     Checkbox,
     Divider,
     Drawer,
@@ -26,6 +25,9 @@ export const StyledDrawer = styled(Drawer)(
 
 export const DrawerContent = styled(Box)(({ theme: { spacing } }) => ({
     padding: spacing(2),
+    display: 'flex',
+    flexDirection: 'column',
+    gap: spacing(4),
 }));
 
 export const DrawerHeader = styled(Box)(() => ({
@@ -34,43 +36,41 @@ export const DrawerHeader = styled(Box)(() => ({
     alignItems: 'center',
 }));
 
-export const DrawerTitle = styled(Typography)(() => ({
-    fontWeight: 600,
-}));
-
-export const ResetButton = styled(Button)(
+export const DrawerTitle = styled(Typography)(
     ({
         theme: {
-            palette: {
-                primary: { main },
-            },
+            typography: { h2 },
         },
     }) => ({
-        color: main,
+        ...h2,
     }),
 );
 
-export const SectionTitle = styled(Typography)(() => ({
-    fontWeight: 500,
-}));
+export const SectionTitle = styled(Typography)(
+    ({
+        theme: {
+            typography: { subtitle1 },
+        },
+    }) => ({
+        ...subtitle1,
+        margin: 0,
+    }),
+);
 
 export const StyledList = styled(List)(() => ({
     padding: 0,
 }));
 
-export const StyledListItemButton = styled(ListItemButton)(() => ({
-    paddingLeft: '0.5rem',
+export const StyledListItemButton = styled(ListItemButton)(
+    ({ theme: { spacing } }) => ({
+        paddingLeft: spacing(0),
+    }),
+);
+
+export const StyledCheckbox = styled(Checkbox)(({ theme: { spacing } }) => ({
+    padding: spacing(1, 2),
 }));
 
-export const StyledCheckbox = styled(Checkbox)(() => ({
-    padding: '4px 8px',
-}));
-
-export const StyledDivider = styled(Divider)(({ theme }) => ({
-    margin: `${theme.spacing(2)} 0`,
-}));
-
-export const ApplyButton = styled(Button)(({ theme }) => ({
-    marginTop: theme.spacing(2),
-    textTransform: 'none',
+export const StyledDivider = styled(Divider)(({ theme: { spacing } }) => ({
+    margin: `${spacing(2)} 0`,
 }));

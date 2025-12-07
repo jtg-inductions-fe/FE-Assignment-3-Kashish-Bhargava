@@ -1,7 +1,9 @@
-import { Box, Button, CircularProgress, Fab, Typography } from '@mui/material';
+import { Box, CircularProgress, Fab, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
-export const PageContainer = styled(Box)(
+import { Button } from '@components';
+
+export const MovieListContainer = styled(Box)(
     ({
         theme: {
             spacing,
@@ -9,22 +11,6 @@ export const PageContainer = styled(Box)(
         },
     }) => ({
         padding: spacing(2),
-        [up('md')]: {
-            padding: spacing(4),
-            display: 'flex',
-            flexDirection: 'column',
-            gap: spacing(5),
-        },
-    }),
-);
-
-export const MovieListContent = styled(Box)(
-    ({
-        theme: {
-            breakpoints: { up },
-            spacing,
-        },
-    }) => ({
         [up('md')]: {
             display: 'flex',
             gap: spacing(10),
@@ -41,7 +27,8 @@ export const Title = styled(Typography)(
         ...h1,
     }),
 );
-export const MoviesListSideSection = styled(Box)(() => ({
+export const MoviesListSideSection = styled(Box)(({ theme: { spacing } }) => ({
+    paddingTop: spacing(4),
     display: 'flex',
     flex: '0 0 25%',
 }));
@@ -78,8 +65,20 @@ export const PaginationButton = styled(Button)(({ theme: { spacing } }) => ({
     minWidth: spacing(30),
 }));
 
-export const FilterFab = styled(Fab)(({ theme: { spacing } }) => ({
-    position: 'fixed',
-    bottom: spacing(2),
-    right: spacing(2),
-}));
+export const FilterFab = styled(Fab)(
+    ({
+        theme: {
+            spacing,
+            palette: {
+                primary: { main },
+                common: { white },
+            },
+        },
+    }) => ({
+        position: 'fixed',
+        bottom: spacing(2),
+        right: spacing(2),
+        backgroundColor: main,
+        color: white,
+    }),
+);
