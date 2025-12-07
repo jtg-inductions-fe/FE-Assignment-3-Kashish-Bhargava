@@ -35,8 +35,9 @@ export const LogoBox = styled(Box)(
         cursor: 'pointer',
         height: spacing(10),
         outline: 'none',
-        '&:focus': {
-            boxShadow: `0 0 0 3px ${main}`,
+        '&:focus-visible': {
+            outline: `2px solid ${main}`,
+            outlineOffset: '2px',
         },
     }),
 );
