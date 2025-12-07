@@ -153,13 +153,13 @@ export const AuthForm = <T extends FieldValues>({
             <SwitchText>
                 {mode === 'login' ? (
                     <>
-                        Don’t have an account?{' '}
-                        <StyledLink href="/signup">Sign Up</StyledLink>
+                        Don&apos;t have an account?{' '}
+                        <StyledLink href={ROUTES.SIGNUP}>Sign Up</StyledLink>
                     </>
                 ) : (
                     <>
                         Already have an account?{' '}
-                        <StyledLink href="/login">Login</StyledLink>
+                        <StyledLink href={ROUTES.LOGIN}>Login</StyledLink>
                     </>
                 )}
             </SwitchText>

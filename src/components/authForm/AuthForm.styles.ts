@@ -1,11 +1,6 @@
-import {
-    Box,
-    Button,
-    IconButton,
-    Link,
-    styled,
-    Typography,
-} from '@mui/material';
+import { Box, IconButton, Link, styled, Typography } from '@mui/material';
+
+import { Button } from '../button/Button';
 
 export const FormContainer = styled('form')(
     ({
@@ -85,19 +80,12 @@ export const FormSubtitle = styled(Typography)(
 export const StyledButton = styled(Button)(
     ({
         theme: {
-            shape: { borderRadius },
             spacing,
             typography: { button },
-            palette: {
-                primary: { main },
-            },
         },
     }) => ({
         ...button,
-        backgroundColor: main,
-        borderRadius: borderRadius,
         fontWeight: 600,
-        textTransform: 'none',
         height: spacing(13),
     }),
 );
