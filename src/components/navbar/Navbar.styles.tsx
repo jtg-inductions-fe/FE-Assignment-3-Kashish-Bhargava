@@ -23,10 +23,23 @@ export const StyledToolbar = styled(Toolbar)(() => ({
     alignItems: 'center',
 }));
 
-export const LogoBox = styled(Box)(({ theme: { spacing } }) => ({
-    cursor: 'pointer',
-    height: spacing(10),
-}));
+export const LogoBox = styled(Box)(
+    ({
+        theme: {
+            spacing,
+            palette: {
+                primary: { main },
+            },
+        },
+    }) => ({
+        cursor: 'pointer',
+        height: spacing(10),
+        outline: 'none',
+        '&:focus': {
+            boxShadow: `0 0 0 3px ${main}`,
+        },
+    }),
+);
 
 export const StyledImage = styled('img')(() => ({
     width: '100%',

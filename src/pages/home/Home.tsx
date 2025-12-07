@@ -6,6 +6,7 @@ import { CircularProgress } from '@mui/material';
 import BrowseByCinemaImage from '@assets/images/browse-by-cinema.svg';
 import MovieBanner from '@assets/images/movie-banner.png';
 import { MovieGrid } from '@components';
+import { Button } from '@components';
 import { ROUTES } from '@constant';
 import { useGetLatestMoviesQuery } from '@services/movieApi/movieApi';
 
@@ -22,7 +23,6 @@ import {
     HomePageHeading,
     LoadingBox,
     MovieHeading,
-    SeeAll,
     SeeAllText,
     StyledImage,
 } from './Home.styles';
@@ -42,13 +42,10 @@ export const Home = () => {
                 </HomePageBanner>
                 <HomePageHeading>
                     <MovieHeading>Latest Movies</MovieHeading>
-                    <SeeAll
-                        onClick={() => void navigate(ROUTES.MOVIES)}
-                        tabIndex={0}
-                    >
+                    <Button onClick={() => void navigate(ROUTES.MOVIES)}>
                         <SeeAllText>See All</SeeAllText>
                         <NavigateNextIcon fontSize="medium" />
-                    </SeeAll>
+                    </Button>
                 </HomePageHeading>
 
                 {isLoading ? (
@@ -64,10 +61,7 @@ export const Home = () => {
                         columns={{ xs: 6, sm: 4, md: 3, lg: 2 }}
                     />
                 )}
-                <CinemaBlock
-                    onClick={() => void navigate(ROUTES.CINEMAS)}
-                    tabIndex={0}
-                >
+                <CinemaBlock onClick={() => void navigate(ROUTES.CINEMAS)}>
                     <CinemaBlockImage>
                         <StyledImage
                             src={BrowseByCinemaImage}
@@ -75,7 +69,9 @@ export const Home = () => {
                         />
                     </CinemaBlockImage>
                     <CinemaBlockContent>
-                        <BrowseByCinema>
+                        <BrowseByCinema
+                            onClick={() => void navigate(ROUTES.CINEMAS)}
+                        >
                             <BrowseByCinemaHeading>
                                 BROWSE BY CINEMA
                             </BrowseByCinemaHeading>
