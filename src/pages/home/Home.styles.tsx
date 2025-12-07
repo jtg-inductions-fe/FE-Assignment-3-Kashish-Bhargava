@@ -1,6 +1,7 @@
-import { Box, Stack, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
+import { Button } from '@components';
 export const HomeLayout = styled(Box)(({ theme: { spacing } }) => ({
     display: 'flex',
     justifyContent: 'space-between',
@@ -43,24 +44,6 @@ export const MovieHeading = styled(Typography)(
     }) => ({
         ...h2,
         color: primary,
-    }),
-);
-
-export const SeeAll = styled(Stack)(
-    ({
-        theme: {
-            palette: {
-                primary: { main },
-            },
-        },
-    }) => ({
-        flexDirection: 'row',
-        alignItems: 'center',
-        cursor: 'pointer',
-        color: main,
-        '&:hover': {
-            textDecoration: 'underline',
-        },
     }),
 );
 
@@ -145,17 +128,22 @@ export const CinemaBlockContent = styled(Box)(() => ({
     flexDirection: 'column',
 }));
 
-export const BrowseByCinema = styled(Box)(
+export const BrowseByCinema = styled(Button)(
     ({
         theme: {
             palette: {
                 common: { black },
             },
+            spacing,
+            breakpoints: { up },
         },
     }) => ({
-        display: 'flex',
-        alignItems: 'center',
         color: black,
+        padding: 0,
+        maxWidth: spacing(42),
+        [up('md')]: {
+            maxWidth: spacing(47),
+        },
     }),
 );
 

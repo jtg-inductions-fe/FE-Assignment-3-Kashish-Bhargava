@@ -25,7 +25,11 @@ export const Navbar = () => {
     return (
         <StyledAppBar>
             <StyledToolbar>
-                <LogoBox onClick={() => void navigate(ROUTES.HOME)}>
+                <LogoBox
+                    onClick={() => void navigate(ROUTES.HOME)}
+                    tabIndex={0}
+                    aria-label="Navigate to Home"
+                >
                     <StyledImage src={bookMyShowLogo} alt="BookMyShow Logo" />
                 </LogoBox>
 
