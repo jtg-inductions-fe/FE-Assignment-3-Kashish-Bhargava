@@ -7,7 +7,7 @@ import { Typography, useMediaQuery } from '@mui/material';
 import { Box } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 
-import { MovieGrid } from '@components';
+import { ErrorBoundary, MovieGrid } from '@components';
 import { MovieFiltersDesktop } from '@pages';
 import { MovieFiltersMobile } from '@pages';
 import {
@@ -109,14 +109,18 @@ export const MovieList = () => {
             <MoviesListSideSection>
                 {/* Filters */}
                 {!isMobile && (
-                    <MovieFiltersDesktop
-                        availableLanguages={languages}
-                        availableGenres={genres}
-                        selectedLanguages={selectedLanguages}
-                        selectedGenres={selectedGenres}
-                        setSelectedLanguages={setSelectedLanguages}
-                        setSelectedGenres={setSelectedGenres}
-                    />
+                    <ErrorBoundary
+                        fallback={<div>Failed to load filters.</div>}
+                    >
+                        <MovieFiltersDesktop
+                            availableLanguages={languages}
+                            availableGenres={genres}
+                            selectedLanguages={selectedLanguages}
+                            selectedGenres={selectedGenres}
+                            setSelectedLanguages={setSelectedLanguages}
+                            setSelectedGenres={setSelectedGenres}
+                        />
+                    </ErrorBoundary>
                 )}
             </MoviesListSideSection>
             <MovieListMainContent>

@@ -18,6 +18,7 @@ export const StyledCard = styled(Card)(
         boxShadow: `0px 4px 12px ${light}`,
         height: '100%',
         backgroundColor: paper,
+        cursor: 'pointer',
     }),
 );
 
