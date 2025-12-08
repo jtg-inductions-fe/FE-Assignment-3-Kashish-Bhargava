@@ -64,12 +64,12 @@ export const routeConfig: RouteConfig[] = [
 
     // Catch all routes other than the defined routes
     {
-        path: '*',
+        path: ROUTES.NOTFOUND,
         element: NotFound,
     },
     //Only for developing ErrorPage (will be removed later)
     {
-        path: '/error',
+        path: ROUTES.ERROR,
         element: ErrorPage,
     },
 ];

@@ -1,3 +1,3 @@
-export * from './errorBoundary';
-export * from './errorLayout';
-export * from './button';
+export * from './ErrorBoundary';
+export * from './Error';
+export * from './Button';

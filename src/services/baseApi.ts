@@ -12,6 +12,7 @@ export const baseApi = createApi({
                     'VITE_API_BASE_URL environment variable is not defined',
                 );
             })(), //Backend base URL
+        credentials: 'include', //Include cookies in requests
         prepareHeaders: (headers, { getState }) => {
             // Extract the access token from the Redux auth state
             const token = (getState() as RootState).auth.accessToken;
