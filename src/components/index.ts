@@ -1,3 +1,3 @@
 export * from './ErrorBoundary';
-export * from './Error';
+export * from './ErrorView';
 export * from './Button';

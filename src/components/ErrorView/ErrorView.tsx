@@ -5,10 +5,10 @@ import { Box, Typography } from '@mui/material';
 import { Button } from '@components';
 import { ROUTES } from '@constant';
 
-import { StyledImage, TextWrapper, Wrapper } from './Error.styles';
-import { ErrorProps } from './Error.types';
+import { StyledImage, TextWrapper, Wrapper } from './ErrorView.styles';
+import { ErrorProps } from './ErrorView.types';
 
-export const Error = (props: ErrorProps) => {
+export const ErrorView = (props: ErrorProps) => {
     const { title, description, image, altText } = props;
     const navigate = useNavigate();
 

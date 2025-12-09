@@ -33,6 +33,7 @@ let theme = createTheme({
     shape: {
         borderRadius: 16,
     },
+    /* Custom border radius for buttons */
     borderRadius: {
         button: 8,
     },

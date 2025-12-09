@@ -1,8 +1,8 @@
 import ErrorPageImage from '@assets/images/error-boundary.png';
-import { Error } from '@components';
+import { ErrorView } from '@components';
 
 export const ErrorPage = () => (
-    <Error
+    <ErrorView
         title="Something has gone seriously wrong"
         description="Uh-oh! Our server took a nap. We're working to reconnect things. Meanwhile, maybe grab a coffee."
         image={ErrorPageImage}
