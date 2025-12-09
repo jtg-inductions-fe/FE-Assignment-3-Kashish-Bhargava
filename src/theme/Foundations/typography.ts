@@ -25,13 +25,13 @@ const typographyStyle = (): TypographyOptions => ({
     htmlFontSize: HTML_FONT_SIZE,
 
     h1: {
-        fontSize: typographyUtil.pxToRem(30),
+        fontSize: typographyUtil.pxToRem(32),
         fontWeight: 700,
         lineHeight: typographyUtil.pxToRem(45),
     },
 
     h2: {
-        fontSize: typographyUtil.pxToRem(20),
+        fontSize: typographyUtil.pxToRem(24),
         fontWeight: 600,
         lineHeight: typographyUtil.pxToRem(30),
     },

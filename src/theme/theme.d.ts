@@ -4,3 +4,17 @@ export declare module '@mui/material/styles/createMixins' {
         flexCenter: () => CSSProperties;
     }
 }
+
+declare module '@mui/material/styles' {
+    interface Theme {
+        borderRadius: {
+            button: number;
+        };
+    }
+
+    interface ThemeOptions {
+        borderRadius?: {
+            button?: number;
+        };
+    }
+}

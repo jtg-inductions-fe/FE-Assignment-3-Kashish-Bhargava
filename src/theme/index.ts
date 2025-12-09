@@ -33,6 +33,9 @@ let theme = createTheme({
     shape: {
         borderRadius: 16,
     },
+    borderRadius: {
+        button: 8,
+    },
 });
 
 /* Extend the base theme with additional configurations */

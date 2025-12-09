@@ -5,7 +5,6 @@ export const Wrapper = styled(Box)(({ theme: { spacing } }) => ({
     alignItems: 'center',
     flexDirection: 'column',
     gap: spacing(32),
-    textAlign: 'center',
     padding: spacing(24, 16),
 }));
 

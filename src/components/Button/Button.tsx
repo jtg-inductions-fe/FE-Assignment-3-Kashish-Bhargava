@@ -1,6 +1,8 @@
-import { StyledButton } from './Button.styles';
-import { ButtonProps } from './Button.types';
+import { ButtonProps as MuiButtonProps } from '@mui/material/Button';
 
-export const Button = ({ children, ...props }: ButtonProps) => (
-    <StyledButton {...props}>{children}</StyledButton>
-);
+import { StyledButton } from './Button.styles';
+
+export const Button = (props: MuiButtonProps) => {
+    const { children, ...rest } = props;
+    return <StyledButton {...rest}>{children}</StyledButton>;
+};
