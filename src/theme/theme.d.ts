@@ -5,6 +5,9 @@ export declare module '@mui/material/styles/createMixins' {
     }
 }
 
+/**
+ * Extending MUI Theme to include custom borderRadius property.
+ */
 declare module '@mui/material/styles' {
     interface Theme {
         borderRadius: {

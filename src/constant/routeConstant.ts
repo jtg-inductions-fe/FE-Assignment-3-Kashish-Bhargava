@@ -14,6 +14,7 @@ export const ROUTES = {
 
     PURCHASE_HISTORY: '/bookings/history',
 
+    //Defined only for testing and designing error page
     ERROR: '/error',
     NOTFOUND: '*',
 } as const;
