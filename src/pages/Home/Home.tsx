@@ -1,14 +1,14 @@
 import { useNavigate } from 'react-router-dom';
 
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-import { CircularProgress } from '@mui/material';
+import { CircularProgress, Typography } from '@mui/material';
 
 import BrowseByCinemaImage from '@assets/images/browse-by-cinema.svg';
 import MovieBanner from '@assets/images/movie-banner.png';
 import { MovieGrid } from '@components';
 import { Button } from '@components';
 import { ROUTES } from '@constant';
-import { useGetLatestMoviesQuery } from '@services/movieApi/movieApi';
+import { useGetLatestMoviesQuery } from '@services/MovieApi/movieApi';
 
 import {
     BrowseByCinema,
@@ -21,9 +21,8 @@ import {
     HomeLayout,
     HomePageBanner,
     HomePageHeading,
+    HomePageMainSection,
     LoadingBox,
-    MovieHeading,
-    SeeAllText,
     StyledImage,
 } from './Home.styles';
 
@@ -40,27 +39,31 @@ export const Home = () => {
                         alt="Movie Banner"
                     ></StyledImage>
                 </HomePageBanner>
-                <HomePageHeading>
-                    <MovieHeading>Latest Movies</MovieHeading>
-                    <Button onClick={() => void navigate(ROUTES.MOVIES)}>
-                        <SeeAllText>See All</SeeAllText>
-                        <NavigateNextIcon fontSize="medium" />
-                    </Button>
-                </HomePageHeading>
+                <HomePageMainSection>
+                    <HomePageHeading>
+                        <Typography variant="h2" color="text.primary">
+                            Latest Movies
+                        </Typography>
+                        <Button onClick={() => void navigate(ROUTES.MOVIES)}>
+                            <Typography variant="body1">See All</Typography>
+                            <NavigateNextIcon fontSize="medium" />
+                        </Button>
+                    </HomePageHeading>
 
-                {isLoading ? (
-                    <LoadingBox>
-                        <CircularProgress />
-                    </LoadingBox>
-                ) : isError ? (
-                    <ErrorMessageBox>Failed to load movies</ErrorMessageBox>
-                ) : (
-                    <MovieGrid
-                        movies={movies}
-                        layoutKey="HomeMovieGrid"
-                        columns={{ xs: 6, sm: 4, md: 3, lg: 2 }}
-                    />
-                )}
+                    {isLoading ? (
+                        <LoadingBox>
+                            <CircularProgress />
+                        </LoadingBox>
+                    ) : isError ? (
+                        <ErrorMessageBox>Failed to load movies</ErrorMessageBox>
+                    ) : (
+                        <MovieGrid
+                            movies={movies}
+                            layoutKey="HomeMovieGrid"
+                            columns={{ xs: 6, sm: 4, md: 3, lg: 2 }}
+                        />
+                    )}
+                </HomePageMainSection>
                 <CinemaBlock onClick={() => void navigate(ROUTES.CINEMAS)}>
                     <CinemaBlockImage>
                         <StyledImage

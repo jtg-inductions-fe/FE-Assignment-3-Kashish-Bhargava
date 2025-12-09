@@ -8,12 +8,14 @@ export const StyledAppBar = styled(AppBar)(
                 common: { white },
                 secondary: { dark },
             },
+            spacing,
         },
     }) => ({
         position: 'static',
         elevation: 0,
         borderBottom: `1px solid ${dark}`,
         backgroundColor: white,
+        paddingInline: spacing(8),
     }),
 );
 
@@ -33,7 +35,7 @@ export const LogoBox = styled(Box)(
         },
     }) => ({
         cursor: 'pointer',
-        height: spacing(10),
+        height: spacing(40),
         outline: 'none',
         '&:focus-visible': {
             outline: `2px solid ${main}`,

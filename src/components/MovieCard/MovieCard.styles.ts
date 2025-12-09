@@ -4,17 +4,17 @@ import { styled } from '@mui/material/styles';
 export const StyledCard = styled(Card)(
     ({
         theme: {
-            spacing,
             palette: {
                 secondary: { light },
                 background: { paper },
             },
+            shape: { borderRadius },
         },
     }) => ({
         display: 'flex',
         flexDirection: 'column',
         width: '100%',
-        borderRadius: spacing(3),
+        borderRadius: borderRadius,
         boxShadow: `0px 4px 12px ${light}`,
         height: '100%',
         backgroundColor: paper,
@@ -24,7 +24,7 @@ export const StyledCard = styled(Card)(
 export const StyledCardMedia = styled(CardMedia)(({ theme: { spacing } }) => ({
     aspectRatio: 2 / 3,
     objectFit: 'cover',
-    minHeight: spacing(60),
+    minHeight: spacing(240),
 }));
 
 export const StyledCardContent = styled(CardContent)(() => ({

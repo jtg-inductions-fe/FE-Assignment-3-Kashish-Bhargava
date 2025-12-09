@@ -7,11 +7,11 @@ import {
 } from './GridLayout.styles';
 import { GridLayoutProps, LayoutKey } from './GridLayout.types';
 
-export const GridLayout = <T extends { id?: string | number }>({
-    items,
-    renderItem,
-    layoutKey = 'Default',
-}: GridLayoutProps<T> & LayoutKey) => {
+export const GridLayout = <T extends { id?: string | number }>(
+    props: GridLayoutProps<T> & LayoutKey,
+) => {
+    const { items, renderItem, layoutKey = 'Default' } = props;
+
     const gridColumns = useAppSelector(
         (state) =>
             state.layout.gridColumns[layoutKey] ?? {
