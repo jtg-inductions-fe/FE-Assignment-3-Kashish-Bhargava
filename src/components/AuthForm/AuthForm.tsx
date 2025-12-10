@@ -17,7 +17,7 @@ import {
     StyledLink,
     SwitchText,
 } from './AuthForm.styles';
-import type { AuthFormProps } from './AuthForm.types';
+import type { AuthFormProps } from './authForm.types';
 
 // Regex patterns
 const phoneRegex = /^\+?\d{7,15}$/;

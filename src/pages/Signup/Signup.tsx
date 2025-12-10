@@ -9,8 +9,8 @@ import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 
 import { AuthForm } from '@components';
 import { ROUTES } from '@constant';
-import { useSignupMutation } from '@services/userApi/userApi';
-import type { SignupRequest } from '@services/userApi/userApi.types';
+import { useSignupMutation } from '@services/UserApi/userApi';
+import type { SignupRequest } from '@services/UserApi/userApi.types';
 
 export const Signup = () => {
     const [signup, { isLoading }] = useSignupMutation();
