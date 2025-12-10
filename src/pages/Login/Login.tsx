@@ -10,9 +10,9 @@ import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { useAppDispatch } from '@app/hooks';
 import { AuthForm } from '@components';
 import { ROUTES } from '@constant';
-import { setCredentials } from '@features/auth/authSlice';
-import { useLoginMutation } from '@services/userApi/userApi';
-import type { LoginRequest } from '@services/userApi/userApi.types';
+import { setCredentials } from '@features/Auth/authSlice';
+import { useLoginMutation } from '@services/UserApi/userApi';
+import type { LoginRequest } from '@services/UserApi/userApi.types';
 
 export const Login = () => {
     const [login, { isLoading }] = useLoginMutation();
