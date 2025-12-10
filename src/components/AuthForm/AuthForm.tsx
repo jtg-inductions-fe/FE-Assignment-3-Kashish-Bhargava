@@ -1,7 +1,12 @@
+import { useState } from 'react';
+
 import { FieldValues, Path, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { IconButton, InputAdornment } from '@mui/material';
 import { CircularProgress, TextField } from '@mui/material';
 
 import { ROUTES } from '@constant';
@@ -41,6 +46,14 @@ export const AuthForm = <T extends FieldValues>({
     } = useForm<T>({ mode: 'onBlur' });
 
     const password = watch('password' as Path<T>);
+
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+    const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
+
+    const toggleConfirmPasswordVisibility = () =>
+        setShowConfirmPassword((prev) => !prev);
 
     // Validation rules
     const validateEmail = (value: string) =>
@@ -114,7 +127,7 @@ export const AuthForm = <T extends FieldValues>({
 
             <TextField
                 label="Password"
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 fullWidth
                 {...register('password' as Path<T>, {
                     required: 'Password is required',
@@ -122,12 +135,31 @@ export const AuthForm = <T extends FieldValues>({
                 })}
                 error={!!errors.password}
                 helperText={errors.password?.message as string}
+                slotProps={{
+                    input: {
+                        endAdornment: (
+                            <InputAdornment position="end">
+                                <IconButton
+                                    onClick={togglePasswordVisibility}
+                                    edge="end"
+                                    aria-label="toggle password visibility"
+                                >
+                                    {showPassword ? (
+                                        <VisibilityOff />
+                                    ) : (
+                                        <Visibility />
+                                    )}
+                                </IconButton>
+                            </InputAdornment>
+                        ),
+                    },
+                }}
             />
 
             {isSignup && (
                 <TextField
                     label="Confirm Password"
-                    type="password"
+                    type={showConfirmPassword ? 'text' : 'password'}
                     fullWidth
                     {...register('confirm_password' as Path<T>, {
                         required: 'Confirm your password',
@@ -135,6 +167,27 @@ export const AuthForm = <T extends FieldValues>({
                     })}
                     error={!!errors.confirm_password}
                     helperText={errors.confirm_password?.message as string}
+                    slotProps={{
+                        input: {
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        onClick={
+                                            toggleConfirmPasswordVisibility
+                                        }
+                                        edge="end"
+                                        aria-label="toggle confirm password visibility"
+                                    >
+                                        {showConfirmPassword ? (
+                                            <VisibilityOff />
+                                        ) : (
+                                            <Visibility />
+                                        )}
+                                    </IconButton>
+                                </InputAdornment>
+                            ),
+                        },
+                    }}
                 />
             )}
 
