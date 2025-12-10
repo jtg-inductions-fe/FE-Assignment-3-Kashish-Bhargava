@@ -6,12 +6,15 @@ export const baseApi = createApi({
     reducerPath: 'api',
     baseQuery: fetchBaseQuery({
         baseUrl:
+            //Backend base URL
             import.meta.env.VITE_API_BASE_URL ||
             (() => {
                 throw new Error(
                     'VITE_API_BASE_URL environment variable is not defined',
                 );
-            })(), //Backend base URL
+            })(),
+        //Include cookies in requests
+        credentials: 'include',
         prepareHeaders: (headers, { getState }) => {
             // Extract the access token from the Redux auth state
             const token = (getState() as RootState).auth.accessToken;

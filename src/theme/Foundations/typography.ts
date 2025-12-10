@@ -1,4 +1,3 @@
-import type { Theme } from '@mui/material/styles';
 import type {
     TypographyOptions,
     TypographyUtils,
@@ -21,23 +20,18 @@ const typographyUtil: TypographyUtils = {
  * @param theme - Theme object to access the breakpoints.
  * @returns The function returns a TypographyOptions object, which includes various typography settings,
  */
-const typographyStyle = (theme: Theme): TypographyOptions => ({
+const typographyStyle = (): TypographyOptions => ({
     fontFamily: 'Inter,Arial,sans-serif',
     htmlFontSize: HTML_FONT_SIZE,
 
     h1: {
-        fontSize: typographyUtil.pxToRem(30),
+        fontSize: typographyUtil.pxToRem(32),
         fontWeight: 700,
         lineHeight: typographyUtil.pxToRem(45),
-
-        [theme.breakpoints.up('lg')]: {
-            fontSize: typographyUtil.pxToRem(48),
-            lineHeight: typographyUtil.pxToRem(62.4),
-        },
     },
 
     h2: {
-        fontSize: typographyUtil.pxToRem(20),
+        fontSize: typographyUtil.pxToRem(24),
         fontWeight: 600,
         lineHeight: typographyUtil.pxToRem(30),
     },
