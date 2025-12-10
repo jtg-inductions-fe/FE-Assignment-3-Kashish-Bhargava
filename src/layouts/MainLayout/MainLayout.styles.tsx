@@ -22,12 +22,10 @@ export const MainContainer = styled(Container)(
             breakpoints: { up },
         },
     }) => ({
-        maxWidth: 'lg',
+        maxWidth: spacing(1440),
         flexGrow: 1,
         marginTop: spacing(32),
         paddingInline: spacing(16),
-        wordWrap: 'break-word',
-        overflowWrap: 'break-word',
         [up('sm')]: {
             paddingInline: spacing(16),
         },

@@ -35,10 +35,14 @@ export const HomePageHeading = styled(Box)(() => ({
     alignItems: 'center',
 }));
 
+export const SeeAllButton = styled(Button)(() => ({
+    padding: 0,
+}));
+
 export const HomePageMainSection = styled(Box)(({ theme: { spacing } }) => ({
     display: 'flex',
     flexDirection: 'column',
-    gap: spacing(4),
+    gap: spacing(8),
 }));
 
 export const LoadingBox = styled(Box)(({ theme: { spacing } }) => ({

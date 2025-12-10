@@ -1,7 +1,8 @@
-import dummyPoster from '@assets/images/movie-poster.png';
+import { Typography } from '@mui/material';
+
+import DummyPoster from '@assets/images/movie-poster.png';
 
 import {
-    GenreText,
     MovieName,
     StyledCard,
     StyledCardContent,
@@ -13,10 +14,12 @@ export const MovieCard = (props: MovieCardProps) => {
     const { movie } = props;
     return (
         <StyledCard tabIndex={0}>
-            <StyledCardMedia image={dummyPoster} title={movie.name} />
+            <StyledCardMedia image={DummyPoster} title={movie.name} />
             <StyledCardContent>
                 <MovieName>{movie.name}</MovieName>
-                <GenreText>{movie.genres.join(', ')}</GenreText>
+                <Typography variant="body1" color="text.secondary">
+                    {movie.genres?.join(', ') || 'No genres available'}
+                </Typography>
             </StyledCardContent>
         </StyledCard>
     );

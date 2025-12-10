@@ -4,7 +4,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import HomeIcon from '@mui/icons-material/Home';
 
 import { useAppSelector } from '@app/hooks';
-import bookMyShowLogo from '@assets/images/book-my-show-logo.png';
+import BookMyShowLogo from '@assets/images/book-my-show-logo.png';
 import { Button } from '@components';
 import { ROUTES } from '@constant';
 
@@ -27,10 +27,16 @@ export const Navbar = () => {
             <StyledToolbar>
                 <LogoBox
                     onClick={() => void navigate(ROUTES.HOME)}
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            void navigate(ROUTES.HOME);
+                        }
+                    }}
+                    role="button"
                     tabIndex={0}
                     aria-label="Navigate to Home"
                 >
-                    <StyledImage src={bookMyShowLogo} alt="BookMyShow Logo" />
+                    <StyledImage src={BookMyShowLogo} alt="BookMyShow Logo" />
                 </LogoBox>
 
                 <Button
@@ -44,6 +50,7 @@ export const Navbar = () => {
                 {isAuthenticated ? (
                     <ProfileButton
                         onClick={() => void navigate(ROUTES.PROFILE)}
+                        aria-label="Navigate to Profile"
                     >
                         <AccountCircleIcon fontSize="large" />
                     </ProfileButton>

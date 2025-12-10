@@ -41,23 +41,7 @@ export const MovieName = styled(Typography)(
         },
     }) => ({
         ...subtitle1,
-        overflowWrap: 'break-word',
         fontWeight: 600,
         color: dark,
-    }),
-);
-
-export const GenreText = styled(Typography)(
-    ({
-        theme: {
-            typography: { body1 },
-            palette: {
-                text: { secondary },
-            },
-        },
-    }) => ({
-        ...body1,
-        overflowWrap: 'break-word',
-        color: secondary,
     }),
 );

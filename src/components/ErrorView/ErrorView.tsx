@@ -6,7 +6,7 @@ import { Button } from '@components';
 import { ROUTES } from '@constant';
 
 import { StyledImage, TextWrapper, Wrapper } from './ErrorView.styles';
-import { ErrorProps } from './ErrorView.types';
+import { ErrorProps } from './errorView.types';
 
 export const ErrorView = (props: ErrorProps) => {
     const { title, description, image, altText } = props;

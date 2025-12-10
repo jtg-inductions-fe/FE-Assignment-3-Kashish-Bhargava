@@ -5,9 +5,9 @@ import {
     GridContainer,
     GridLayoutContainer,
 } from './GridLayout.styles';
-import { GridLayoutProps, LayoutKey } from './GridLayout.types';
+import { GridLayoutProps, LayoutKey } from './gridLayout.types';
 
-export const GridLayout = <T extends { id?: string | number }>(
+export const GridLayout = <T extends { id: string | number }>(
     props: GridLayoutProps<T> & LayoutKey,
 ) => {
     const { items, renderItem, layoutKey = 'Default' } = props;
@@ -23,7 +23,7 @@ export const GridLayout = <T extends { id?: string | number }>(
     );
     return (
         <GridLayoutContainer disableGutters>
-            <GridContainer container columnSpacing={3} rowGap={5}>
+            <GridContainer container columnSpacing={16} rowGap={20}>
                 {items.map((item, index) => (
                     <GridCell key={item.id ?? index} size={gridColumns}>
                         {renderItem(item)}

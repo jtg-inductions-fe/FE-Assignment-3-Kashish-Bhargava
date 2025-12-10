@@ -6,7 +6,6 @@ import { CircularProgress, Typography } from '@mui/material';
 import BrowseByCinemaImage from '@assets/images/browse-by-cinema.svg';
 import MovieBanner from '@assets/images/movie-banner.png';
 import { MovieGrid } from '@components';
-import { Button } from '@components';
 import { ROUTES } from '@constant';
 import { useGetLatestMoviesQuery } from '@services/MovieApi/movieApi';
 
@@ -23,13 +22,14 @@ import {
     HomePageHeading,
     HomePageMainSection,
     LoadingBox,
+    SeeAllButton,
     StyledImage,
 } from './Home.styles';
 
 export const Home = () => {
     const navigate = useNavigate();
     const { data: movies = [], isLoading, isError } = useGetLatestMoviesQuery();
-
+    const homeMovieGridColumns = { xs: 6, sm: 4, md: 3, lg: 2 };
     return (
         <>
             <HomeLayout>
@@ -44,10 +44,12 @@ export const Home = () => {
                         <Typography variant="h2" color="text.primary">
                             Latest Movies
                         </Typography>
-                        <Button onClick={() => void navigate(ROUTES.MOVIES)}>
+                        <SeeAllButton
+                            onClick={() => void navigate(ROUTES.MOVIES)}
+                        >
                             <Typography variant="body1">See All</Typography>
                             <NavigateNextIcon fontSize="medium" />
-                        </Button>
+                        </SeeAllButton>
                     </HomePageHeading>
 
                     {isLoading ? (
@@ -60,7 +62,7 @@ export const Home = () => {
                         <MovieGrid
                             movies={movies}
                             layoutKey="HomeMovieGrid"
-                            columns={{ xs: 6, sm: 4, md: 3, lg: 2 }}
+                            columns={homeMovieGridColumns}
                         />
                     )}
                 </HomePageMainSection>
@@ -72,9 +74,7 @@ export const Home = () => {
                         />
                     </CinemaBlockImage>
                     <CinemaBlockContent>
-                        <BrowseByCinema
-                            onClick={() => void navigate(ROUTES.CINEMAS)}
-                        >
+                        <BrowseByCinema>
                             <BrowseByCinemaHeading>
                                 BROWSE BY CINEMA
                             </BrowseByCinemaHeading>

@@ -12,7 +12,7 @@ export const StyledAppBar = styled(AppBar)(
         },
     }) => ({
         position: 'static',
-        elevation: 0,
+        boxShadow: 'none',
         borderBottom: `1px solid ${dark}`,
         backgroundColor: white,
         paddingInline: spacing(8),
