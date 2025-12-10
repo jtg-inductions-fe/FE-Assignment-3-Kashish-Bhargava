@@ -19,10 +19,10 @@ export const AuthLayoutWrapper = styled(Box)(
 
 export const AuthLayoutContainer = styled(Container)(
     ({ theme: { spacing } }) => ({
-        maxWidth: 'lg',
+        maxWidth: spacing(1440),
         flexGrow: 1,
-        marginTop: spacing(40),
-        paddingInline: spacing(4),
+        marginTop: spacing(160),
+        paddingInline: spacing(16),
         wordWrap: 'break-word',
         overflowWrap: 'break-word',
     }),

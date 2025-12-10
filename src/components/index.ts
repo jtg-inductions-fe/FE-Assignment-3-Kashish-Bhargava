@@ -4,5 +4,5 @@ export * from './Navbar';
 export * from './GridLayout';
 export * from './MovieGrid';
 export * from './MovieCard';
-export * from './authForm';
+export * from './AuthForm';
 export * from './Button';

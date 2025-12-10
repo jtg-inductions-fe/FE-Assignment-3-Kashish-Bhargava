@@ -1,6 +1,6 @@
 import { Box, IconButton, Link, styled, Typography } from '@mui/material';
 
-import { Button } from '../button/Button';
+import { Button } from '../Button/Button';
 
 export const FormContainer = styled('form')(
     ({
@@ -12,11 +12,11 @@ export const FormContainer = styled('form')(
     }) => ({
         display: 'flex',
         flexDirection: 'column',
-        gap: spacing(3),
+        gap: spacing(12),
         width: '100%',
         maxWidth: 400,
         marginInline: 'auto',
-        padding: spacing(3),
+        padding: spacing(12),
         borderRadius: borderRadius,
         backgroundColor: background.default,
         position: 'relative',
@@ -86,7 +86,7 @@ export const StyledButton = styled(Button)(
     }) => ({
         ...button,
         fontWeight: 600,
-        height: spacing(13),
+        height: spacing(48),
     }),
 );
 
