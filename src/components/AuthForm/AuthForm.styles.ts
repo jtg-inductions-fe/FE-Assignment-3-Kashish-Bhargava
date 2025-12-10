@@ -20,6 +20,7 @@ export const FormContainer = styled('form')(
         borderRadius: borderRadius,
         backgroundColor: background.default,
         position: 'relative',
+        textAlign: 'center',
     }),
 );
 
@@ -33,11 +34,10 @@ export const FormTitle = styled(Typography)(
             palette: {
                 text: { primary },
             },
+            typography: { h3 },
         },
     }) => ({
-        textAlign: 'center',
-        fontWeight: 600,
-        fontSize: '1.8rem',
+        ...h3,
         color: primary,
     }),
 );
@@ -57,7 +57,6 @@ export const FormHeading = styled(Typography)(
         },
     }) => ({
         ...h2,
-        textAlign: 'center',
         color: primary,
     }),
 );
@@ -72,7 +71,6 @@ export const FormSubtitle = styled(Typography)(
         },
     }) => ({
         ...body2,
-        textAlign: 'center',
         color: primary,
     }),
 );
@@ -100,7 +98,6 @@ export const SwitchText = styled(Typography)(
         },
     }) => ({
         ...body1,
-        textAlign: 'center',
         color: primary,
     }),
 );
