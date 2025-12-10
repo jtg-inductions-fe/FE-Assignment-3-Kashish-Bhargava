@@ -1,5 +1,4 @@
-import { Component, ErrorInfo } from 'react';
-import { ReactNode } from 'react';
+import { Component, ErrorInfo, ReactNode } from 'react';
 
 import { Typography } from '@mui/material';
 
@@ -31,7 +30,7 @@ export class ErrorBoundary extends Component<
 
     private renderDefaultFallback(): ReactNode {
         return (
-            <Typography variant="h4" align="center" sx={{ mt: 4 }}>
+            <Typography variant="h4" align="center" mt={4}>
                 Something went wrong. Please try again later.
             </Typography>
         );
