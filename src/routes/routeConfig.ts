@@ -4,6 +4,8 @@ The wrapWithGuards function automatically applies route protection based on the 
 NonProtectedRoute for unauthenticated users, and leaving public routes open to all. Using createBrowserRouter,
 the app dynamically maps these configurations to create both nested and standalone routes like NotFound*/
 
+import { withLayout } from 'hoc/WithLayout';
+
 import { ROUTES } from '@constant';
 import { AuthLayout, MainLayout } from '@layouts';
 import {
@@ -30,9 +32,18 @@ export const routeConfig: RouteConfig[] = [
         layout: MainLayout,
         errorElement: ErrorPage,
         routes: [
-            { index: true, element: Home },
+            {
+                index: true,
+                element: Home,
+            },
             { path: ROUTES.MOVIES, element: MovieList },
-            { path: ROUTES.MOVIE_DETAIL, element: MovieDetail },
+            {
+                path: ROUTES.MOVIE_DETAIL,
+                element: withLayout(MainLayout, {
+                    showNavbar: true,
+                    isContainerized: false,
+                })(MovieDetail),
+            },
             { path: ROUTES.CINEMAS, element: CinemaList },
             { path: ROUTES.CINEMA_MOVIE_SLOTS, element: CinemaMovieSlot },
             { path: ROUTES.MOVIE_CINEMA_SLOTS, element: MovieCinemaSlot },
@@ -57,14 +68,20 @@ export const routeConfig: RouteConfig[] = [
         errorElement: ErrorPage,
         routes: [
             { path: ROUTES.PROFILE, element: Profile },
-            { path: ROUTES.BOOK_SEATS, element: SeatBooking },
+            {
+                path: ROUTES.BOOK_SEATS,
+                element: withLayout(MainLayout, {
+                    showNavbar: false,
+                    isContainerized: true,
+                })(SeatBooking),
+            },
             { path: ROUTES.PURCHASE_HISTORY, element: PurchaseHistory },
         ],
     },
 
     // Catch all routes other than the defined routes
     {
-        path: '*',
+        path: ROUTES.NOTFOUND,
         element: NotFound,
     },
 ];

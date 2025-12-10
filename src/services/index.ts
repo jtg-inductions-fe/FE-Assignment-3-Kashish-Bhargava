@@ -1,3 +1,3 @@
 export * from './baseApi';
-export * from './movieApi';
-export * from './userApi';
+export * from './MovieApi';
+export * from './UserApi';

@@ -1,0 +1,63 @@
+import { AppBar, Box, IconButton, Toolbar } from '@mui/material';
+import { styled } from '@mui/material/styles';
+
+export const StyledAppBar = styled(AppBar)(
+    ({
+        theme: {
+            palette: {
+                common: { white },
+                secondary: { dark },
+            },
+            spacing,
+        },
+    }) => ({
+        position: 'static',
+        boxShadow: 'none',
+        borderBottom: `1px solid ${dark}`,
+        backgroundColor: white,
+        paddingInline: spacing(8),
+    }),
+);
+
+export const StyledToolbar = styled(Toolbar)(() => ({
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+}));
+
+export const LogoBox = styled(Box)(
+    ({
+        theme: {
+            spacing,
+            palette: {
+                primary: { main },
+            },
+        },
+    }) => ({
+        cursor: 'pointer',
+        height: spacing(40),
+        outline: 'none',
+        '&:focus-visible': {
+            outline: `2px solid ${main}`,
+            outlineOffset: '2px',
+        },
+    }),
+);
+
+export const StyledImage = styled('img')(() => ({
+    width: '100%',
+    height: '100%',
+    objectFit: 'contain',
+}));
+
+export const ProfileButton = styled(IconButton)(
+    ({
+        theme: {
+            palette: {
+                primary: { main },
+            },
+        },
+    }) => ({
+        color: main,
+    }),
+);
