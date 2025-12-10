@@ -1,2 +1,2 @@
 export * from './MainLayout';
-export * from './MainLayout.types';
+export * from './mainLayout.types';
