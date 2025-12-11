@@ -38,7 +38,6 @@ export const Login = () => {
             if (response) {
                 dispatch(
                     setCredentials({
-                        user: null,
                         accessToken: response.access,
                         refreshToken: '',
                     }),
@@ -107,7 +106,6 @@ export const Login = () => {
                 <Alert
                     onClose={handleCloseSnackbar}
                     severity={snackbar.severity}
-                    sx={{ width: '100%' }}
                 >
                     {snackbar.message}
                 </Alert>
