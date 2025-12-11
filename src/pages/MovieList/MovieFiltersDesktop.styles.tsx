@@ -1,19 +1,12 @@
-import {
-    Accordion,
-    AccordionDetails,
-    Box,
-    Checkbox,
-    FormControlLabel,
-} from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { Accordion, AccordionDetails, Box, Chip, styled } from '@mui/material';
 
 import { Button } from '@components';
 
-export const FiltersContainer = styled(Box)(({ theme }) => ({
-    marginBottom: theme.spacing(12),
+export const FiltersContainer = styled(Box)(({ theme: { spacing } }) => ({
+    marginBottom: spacing(12),
     display: 'flex',
     flexDirection: 'column',
-    gap: theme.spacing(12),
+    gap: spacing(12),
 }));
 
 export const FiltersHeader = styled(Box)(() => ({
@@ -37,7 +30,7 @@ export const StyledAccordion = styled(Accordion)(
         },
     }) => ({
         backgroundColor: white,
-        padding: spacing(8),
+        padding: spacing(16),
         boxShadow: shadows[1],
     }),
 );
@@ -48,10 +41,12 @@ export const StyledAccordionDetails = styled(AccordionDetails)(() => ({
     flexWrap: 'wrap',
 }));
 
-export const StyledFormControlLabel = styled(FormControlLabel)(() => ({
-    marginLeft: 0,
-}));
-
-export const StyledCheckbox = styled(Checkbox)(({ theme: { spacing } }) => ({
-    padding: spacing(4, 8),
-}));
+export const FilterChip = styled(Chip)(
+    ({
+        theme: {
+            borderRadius: { button: borderRadiusButton },
+        },
+    }) => ({
+        borderRadius: borderRadiusButton,
+    }),
+);

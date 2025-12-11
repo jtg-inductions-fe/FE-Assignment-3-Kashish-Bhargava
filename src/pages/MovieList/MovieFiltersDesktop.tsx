@@ -1,30 +1,31 @@
 import { useNavigate } from 'react-router-dom';
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { AccordionSummary, Typography } from '@mui/material';
+import { AccordionSummary, Stack, Typography } from '@mui/material';
 
 import { Button } from '@components';
 import { ROUTES } from '@constant';
 
 import {
     ClearAllButton,
+    FilterChip,
     FiltersContainer,
     FiltersHeader,
     StyledAccordion,
     StyledAccordionDetails,
-    StyledCheckbox,
-    StyledFormControlLabel,
 } from './MovieFiltersDesktop.styles';
 import { MovieFilterDesktopProps } from './MovieFiltersDesktop.types';
 
-export const MovieFiltersDesktop = ({
-    availableLanguages,
-    availableGenres,
-    selectedLanguages,
-    selectedGenres,
-    setSelectedLanguages,
-    setSelectedGenres,
-}: MovieFilterDesktopProps) => {
+export const MovieFiltersDesktop = (props: MovieFilterDesktopProps) => {
+    const {
+        availableLanguages,
+        availableGenres,
+        selectedLanguages,
+        selectedGenres,
+        setSelectedLanguages,
+        setSelectedGenres,
+    } = props;
+
     const toggleValue = (list: string[], value: string) =>
         list.includes(value)
             ? list.filter((v) => v !== value)
@@ -49,13 +50,17 @@ export const MovieFiltersDesktop = ({
                     <Typography>Languages</Typography>
                 </AccordionSummary>
                 <StyledAccordionDetails>
-                    {availableLanguages.map((lang) => (
-                        <StyledFormControlLabel
-                            key={lang}
-                            control={
-                                <StyledCheckbox
-                                    checked={selectedLanguages.includes(lang)}
-                                    onChange={() =>
+                    <Stack direction="row" flexWrap="wrap" gap={8}>
+                        {availableLanguages.map((lang) => {
+                            const isSelected = selectedLanguages.includes(lang);
+                            return (
+                                <FilterChip
+                                    key={lang}
+                                    label={lang}
+                                    clickable
+                                    color={isSelected ? 'primary' : 'default'}
+                                    variant={isSelected ? 'filled' : 'outlined'}
+                                    onClick={() =>
                                         setSelectedLanguages(
                                             toggleValue(
                                                 selectedLanguages,
@@ -64,10 +69,9 @@ export const MovieFiltersDesktop = ({
                                         )
                                     }
                                 />
-                            }
-                            label={lang}
-                        />
-                    ))}
+                            );
+                        })}
+                    </Stack>
                 </StyledAccordionDetails>
             </StyledAccordion>
 
@@ -76,22 +80,25 @@ export const MovieFiltersDesktop = ({
                     <Typography>Genres</Typography>
                 </AccordionSummary>
                 <StyledAccordionDetails>
-                    {availableGenres.map((genre) => (
-                        <StyledFormControlLabel
-                            key={genre}
-                            control={
-                                <StyledCheckbox
-                                    checked={selectedGenres.includes(genre)}
-                                    onChange={() =>
+                    <Stack direction="row" flexWrap="wrap" gap={8}>
+                        {availableGenres.map((genre) => {
+                            const isSelected = selectedGenres.includes(genre);
+                            return (
+                                <FilterChip
+                                    key={genre}
+                                    label={genre}
+                                    clickable
+                                    color={isSelected ? 'primary' : 'default'}
+                                    variant={isSelected ? 'filled' : 'outlined'}
+                                    onClick={() =>
                                         setSelectedGenres(
                                             toggleValue(selectedGenres, genre),
                                         )
                                     }
                                 />
-                            }
-                            label={genre}
-                        />
-                    ))}
+                            );
+                        })}
+                    </Stack>
                 </StyledAccordionDetails>
             </StyledAccordion>
             <Button

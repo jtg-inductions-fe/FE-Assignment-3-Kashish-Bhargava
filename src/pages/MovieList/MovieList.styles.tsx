@@ -1,5 +1,4 @@
-import { Box, CircularProgress, Fab } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { Box, CircularProgress, Fab, styled } from '@mui/material';
 
 import { Button } from '@components';
 
@@ -10,7 +9,6 @@ export const MovieListContainer = styled(Box)(
             breakpoints: { up },
         },
     }) => ({
-        padding: spacing(8),
         [up('md')]: {
             display: 'flex',
             gap: spacing(40),
@@ -55,20 +53,15 @@ export const PaginationButton = styled(Button)(({ theme: { spacing } }) => ({
     minWidth: spacing(80),
 }));
 
-export const FilterFab = styled(Fab)(
-    ({
-        theme: {
-            spacing,
-            palette: {
-                primary: { main },
-                common: { white },
-            },
-        },
-    }) => ({
-        position: 'fixed',
-        bottom: spacing(16),
-        right: spacing(16),
-        backgroundColor: main,
-        color: white,
-    }),
-);
+export const FilterFab = styled(Fab)(({ theme: { spacing } }) => ({
+    position: 'fixed',
+    bottom: spacing(16),
+    right: spacing(16),
+}));
+
+export const BrowseByCinemaFab = styled(Fab)(({ theme: { spacing } }) => ({
+    textTransform: 'none',
+    position: 'fixed',
+    bottom: spacing(16),
+    left: spacing(16),
+}));

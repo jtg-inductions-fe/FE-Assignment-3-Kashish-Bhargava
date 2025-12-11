@@ -5,24 +5,27 @@ import { Button } from '@components';
 import {
     DrawerContent,
     DrawerHeader,
+    ResetAllButton,
     StyledCheckbox,
     StyledDivider,
     StyledDrawer,
 } from './MovieFiltersMobile.styles';
 import { MovieFiltersMobileProps } from './MovieFiltersMobile.types';
 
-export const MovieFiltersMobile = ({
-    open,
-    onClose,
-    availableLanguages,
-    availableGenres,
-    selectedLanguages,
-    selectedGenres,
-    setSelectedLanguages,
-    setSelectedGenres,
-    onApply,
-    onReset,
-}: MovieFiltersMobileProps) => {
+export const MovieFiltersMobile = (props: MovieFiltersMobileProps) => {
+    const {
+        open,
+        onClose,
+        availableLanguages,
+        availableGenres,
+        selectedLanguages,
+        selectedGenres,
+        setSelectedLanguages,
+        setSelectedGenres,
+        onApply,
+        onReset,
+    } = props;
+
     const toggleValue = (list: string[], value: string) =>
         list.includes(value)
             ? list.filter((v) => v !== value)
@@ -33,7 +36,7 @@ export const MovieFiltersMobile = ({
             <DrawerContent>
                 <DrawerHeader>
                     <Typography variant="h2">Filters</Typography>
-                    <Button onClick={onReset}>Reset All</Button>
+                    <ResetAllButton onClick={onReset}>Reset All</ResetAllButton>
                 </DrawerHeader>
 
                 <Typography variant="subtitle1" m={0}>

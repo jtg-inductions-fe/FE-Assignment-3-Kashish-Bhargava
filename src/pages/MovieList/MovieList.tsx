@@ -1,15 +1,14 @@
 import { useEffect, useState } from 'react';
 
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
-import { Typography, useMediaQuery } from '@mui/material';
-import { Box } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import { Box, Typography, useMediaQuery, useTheme } from '@mui/material';
 
 import { GridLayout, MovieCard } from '@components';
-import { MovieFiltersDesktop } from '@pages';
-import { MovieFiltersMobile } from '@pages';
+import { ROUTES } from '@constant';
+import { MovieFiltersDesktop, MovieFiltersMobile } from '@pages';
 import {
     useGetMovieGenresQuery,
     useGetMovieLanguagesQuery,
@@ -17,6 +16,7 @@ import {
 } from '@services/MovieApi';
 
 import {
+    BrowseByCinemaFab,
     CenteredLoader,
     FilterFab,
     MovieListContainer,
@@ -36,6 +36,7 @@ export const MovieList = () => {
     const [cursor, setCursor] = useState<string | null>(null);
 
     const gridColumns = { xs: 6, sm: 4, md: 4, lg: 3 };
+    const navigate = useNavigate();
 
     //Temporary filters for mobile drawer
     const [tempLanguages, setTempLanguages] = useState<string[]>([]);
@@ -108,7 +109,6 @@ export const MovieList = () => {
     return (
         <MovieListContainer>
             <MoviesListSideSection>
-                {/* Filters */}
                 {!isMobile && (
                     <MovieFiltersDesktop
                         availableLanguages={languages}
@@ -164,6 +164,7 @@ export const MovieList = () => {
             {isMobile && (
                 <>
                     <FilterFab
+                        color="primary"
                         onClick={() => {
                             handleOpenFilters();
                         }}
@@ -182,6 +183,16 @@ export const MovieList = () => {
                         onApply={handleApplyFilters}
                         onReset={handleResetFilters}
                     />
+                    <BrowseByCinemaFab
+                        color="primary"
+                        variant="extended"
+                        onClick={() => {
+                            void navigate(ROUTES.CINEMAS);
+                        }}
+                    >
+                        <LocationOnIcon />
+                        Browse by Cinemas
+                    </BrowseByCinemaFab>
                 </>
             )}
         </MovieListContainer>

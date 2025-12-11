@@ -1,5 +1,6 @@
-import { Box, Checkbox, Divider, Drawer } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { Box, Checkbox, Divider, Drawer, styled } from '@mui/material';
+
+import { Button } from '@components';
 
 export const StyledDrawer = styled(Drawer)(
     ({
@@ -34,4 +35,8 @@ export const StyledCheckbox = styled(Checkbox)(({ theme: { spacing } }) => ({
 
 export const StyledDivider = styled(Divider)(({ theme: { spacing } }) => ({
     margin: spacing(8, 0),
+}));
+
+export const ResetAllButton = styled(Button)(() => ({
+    padding: 0,
 }));
