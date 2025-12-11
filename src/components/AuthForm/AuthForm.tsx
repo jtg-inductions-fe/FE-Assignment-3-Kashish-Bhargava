@@ -7,6 +7,7 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import {
+    Box,
     CircularProgress,
     IconButton,
     InputAdornment,
@@ -18,7 +19,6 @@ import { ROUTES } from '@constant';
 
 import {
     FormContainer,
-    FormHeadingContainer,
     GoBackHomeButton,
     StyledButton,
     StyledLink,
@@ -80,7 +80,7 @@ export const AuthForm = <T extends FieldValues>(props: AuthFormProps<T>) => {
                 {isSignup ? 'Sign Up' : 'Login'}
             </Typography>
 
-            <FormHeadingContainer>
+            <Box display="flex" flexDirection="column">
                 <Typography variant="h2" color="text.primary">
                     {isSignup ? 'Create Account' : 'Welcome Back'}
                 </Typography>
@@ -89,7 +89,7 @@ export const AuthForm = <T extends FieldValues>(props: AuthFormProps<T>) => {
                         ? 'Sign up to book your favorite movies effortlessly!'
                         : 'Login to continue your movie experience!'}
                 </Typography>
-            </FormHeadingContainer>
+            </Box>
 
             {isSignup && (
                 <>
