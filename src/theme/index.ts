@@ -30,6 +30,13 @@ let theme = createTheme({
     },
     spacing: (factor: number) =>
         theme.typography.pxToRem(factor * SCALING_FACTOR),
+});
+
+/* Extend the base theme with additional configurations */
+theme = createTheme(theme, {
+    typography: {
+        ...typography.typographyStyle(),
+    },
     shape: {
         borderRadius: 16,
     },
@@ -37,12 +44,9 @@ let theme = createTheme({
     borderRadius: {
         button: 8,
     },
-});
-
-/* Extend the base theme with additional configurations */
-theme = createTheme(theme, {
-    typography: {
-        ...typography.typographyStyle(),
+    /*Custom border for layout*/
+    border: {
+        layoutBorder: `1px solid ${theme.palette.secondary.dark}`,
     },
 });
 

@@ -1,4 +1,4 @@
-import { Box, CircularProgress, Fab, Typography } from '@mui/material';
+import { Box, CircularProgress, Fab } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 import { Button } from '@components';
@@ -10,25 +10,15 @@ export const MovieListContainer = styled(Box)(
             breakpoints: { up },
         },
     }) => ({
-        padding: spacing(2),
+        padding: spacing(8),
         [up('md')]: {
             display: 'flex',
-            gap: spacing(10),
+            gap: spacing(40),
         },
     }),
 );
 
-export const Title = styled(Typography)(
-    ({
-        theme: {
-            typography: { h1 },
-        },
-    }) => ({
-        ...h1,
-    }),
-);
-export const MoviesListSideSection = styled(Box)(({ theme: { spacing } }) => ({
-    paddingTop: spacing(4),
+export const MoviesListSideSection = styled(Box)(() => ({
     display: 'flex',
     flex: '0 0 25%',
 }));
@@ -42,7 +32,7 @@ export const MovieListMainContent = styled(Box)(
         display: 'flex',
         flexDirection: 'column',
         flex: '0 0 100%',
-        gap: spacing(8),
+        gap: spacing(16),
         [up('md')]: {
             flex: '0 0 65%',
         },
@@ -54,15 +44,15 @@ export const CenteredLoader = styled(CircularProgress)(() => ({
     margin: 'auto',
 }));
 
-export const PaginationContainer = styled(Box)(() => ({
+export const PaginationContainer = styled(Box)(({ theme: { spacing } }) => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    gap: '1rem',
+    gap: spacing(20),
 }));
 
 export const PaginationButton = styled(Button)(({ theme: { spacing } }) => ({
-    minWidth: spacing(30),
+    minWidth: spacing(80),
 }));
 
 export const FilterFab = styled(Fab)(
@@ -76,8 +66,8 @@ export const FilterFab = styled(Fab)(
         },
     }) => ({
         position: 'fixed',
-        bottom: spacing(2),
-        right: spacing(2),
+        bottom: spacing(16),
+        right: spacing(16),
         backgroundColor: main,
         color: white,
     }),

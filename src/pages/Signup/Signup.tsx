@@ -4,11 +4,9 @@ import { useNavigate } from 'react-router-dom';
 
 import { Alert, Snackbar } from '@mui/material';
 
-import { SerializedError } from '@reduxjs/toolkit';
-import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
-
 import { AuthForm } from '@components';
 import { ROUTES } from '@constant';
+import type { AuthError, BackendError, SnackbarState } from '@models/auth';
 import { useSignupMutation } from '@services/UserApi/userApi';
 import type { SignupRequest } from '@services/UserApi/userApi.types';
 
@@ -17,11 +15,11 @@ export const Signup = () => {
     const navigate = useNavigate();
 
     // Snackbar state
-    const [snackbar, setSnackbar] = useState<{
-        open: boolean;
-        message: string;
-        severity: 'success' | 'error';
-    }>({ open: false, message: '', severity: 'success' });
+    const [snackbar, setSnackbar] = useState<SnackbarState>({
+        open: false,
+        message: '',
+        severity: 'success',
+    });
 
     const handleCloseSnackbar = () => {
         setSnackbar((prev) => ({ ...prev, open: false }));
@@ -43,15 +41,11 @@ export const Signup = () => {
                 }, 2000);
             }
         } catch (error) {
-            const err = error as FetchBaseQueryError | SerializedError;
+            const err = error as AuthError;
 
             if ('status' in err) {
                 const status = err.status;
-                const backendError = (
-                    err as FetchBaseQueryError & {
-                        data?: Record<string, unknown>;
-                    }
-                ).data;
+                const backendError = (err as BackendError).data;
 
                 if ((status === 400 || status === 409) && backendError?.email) {
                     setSnackbar({
@@ -96,7 +90,6 @@ export const Signup = () => {
                 <Alert
                     onClose={handleCloseSnackbar}
                     severity={snackbar.severity}
-                    sx={{ width: '100%' }}
                 >
                     {snackbar.message}
                 </Alert>

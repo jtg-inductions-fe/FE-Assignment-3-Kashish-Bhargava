@@ -1,9 +1,8 @@
-import { Component, ErrorInfo } from 'react';
-import { ReactNode } from 'react';
+import { Component, ErrorInfo, ReactNode } from 'react';
 
 import { Typography } from '@mui/material';
 
-import { ErrorBoundaryProps, ErrorBoundaryState } from './errorBoundary.types';
+import { ErrorBoundaryProps, ErrorBoundaryState } from './ErrorBoundary.types';
 
 export class ErrorBoundary extends Component<
     ErrorBoundaryProps,
@@ -17,6 +16,7 @@ export class ErrorBoundary extends Component<
             'ErrorBoundary caught an error in a child component:',
             error,
         );
+
         return { hasError: true };
     }
 
@@ -31,7 +31,7 @@ export class ErrorBoundary extends Component<
 
     private renderDefaultFallback(): ReactNode {
         return (
-            <Typography variant="h4" align="center" sx={{ mt: 4 }}>
+            <Typography variant="h4" align="center" mt={4}>
                 Something went wrong. Please try again later.
             </Typography>
         );
@@ -41,6 +41,7 @@ export class ErrorBoundary extends Component<
         if (this.state.hasError) {
             return this.props.fallback ?? this.renderDefaultFallback();
         }
+
         return this.props.children;
     }
 }

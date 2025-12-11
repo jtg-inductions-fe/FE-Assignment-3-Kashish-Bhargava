@@ -1,12 +1,4 @@
-import {
-    Box,
-    Checkbox,
-    Divider,
-    Drawer,
-    List,
-    ListItemButton,
-    Typography,
-} from '@mui/material';
+import { Box, Checkbox, Divider, Drawer } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 export const StyledDrawer = styled(Drawer)(
@@ -24,10 +16,10 @@ export const StyledDrawer = styled(Drawer)(
 );
 
 export const DrawerContent = styled(Box)(({ theme: { spacing } }) => ({
-    padding: spacing(2),
+    padding: spacing(8),
     display: 'flex',
     flexDirection: 'column',
-    gap: spacing(4),
+    gap: spacing(16),
 }));
 
 export const DrawerHeader = styled(Box)(() => ({
@@ -36,41 +28,10 @@ export const DrawerHeader = styled(Box)(() => ({
     alignItems: 'center',
 }));
 
-export const DrawerTitle = styled(Typography)(
-    ({
-        theme: {
-            typography: { h2 },
-        },
-    }) => ({
-        ...h2,
-    }),
-);
-
-export const SectionTitle = styled(Typography)(
-    ({
-        theme: {
-            typography: { subtitle1 },
-        },
-    }) => ({
-        ...subtitle1,
-        margin: 0,
-    }),
-);
-
-export const StyledList = styled(List)(() => ({
-    padding: 0,
-}));
-
-export const StyledListItemButton = styled(ListItemButton)(
-    ({ theme: { spacing } }) => ({
-        paddingLeft: spacing(0),
-    }),
-);
-
 export const StyledCheckbox = styled(Checkbox)(({ theme: { spacing } }) => ({
-    padding: spacing(1, 2),
+    padding: spacing(4, 8),
 }));
 
 export const StyledDivider = styled(Divider)(({ theme: { spacing } }) => ({
-    margin: `${spacing(2)} 0`,
+    margin: spacing(8, 0),
 }));

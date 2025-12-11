@@ -1,5 +1,4 @@
-import { Box, Container } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { Box, Container, styled } from '@mui/material';
 
 export const AuthLayoutWrapper = styled(Box)(
     ({

@@ -1,21 +1,27 @@
+import { useState } from 'react';
+
 import { FieldValues, Path, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import { CircularProgress, TextField } from '@mui/material';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import {
+    Box,
+    CircularProgress,
+    IconButton,
+    InputAdornment,
+    TextField,
+    Typography,
+} from '@mui/material';
 
 import { ROUTES } from '@constant';
 
 import {
     FormContainer,
-    FormHeading,
-    FormHeadingContainer,
-    FormSubtitle,
-    FormTitle,
     GoBackHomeButton,
     StyledButton,
     StyledLink,
-    SwitchText,
 } from './AuthForm.styles';
 import type { AuthFormProps } from './authForm.types';
 
@@ -25,11 +31,8 @@ const passwordRegex =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%?&])[A-Za-z\d@$!%?&]{8,}$/;
 const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
-export const AuthForm = <T extends FieldValues>({
-    mode,
-    onSubmit,
-    isLoading = false,
-}: AuthFormProps<T>) => {
+export const AuthForm = <T extends FieldValues>(props: AuthFormProps<T>) => {
+    const { mode, onSubmit, isLoading = false } = props;
     const navigate = useNavigate();
     const isSignup = mode === 'signup';
 
@@ -41,6 +44,14 @@ export const AuthForm = <T extends FieldValues>({
     } = useForm<T>({ mode: 'onBlur' });
 
     const password = watch('password' as Path<T>);
+
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+    const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
+
+    const toggleConfirmPasswordVisibility = () =>
+        setShowConfirmPassword((prev) => !prev);
 
     // Validation rules
     const validateEmail = (value: string) =>
@@ -58,22 +69,27 @@ export const AuthForm = <T extends FieldValues>({
 
     return (
         <FormContainer onSubmit={(e) => void handleSubmit(onSubmit)(e)}>
-            <GoBackHomeButton onClick={() => void navigate(ROUTES.HOME)}>
+            <GoBackHomeButton
+                aria-label="Go back to home"
+                onClick={() => void navigate(ROUTES.HOME)}
+            >
                 <ArrowBackIosNewIcon />
             </GoBackHomeButton>
 
-            <FormTitle>{isSignup ? 'Sign Up' : 'Login'}</FormTitle>
+            <Typography variant="h3" color="text.primary">
+                {isSignup ? 'Sign Up' : 'Login'}
+            </Typography>
 
-            <FormHeadingContainer>
-                <FormHeading>
+            <Box display="flex" flexDirection="column">
+                <Typography variant="h2" color="text.primary">
                     {isSignup ? 'Create Account' : 'Welcome Back'}
-                </FormHeading>
-                <FormSubtitle>
+                </Typography>
+                <Typography variant="body2" color="text.primary">
                     {isSignup
                         ? 'Sign up to book your favorite movies effortlessly!'
                         : 'Login to continue your movie experience!'}
-                </FormSubtitle>
-            </FormHeadingContainer>
+                </Typography>
+            </Box>
 
             {isSignup && (
                 <>
@@ -114,7 +130,7 @@ export const AuthForm = <T extends FieldValues>({
 
             <TextField
                 label="Password"
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 fullWidth
                 {...register('password' as Path<T>, {
                     required: 'Password is required',
@@ -122,12 +138,31 @@ export const AuthForm = <T extends FieldValues>({
                 })}
                 error={!!errors.password}
                 helperText={errors.password?.message as string}
+                slotProps={{
+                    input: {
+                        endAdornment: (
+                            <InputAdornment position="end">
+                                <IconButton
+                                    onClick={togglePasswordVisibility}
+                                    edge="end"
+                                    aria-label="toggle password visibility"
+                                >
+                                    {showPassword ? (
+                                        <VisibilityOff />
+                                    ) : (
+                                        <Visibility />
+                                    )}
+                                </IconButton>
+                            </InputAdornment>
+                        ),
+                    },
+                }}
             />
 
             {isSignup && (
                 <TextField
                     label="Confirm Password"
-                    type="password"
+                    type={showConfirmPassword ? 'text' : 'password'}
                     fullWidth
                     {...register('confirm_password' as Path<T>, {
                         required: 'Confirm your password',
@@ -135,6 +170,27 @@ export const AuthForm = <T extends FieldValues>({
                     })}
                     error={!!errors.confirm_password}
                     helperText={errors.confirm_password?.message as string}
+                    slotProps={{
+                        input: {
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        onClick={
+                                            toggleConfirmPasswordVisibility
+                                        }
+                                        edge="end"
+                                        aria-label="toggle confirm password visibility"
+                                    >
+                                        {showConfirmPassword ? (
+                                            <VisibilityOff />
+                                        ) : (
+                                            <Visibility />
+                                        )}
+                                    </IconButton>
+                                </InputAdornment>
+                            ),
+                        },
+                    }}
                 />
             )}
 
@@ -150,7 +206,7 @@ export const AuthForm = <T extends FieldValues>({
                 )}
             </StyledButton>
 
-            <SwitchText>
+            <Typography variant="body1" color="text.primary">
                 {mode === 'login' ? (
                     <>
                         Don&apos;t have an account?{' '}
@@ -162,7 +218,7 @@ export const AuthForm = <T extends FieldValues>({
                         <StyledLink href={ROUTES.LOGIN}>Login</StyledLink>
                     </>
                 )}
-            </SwitchText>
+            </Typography>
         </FormContainer>
     );
 };

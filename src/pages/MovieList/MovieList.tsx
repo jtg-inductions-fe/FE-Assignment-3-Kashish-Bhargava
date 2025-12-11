@@ -7,7 +7,7 @@ import { Typography, useMediaQuery } from '@mui/material';
 import { Box } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 
-import { MovieGrid } from '@components';
+import { GridLayout, MovieCard } from '@components';
 import { MovieFiltersDesktop } from '@pages';
 import { MovieFiltersMobile } from '@pages';
 import {
@@ -24,7 +24,6 @@ import {
     MoviesListSideSection,
     PaginationButton,
     PaginationContainer,
-    Title,
 } from './MovieList.styles';
 
 export const MovieList = () => {
@@ -35,6 +34,8 @@ export const MovieList = () => {
     const [selectedLanguages, setSelectedLanguages] = useState<string[]>([]);
     const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
     const [cursor, setCursor] = useState<string | null>(null);
+
+    const gridColumns = { xs: 6, sm: 4, md: 4, lg: 3 };
 
     //Temporary filters for mobile drawer
     const [tempLanguages, setTempLanguages] = useState<string[]>([]);
@@ -120,15 +121,15 @@ export const MovieList = () => {
                 )}
             </MoviesListSideSection>
             <MovieListMainContent>
-                <Title>Explore All Movies</Title>
+                <Typography variant="h2">Explore All Movies</Typography>
                 <Box>
                     {isLoading || isFetching ? (
                         <CenteredLoader />
                     ) : data?.results?.length ? (
-                        <MovieGrid
-                            movies={data.results}
-                            layoutKey="MovieListGrid"
-                            columns={{ xs: 6, sm: 4, md: 4, lg: 3 }}
+                        <GridLayout
+                            items={data.results}
+                            columns={gridColumns}
+                            renderItem={(movie) => <MovieCard movie={movie} />}
                         />
                     ) : (
                         <Typography

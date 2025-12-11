@@ -1,2 +1,2 @@
 export * from './ErrorBoundary';
-export * from './errorBoundary.types';
+export * from './ErrorBoundary.types';

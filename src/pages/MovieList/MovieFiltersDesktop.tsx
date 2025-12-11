@@ -1,12 +1,15 @@
+import { useNavigate } from 'react-router-dom';
+
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { AccordionSummary, Typography } from '@mui/material';
 
 import { Button } from '@components';
+import { ROUTES } from '@constant';
 
 import {
+    ClearAllButton,
     FiltersContainer,
     FiltersHeader,
-    FilterTitle,
     StyledAccordion,
     StyledAccordionDetails,
     StyledCheckbox,
@@ -32,11 +35,13 @@ export const MovieFiltersDesktop = ({
         setSelectedGenres([]);
     };
 
+    const navigate = useNavigate();
+
     return (
         <FiltersContainer>
             <FiltersHeader>
-                <FilterTitle>Filters</FilterTitle>
-                <Button onClick={handleReset}>Clear All</Button>
+                <Typography variant="h2">Filters</Typography>
+                <ClearAllButton onClick={handleReset}>Clear All</ClearAllButton>
             </FiltersHeader>
 
             <StyledAccordion defaultExpanded disableGutters>
@@ -89,6 +94,12 @@ export const MovieFiltersDesktop = ({
                     ))}
                 </StyledAccordionDetails>
             </StyledAccordion>
+            <Button
+                variant="outlined"
+                onClick={() => void navigate(ROUTES.CINEMAS)}
+            >
+                Browse by Cinemas
+            </Button>
         </FiltersContainer>
     );
 };

@@ -1,4 +1,4 @@
-import { Box, IconButton, Link, styled, Typography } from '@mui/material';
+import { IconButton, Link, styled } from '@mui/material';
 
 import { Button } from '../Button/Button';
 
@@ -14,68 +14,19 @@ export const FormContainer = styled('form')(
         flexDirection: 'column',
         gap: spacing(12),
         width: '100%',
-        maxWidth: 400,
+        maxWidth: spacing(400),
         marginInline: 'auto',
         padding: spacing(12),
         borderRadius: borderRadius,
         backgroundColor: background.default,
         position: 'relative',
+        textAlign: 'center',
     }),
 );
 
 export const GoBackHomeButton = styled(IconButton)(() => ({
     position: 'absolute',
 }));
-
-export const FormTitle = styled(Typography)(
-    ({
-        theme: {
-            palette: {
-                text: { primary },
-            },
-        },
-    }) => ({
-        textAlign: 'center',
-        fontWeight: 600,
-        fontSize: '1.8rem',
-        color: primary,
-    }),
-);
-
-export const FormHeadingContainer = styled(Box)(() => ({
-    display: 'flex',
-    flexDirection: 'column',
-}));
-
-export const FormHeading = styled(Typography)(
-    ({
-        theme: {
-            palette: {
-                text: { primary },
-            },
-            typography: { h2 },
-        },
-    }) => ({
-        ...h2,
-        textAlign: 'center',
-        color: primary,
-    }),
-);
-
-export const FormSubtitle = styled(Typography)(
-    ({
-        theme: {
-            typography: { body2 },
-            palette: {
-                text: { primary },
-            },
-        },
-    }) => ({
-        ...body2,
-        textAlign: 'center',
-        color: primary,
-    }),
-);
 
 export const StyledButton = styled(Button)(
     ({
@@ -87,21 +38,6 @@ export const StyledButton = styled(Button)(
         ...button,
         fontWeight: 600,
         height: spacing(48),
-    }),
-);
-
-export const SwitchText = styled(Typography)(
-    ({
-        theme: {
-            palette: {
-                text: { primary },
-            },
-            typography: { body1 },
-        },
-    }) => ({
-        ...body1,
-        textAlign: 'center',
-        color: primary,
     }),
 );
 

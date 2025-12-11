@@ -1,15 +1,13 @@
+import { List, ListItemButton, Typography } from '@mui/material';
+
 import { Button } from '@components';
 
 import {
     DrawerContent,
     DrawerHeader,
-    DrawerTitle,
-    SectionTitle,
     StyledCheckbox,
     StyledDivider,
     StyledDrawer,
-    StyledList,
-    StyledListItemButton,
 } from './MovieFiltersMobile.styles';
 import { MovieFiltersMobileProps } from './MovieFiltersMobile.types';
 
@@ -34,14 +32,17 @@ export const MovieFiltersMobile = ({
         <StyledDrawer anchor="bottom" open={open} onClose={onClose}>
             <DrawerContent>
                 <DrawerHeader>
-                    <DrawerTitle>Filters</DrawerTitle>
+                    <Typography variant="h2">Filters</Typography>
                     <Button onClick={onReset}>Reset All</Button>
                 </DrawerHeader>
 
-                <SectionTitle>Languages</SectionTitle>
-                <StyledList dense>
+                <Typography variant="subtitle1" m={0}>
+                    Languages
+                </Typography>
+                <List dense disablePadding>
                     {availableLanguages.map((lang) => (
-                        <StyledListItemButton
+                        <ListItemButton
+                            disableGutters
                             key={lang}
                             onClick={() =>
                                 setSelectedLanguages(
@@ -53,16 +54,19 @@ export const MovieFiltersMobile = ({
                                 checked={selectedLanguages.includes(lang)}
                             />
                             {lang}
-                        </StyledListItemButton>
+                        </ListItemButton>
                     ))}
-                </StyledList>
+                </List>
 
                 <StyledDivider />
 
-                <SectionTitle>Genres</SectionTitle>
-                <StyledList dense>
+                <Typography variant="subtitle1" m={0}>
+                    Genres
+                </Typography>
+                <List dense disablePadding>
                     {availableGenres.map((genre) => (
-                        <StyledListItemButton
+                        <ListItemButton
+                            disableGutters
                             key={genre}
                             onClick={() =>
                                 setSelectedGenres(
@@ -74,9 +78,9 @@ export const MovieFiltersMobile = ({
                                 checked={selectedGenres.includes(genre)}
                             />
                             {genre}
-                        </StyledListItemButton>
+                        </ListItemButton>
                     ))}
-                </StyledList>
+                </List>
 
                 <Button variant="contained" fullWidth onClick={onApply}>
                     Apply

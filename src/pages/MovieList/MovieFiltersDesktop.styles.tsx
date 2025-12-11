@@ -4,15 +4,16 @@ import {
     Box,
     Checkbox,
     FormControlLabel,
-    Typography,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
+import { Button } from '@components';
+
 export const FiltersContainer = styled(Box)(({ theme }) => ({
-    marginBottom: theme.spacing(3),
+    marginBottom: theme.spacing(12),
     display: 'flex',
     flexDirection: 'column',
-    gap: theme.spacing(3),
+    gap: theme.spacing(12),
 }));
 
 export const FiltersHeader = styled(Box)(() => ({
@@ -21,15 +22,9 @@ export const FiltersHeader = styled(Box)(() => ({
     alignItems: 'center',
 }));
 
-export const FilterTitle = styled(Typography)(
-    ({
-        theme: {
-            typography: { h2 },
-        },
-    }) => ({
-        ...h2,
-    }),
-);
+export const ClearAllButton = styled(Button)(() => ({
+    padding: 0,
+}));
 
 export const StyledAccordion = styled(Accordion)(
     ({
@@ -42,7 +37,7 @@ export const StyledAccordion = styled(Accordion)(
         },
     }) => ({
         backgroundColor: white,
-        padding: spacing(2),
+        padding: spacing(8),
         boxShadow: shadows[1],
     }),
 );
@@ -58,5 +53,5 @@ export const StyledFormControlLabel = styled(FormControlLabel)(() => ({
 }));
 
 export const StyledCheckbox = styled(Checkbox)(({ theme: { spacing } }) => ({
-    padding: spacing(1, 2),
+    padding: spacing(4, 8),
 }));

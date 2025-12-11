@@ -5,7 +5,7 @@ import { CircularProgress, Typography } from '@mui/material';
 
 import BrowseByCinemaImage from '@assets/images/browse-by-cinema.svg';
 import MovieBanner from '@assets/images/movie-banner.png';
-import { MovieGrid } from '@components';
+import { GridLayout, MovieCard } from '@components';
 import { ROUTES } from '@constant';
 import { useGetLatestMoviesQuery } from '@services/MovieApi/movieApi';
 
@@ -29,7 +29,8 @@ import {
 export const Home = () => {
     const navigate = useNavigate();
     const { data: movies = [], isLoading, isError } = useGetLatestMoviesQuery();
-    const homeMovieGridColumns = { xs: 6, sm: 4, md: 3, lg: 2 };
+    const gridColumns = { xs: 6, sm: 4, md: 3, lg: 2 };
+
     return (
         <>
             <HomeLayout>
@@ -59,10 +60,10 @@ export const Home = () => {
                     ) : isError ? (
                         <ErrorMessageBox>Failed to load movies</ErrorMessageBox>
                     ) : (
-                        <MovieGrid
-                            movies={movies}
-                            layoutKey="HomeMovieGrid"
-                            columns={homeMovieGridColumns}
+                        <GridLayout
+                            items={movies}
+                            columns={gridColumns}
+                            renderItem={(movie) => <MovieCard movie={movie} />}
                         />
                     )}
                 </HomePageMainSection>

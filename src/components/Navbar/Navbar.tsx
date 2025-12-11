@@ -23,7 +23,7 @@ export const Navbar = () => {
     const navigate = useNavigate();
 
     return (
-        <StyledAppBar>
+        <StyledAppBar position="static">
             <StyledToolbar>
                 <LogoBox
                     onClick={() => void navigate(ROUTES.HOME)}
@@ -44,7 +44,7 @@ export const Navbar = () => {
                     onClick={() => void navigate(ROUTES.HOME)}
                     aria-label="Home button"
                 >
-                    {<HomeIcon />}
+                    <HomeIcon />
                 </Button>
 
                 {isAuthenticated ? (
