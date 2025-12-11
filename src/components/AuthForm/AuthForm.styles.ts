@@ -1,4 +1,4 @@
-import { Box, IconButton, Link, styled } from '@mui/material';
+import { IconButton, Link, styled } from '@mui/material';
 
 import { Button } from '../Button/Button';
 
@@ -14,7 +14,7 @@ export const FormContainer = styled('form')(
         flexDirection: 'column',
         gap: spacing(12),
         width: '100%',
-        maxWidth: 400,
+        maxWidth: spacing(400),
         marginInline: 'auto',
         padding: spacing(12),
         borderRadius: borderRadius,
@@ -26,11 +26,6 @@ export const FormContainer = styled('form')(
 
 export const GoBackHomeButton = styled(IconButton)(() => ({
     position: 'absolute',
-}));
-
-export const FormHeadingContainer = styled(Box)(() => ({
-    display: 'flex',
-    flexDirection: 'column',
 }));
 
 export const StyledButton = styled(Button)(
