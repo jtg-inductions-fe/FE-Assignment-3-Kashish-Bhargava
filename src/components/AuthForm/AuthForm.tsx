@@ -6,21 +6,22 @@ import { useNavigate } from 'react-router-dom';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import { IconButton, InputAdornment } from '@mui/material';
-import { CircularProgress, TextField } from '@mui/material';
+import {
+    CircularProgress,
+    IconButton,
+    InputAdornment,
+    TextField,
+    Typography,
+} from '@mui/material';
 
 import { ROUTES } from '@constant';
 
 import {
     FormContainer,
-    FormHeading,
     FormHeadingContainer,
-    FormSubtitle,
-    FormTitle,
     GoBackHomeButton,
     StyledButton,
     StyledLink,
-    SwitchText,
 } from './AuthForm.styles';
 import type { AuthFormProps } from './authForm.types';
 
@@ -30,11 +31,8 @@ const passwordRegex =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%?&])[A-Za-z\d@$!%?&]{8,}$/;
 const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
-export const AuthForm = <T extends FieldValues>({
-    mode,
-    onSubmit,
-    isLoading = false,
-}: AuthFormProps<T>) => {
+export const AuthForm = <T extends FieldValues>(props: AuthFormProps<T>) => {
+    const { mode, onSubmit, isLoading = false } = props;
     const navigate = useNavigate();
     const isSignup = mode === 'signup';
 
@@ -71,21 +69,26 @@ export const AuthForm = <T extends FieldValues>({
 
     return (
         <FormContainer onSubmit={(e) => void handleSubmit(onSubmit)(e)}>
-            <GoBackHomeButton onClick={() => void navigate(ROUTES.HOME)}>
+            <GoBackHomeButton
+                aria-label="Go back to home"
+                onClick={() => void navigate(ROUTES.HOME)}
+            >
                 <ArrowBackIosNewIcon />
             </GoBackHomeButton>
 
-            <FormTitle>{isSignup ? 'Sign Up' : 'Login'}</FormTitle>
+            <Typography variant="h3" color="text.primary">
+                {isSignup ? 'Sign Up' : 'Login'}
+            </Typography>
 
             <FormHeadingContainer>
-                <FormHeading>
+                <Typography variant="h2" color="text.primary">
                     {isSignup ? 'Create Account' : 'Welcome Back'}
-                </FormHeading>
-                <FormSubtitle>
+                </Typography>
+                <Typography variant="body2" color="text.primary">
                     {isSignup
                         ? 'Sign up to book your favorite movies effortlessly!'
                         : 'Login to continue your movie experience!'}
-                </FormSubtitle>
+                </Typography>
             </FormHeadingContainer>
 
             {isSignup && (
@@ -203,7 +206,7 @@ export const AuthForm = <T extends FieldValues>({
                 )}
             </StyledButton>
 
-            <SwitchText>
+            <Typography variant="body1" color="text.primary">
                 {mode === 'login' ? (
                     <>
                         Don&apos;t have an account?{' '}
@@ -215,7 +218,7 @@ export const AuthForm = <T extends FieldValues>({
                         <StyledLink href={ROUTES.LOGIN}>Login</StyledLink>
                     </>
                 )}
-            </SwitchText>
+            </Typography>
         </FormContainer>
     );
 };
