@@ -1,8 +1,7 @@
 import { useEffect } from 'react';
 
 import { useAppDispatch } from '@app/hooks';
-import { GridLayout } from '@components';
-import { MovieCard } from '@components';
+import { GridLayout, MovieCard } from '@components';
 import { setGridColumns } from '@features/Layout/layoutSlice';
 
 import { MovieGridColumns, MovieGridProps } from './movieGrid.types';

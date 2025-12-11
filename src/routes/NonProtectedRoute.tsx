@@ -1,14 +1,15 @@
+import { ReactNode } from 'react';
+
 import { Navigate } from 'react-router-dom';
 
 import { useAppSelector } from '@app/hooks';
 import { ROUTES } from '@constant';
-import { AuthLayout } from '@layouts';
 
-export const NonProtectedRoute = () => {
+export const NonProtectedRoute = ({ children }: { children: ReactNode }) => {
     const { isAuthenticated } = useAppSelector((state) => state.auth);
 
     return !isAuthenticated ? (
-        <AuthLayout />
+        <>{children}</>
     ) : (
         <Navigate to={ROUTES.HOME} replace />
     );

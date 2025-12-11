@@ -8,6 +8,7 @@ import type { MainLayoutProps } from './mainLayout.types';
 export const MainLayout = (props: MainLayoutProps) => {
     const { showNavbar = true, isContainerized = true, children } = props;
     const Wrapper = isContainerized ? MainContainer : MainLayoutWrapper;
+
     return (
         <MainLayoutWrapper>
             {showNavbar && <Navbar />}

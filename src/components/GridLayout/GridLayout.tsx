@@ -1,10 +1,8 @@
+import Grid from '@mui/material/Grid2';
+
 import { useAppSelector } from '@app/hooks';
 
-import {
-    GridCell,
-    GridContainer,
-    GridLayoutContainer,
-} from './GridLayout.styles';
+import { GridCell } from './GridLayout.styles';
 import { GridLayoutProps, LayoutKey } from './gridLayout.types';
 
 export const GridLayout = <T extends { id: string | number }>(
@@ -21,15 +19,14 @@ export const GridLayout = <T extends { id: string | number }>(
                 lg: 2,
             },
     );
+
     return (
-        <GridLayoutContainer disableGutters>
-            <GridContainer container columnSpacing={16} rowGap={20}>
-                {items.map((item, index) => (
-                    <GridCell key={item.id ?? index} size={gridColumns}>
-                        {renderItem(item)}
-                    </GridCell>
-                ))}
-            </GridContainer>
-        </GridLayoutContainer>
+        <Grid container columnSpacing={16} rowGap={20}>
+            {items.map((item, index) => (
+                <GridCell key={item.id ?? index} size={gridColumns}>
+                    {renderItem(item)}
+                </GridCell>
+            ))}
+        </Grid>
     );
 };

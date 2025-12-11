@@ -30,6 +30,7 @@ export const Home = () => {
     const navigate = useNavigate();
     const { data: movies = [], isLoading, isError } = useGetLatestMoviesQuery();
     const homeMovieGridColumns = { xs: 6, sm: 4, md: 3, lg: 2 };
+
     return (
         <>
             <HomeLayout>

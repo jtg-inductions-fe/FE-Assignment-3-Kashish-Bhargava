@@ -12,6 +12,7 @@ import { MovieCardProps } from './movieCard.types';
 
 export const MovieCard = (props: MovieCardProps) => {
     const { movie } = props;
+
     return (
         <StyledCard tabIndex={0}>
             <StyledCardMedia image={DummyPoster} title={movie.name} />

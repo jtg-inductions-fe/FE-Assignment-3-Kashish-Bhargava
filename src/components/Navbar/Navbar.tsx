@@ -44,7 +44,7 @@ export const Navbar = () => {
                     onClick={() => void navigate(ROUTES.HOME)}
                     aria-label="Home button"
                 >
-                    {<HomeIcon />}
+                    <HomeIcon />
                 </Button>
 
                 {isAuthenticated ? (
