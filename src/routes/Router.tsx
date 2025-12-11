@@ -1,4 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
 import { NonProtectedRoute } from './NonProtectedRoute';
 import { ProtectedRoute } from './ProtectedRoute';
@@ -7,10 +8,18 @@ import { routeConfig } from './routeConfig';
 
 const wrapWithGuards = (config: RouteConfig) => {
     if (config.guard === 'protected') {
-        return <ProtectedRoute />;
+        return (
+            <ProtectedRoute>
+                {config.layout ? <config.layout /> : <Outlet />}
+            </ProtectedRoute>
+        );
     }
     if (config.guard === 'nonProtected') {
-        return <NonProtectedRoute />;
+        return (
+            <NonProtectedRoute>
+                {config.layout ? <config.layout /> : <Outlet />}
+            </NonProtectedRoute>
+        );
     }
     return config.layout ? <config.layout /> : undefined;
 };

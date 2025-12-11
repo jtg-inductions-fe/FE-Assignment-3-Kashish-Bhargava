@@ -14,7 +14,8 @@
             "@routes": ["routes/index"],
             "@services/*": ["services/*"],
             "@models/*": ["models/*"],
-            "@validation": ["validation/index"]
+            "@validation": ["validation/index"],
+            "@hoc": ["hoc/index"]
         }
     }
 }

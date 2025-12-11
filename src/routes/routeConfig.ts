@@ -4,6 +4,8 @@ The wrapWithGuards function automatically applies route protection based on the 
 NonProtectedRoute for unauthenticated users, and leaving public routes open to all. Using createBrowserRouter,
 the app dynamically maps these configurations to create both nested and standalone routes like NotFound*/
 
+import { withLayout } from 'hoc/WithLayout';
+
 import { ROUTES } from '@constant';
 import { AuthLayout, MainLayout } from '@layouts';
 import {
@@ -27,15 +29,33 @@ import type { RouteConfig } from './route.types';
 export const routeConfig: RouteConfig[] = [
     // Public Routes
     {
-        layout: MainLayout,
+        // layout: MainLayout,
         errorElement: ErrorPage,
         routes: [
-            { index: true, element: Home },
-            { path: ROUTES.MOVIES, element: MovieList },
-            { path: ROUTES.MOVIE_DETAIL, element: MovieDetail },
-            { path: ROUTES.CINEMAS, element: CinemaList },
-            { path: ROUTES.CINEMA_MOVIE_SLOTS, element: CinemaMovieSlot },
-            { path: ROUTES.MOVIE_CINEMA_SLOTS, element: MovieCinemaSlot },
+            {
+                index: true,
+                element: withLayout(MainLayout)(Home),
+            },
+            { path: ROUTES.MOVIES, element: withLayout(MainLayout)(MovieList) },
+            {
+                path: ROUTES.MOVIE_DETAIL,
+                element: withLayout(MainLayout, {
+                    showNavbar: true,
+                    isContainerized: false,
+                })(MovieDetail),
+            },
+            {
+                path: ROUTES.CINEMAS,
+                element: withLayout(MainLayout)(CinemaList),
+            },
+            {
+                path: ROUTES.CINEMA_MOVIE_SLOTS,
+                element: withLayout(MainLayout)(CinemaMovieSlot),
+            },
+            {
+                path: ROUTES.MOVIE_CINEMA_SLOTS,
+                element: withLayout(MainLayout)(MovieCinemaSlot),
+            },
         ],
     },
 
@@ -52,13 +72,22 @@ export const routeConfig: RouteConfig[] = [
 
     // Protected Routes (only for authenticated users)
     {
-        layout: MainLayout,
+        // layout: MainLayout,
         guard: 'protected',
         errorElement: ErrorPage,
         routes: [
-            { path: ROUTES.PROFILE, element: Profile },
-            { path: ROUTES.BOOK_SEATS, element: SeatBooking },
-            { path: ROUTES.PURCHASE_HISTORY, element: PurchaseHistory },
+            { path: ROUTES.PROFILE, element: withLayout(MainLayout)(Profile) },
+            {
+                path: ROUTES.BOOK_SEATS,
+                element: withLayout(MainLayout, {
+                    showNavbar: false,
+                    isContainerized: true,
+                })(SeatBooking),
+            },
+            {
+                path: ROUTES.PURCHASE_HISTORY,
+                element: withLayout(MainLayout)(PurchaseHistory),
+            },
         ],
     },
 
