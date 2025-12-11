@@ -29,7 +29,6 @@ import type { RouteConfig } from './route.types';
 export const routeConfig: RouteConfig[] = [
     // Public Routes
     {
-        // layout: MainLayout,
         errorElement: ErrorPage,
         routes: [
             {
@@ -61,18 +60,16 @@ export const routeConfig: RouteConfig[] = [
 
     // Non-Protected Routes (only for unauthenticated users)
     {
-        layout: AuthLayout,
         guard: 'nonProtected',
         errorElement: ErrorPage,
         routes: [
-            { path: ROUTES.LOGIN, element: Login },
-            { path: ROUTES.SIGNUP, element: Signup },
+            { path: ROUTES.LOGIN, element: withLayout(AuthLayout)(Login) },
+            { path: ROUTES.SIGNUP, element: withLayout(AuthLayout)(Signup) },
         ],
     },
 
     // Protected Routes (only for authenticated users)
     {
-        // layout: MainLayout,
         guard: 'protected',
         errorElement: ErrorPage,
         routes: [
@@ -93,7 +90,7 @@ export const routeConfig: RouteConfig[] = [
 
     // Catch all routes other than the defined routes
     {
-        path: '*',
+        path: ROUTES.NOTFOUND,
         element: NotFound,
     },
 ];

@@ -4,3 +4,26 @@ export declare module '@mui/material/styles/createMixins' {
         flexCenter: () => CSSProperties;
     }
 }
+
+/**
+ * Extending MUI Theme to include custom borderRadius property.
+ */
+declare module '@mui/material/styles' {
+    interface Theme {
+        borderRadius: {
+            button: number;
+        };
+        border: {
+            layoutBorder: string;
+        };
+    }
+
+    interface ThemeOptions {
+        borderRadius?: {
+            button?: number;
+        };
+        border?: {
+            layoutBorder?: string;
+        };
+    }
+}
