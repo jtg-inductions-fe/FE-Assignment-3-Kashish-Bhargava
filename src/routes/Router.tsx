@@ -10,18 +10,18 @@ const wrapWithGuards = (config: RouteConfig) => {
     if (config.guard === 'protected') {
         return (
             <ProtectedRoute>
-                {config.layout ? <config.layout /> : <Outlet />}
+                <Outlet />
             </ProtectedRoute>
         );
     }
     if (config.guard === 'nonProtected') {
         return (
             <NonProtectedRoute>
-                {config.layout ? <config.layout /> : <Outlet />}
+                <Outlet />
             </NonProtectedRoute>
         );
     }
-    return config.layout ? <config.layout /> : undefined;
+    return <Outlet />;
 };
 
 export const router = createBrowserRouter(

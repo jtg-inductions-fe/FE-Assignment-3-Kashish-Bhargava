@@ -1,2 +1,2 @@
 export * from './ErrorView';
-export * from './errorView.types';
+export * from './ErrorView.types';

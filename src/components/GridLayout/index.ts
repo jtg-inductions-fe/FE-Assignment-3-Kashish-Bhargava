@@ -1,2 +1,2 @@
 export * from './GridLayout';
-export * from './gridLayout.types';
+export * from './GridLayout.types';

@@ -1,19 +1,17 @@
-import { AppBar, Box, IconButton, Toolbar } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { AppBar, Box, IconButton, styled, Toolbar } from '@mui/material';
 
 export const StyledAppBar = styled(AppBar)(
     ({
         theme: {
             palette: {
                 common: { white },
-                secondary: { dark },
             },
             spacing,
+            border: { layoutBorder },
         },
     }) => ({
-        position: 'static',
         boxShadow: 'none',
-        borderBottom: `1px solid ${dark}`,
+        borderBottom: layoutBorder,
         backgroundColor: white,
         paddingInline: spacing(8),
     }),

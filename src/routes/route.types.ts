@@ -20,7 +20,7 @@ export interface ChildRoute {
  */
 export interface RouteConfig {
     /** Optional layout component (e.g., MainLayout, AuthLayout) */
-    layout?: ComponentType;
+    // layout?: ComponentType;
 
     /** Type of guard — 'protected' for logged-in users, 'nonProtected' for guests */
     guard?: 'protected' | 'nonProtected';

@@ -1,5 +1,4 @@
-import { Box, Typography } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { Box, styled, Typography } from '@mui/material';
 
 import { Button } from '@components';
 

@@ -23,7 +23,7 @@ export const Navbar = () => {
     const navigate = useNavigate();
 
     return (
-        <StyledAppBar>
+        <StyledAppBar position="static">
             <StyledToolbar>
                 <LogoBox
                     onClick={() => void navigate(ROUTES.HOME)}

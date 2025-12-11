@@ -29,14 +29,13 @@ import type { RouteConfig } from './route.types';
 export const routeConfig: RouteConfig[] = [
     // Public Routes
     {
-        layout: MainLayout,
         errorElement: ErrorPage,
         routes: [
             {
                 index: true,
-                element: Home,
+                element: withLayout(MainLayout)(Home),
             },
-            { path: ROUTES.MOVIES, element: MovieList },
+            { path: ROUTES.MOVIES, element: withLayout(MainLayout)(MovieList) },
             {
                 path: ROUTES.MOVIE_DETAIL,
                 element: withLayout(MainLayout, {
@@ -44,30 +43,37 @@ export const routeConfig: RouteConfig[] = [
                     isContainerized: false,
                 })(MovieDetail),
             },
-            { path: ROUTES.CINEMAS, element: CinemaList },
-            { path: ROUTES.CINEMA_MOVIE_SLOTS, element: CinemaMovieSlot },
-            { path: ROUTES.MOVIE_CINEMA_SLOTS, element: MovieCinemaSlot },
+            {
+                path: ROUTES.CINEMAS,
+                element: withLayout(MainLayout)(CinemaList),
+            },
+            {
+                path: ROUTES.CINEMA_MOVIE_SLOTS,
+                element: withLayout(MainLayout)(CinemaMovieSlot),
+            },
+            {
+                path: ROUTES.MOVIE_CINEMA_SLOTS,
+                element: withLayout(MainLayout)(MovieCinemaSlot),
+            },
         ],
     },
 
     // Non-Protected Routes (only for unauthenticated users)
     {
-        layout: AuthLayout,
         guard: 'nonProtected',
         errorElement: ErrorPage,
         routes: [
-            { path: ROUTES.LOGIN, element: Login },
-            { path: ROUTES.SIGNUP, element: Signup },
+            { path: ROUTES.LOGIN, element: withLayout(AuthLayout)(Login) },
+            { path: ROUTES.SIGNUP, element: withLayout(AuthLayout)(Signup) },
         ],
     },
 
     // Protected Routes (only for authenticated users)
     {
-        layout: MainLayout,
         guard: 'protected',
         errorElement: ErrorPage,
         routes: [
-            { path: ROUTES.PROFILE, element: Profile },
+            { path: ROUTES.PROFILE, element: withLayout(MainLayout)(Profile) },
             {
                 path: ROUTES.BOOK_SEATS,
                 element: withLayout(MainLayout, {
@@ -75,7 +81,10 @@ export const routeConfig: RouteConfig[] = [
                     isContainerized: true,
                 })(SeatBooking),
             },
-            { path: ROUTES.PURCHASE_HISTORY, element: PurchaseHistory },
+            {
+                path: ROUTES.PURCHASE_HISTORY,
+                element: withLayout(MainLayout)(PurchaseHistory),
+            },
         ],
     },
 

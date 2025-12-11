@@ -1,11 +1,16 @@
-import { Card, CardContent, CardMedia, Typography } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import {
+    Card,
+    CardContent,
+    CardMedia,
+    styled,
+    Typography,
+} from '@mui/material';
+import shadows from '@mui/material/styles/shadows';
 
 export const StyledCard = styled(Card)(
     ({
         theme: {
             palette: {
-                secondary: { light },
                 background: { paper },
             },
             shape: { borderRadius },
@@ -15,7 +20,7 @@ export const StyledCard = styled(Card)(
         flexDirection: 'column',
         width: '100%',
         borderRadius: borderRadius,
-        boxShadow: `0px 4px 12px ${light}`,
+        boxShadow: shadows[8],
         height: '100%',
         backgroundColor: paper,
     }),

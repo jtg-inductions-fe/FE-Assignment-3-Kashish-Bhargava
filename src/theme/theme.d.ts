@@ -13,11 +13,17 @@ declare module '@mui/material/styles' {
         borderRadius: {
             button: number;
         };
+        border: {
+            layoutBorder: string;
+        };
     }
 
     interface ThemeOptions {
         borderRadius?: {
             button?: number;
+        };
+        border?: {
+            layoutBorder?: string;
         };
     }
 }

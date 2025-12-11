@@ -1,32 +1,27 @@
-import Grid from '@mui/material/Grid2';
+import { Grid2 } from '@mui/material';
 
-import { useAppSelector } from '@app/hooks';
+import { GridLayoutProps } from './GridLayout.types';
 
-import { GridCell } from './GridLayout.styles';
-import { GridLayoutProps, LayoutKey } from './gridLayout.types';
-
-export const GridLayout = <T extends { id: string | number }>(
-    props: GridLayoutProps<T> & LayoutKey,
+export const GridLayout = <T extends { id: number }>(
+    props: GridLayoutProps<T>,
 ) => {
-    const { items, renderItem, layoutKey = 'Default' } = props;
-
-    const gridColumns = useAppSelector(
-        (state) =>
-            state.layout.gridColumns[layoutKey] ?? {
-                xs: 6,
-                sm: 4,
-                md: 3,
-                lg: 2,
-            },
-    );
-
+    const {
+        items,
+        renderItem,
+        columns = { xs: 6, sm: 4, md: 3, lg: 2 },
+    } = props;
     return (
-        <Grid container columnSpacing={16} rowGap={20}>
+        <Grid2 container columnSpacing={16} rowGap={20}>
             {items.map((item, index) => (
-                <GridCell key={item.id ?? index} size={gridColumns}>
+                <Grid2
+                    key={item.id ?? index}
+                    size={columns}
+                    display={'flex'}
+                    justifyContent={'center'}
+                >
                     {renderItem(item)}
-                </GridCell>
+                </Grid2>
             ))}
-        </Grid>
+        </Grid2>
     );
 };

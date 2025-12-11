@@ -8,7 +8,7 @@ import {
     StyledCardContent,
     StyledCardMedia,
 } from './MovieCard.styles';
-import { MovieCardProps } from './movieCard.types';
+import { MovieCardProps } from './MovieCard.types';
 
 export const MovieCard = (props: MovieCardProps) => {
     const { movie } = props;
@@ -19,7 +19,7 @@ export const MovieCard = (props: MovieCardProps) => {
             <StyledCardContent>
                 <MovieName>{movie.name}</MovieName>
                 <Typography variant="body1" color="text.secondary">
-                    {movie.genres?.join(', ') || 'No genres available'}
+                    {movie.genres?.join(', ')}
                 </Typography>
             </StyledCardContent>
         </StyledCard>

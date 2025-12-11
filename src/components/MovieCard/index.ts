@@ -1,2 +1,2 @@
 export * from './MovieCard';
-export * from './movieCard.types';
+export * from './MovieCard.types';

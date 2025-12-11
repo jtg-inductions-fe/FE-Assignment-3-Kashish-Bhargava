@@ -2,7 +2,7 @@ import { Component, ErrorInfo, ReactNode } from 'react';
 
 import { Typography } from '@mui/material';
 
-import { ErrorBoundaryProps, ErrorBoundaryState } from './errorBoundary.types';
+import { ErrorBoundaryProps, ErrorBoundaryState } from './ErrorBoundary.types';
 
 export class ErrorBoundary extends Component<
     ErrorBoundaryProps,
