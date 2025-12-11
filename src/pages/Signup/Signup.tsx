@@ -96,7 +96,6 @@ export const Signup = () => {
                 <Alert
                     onClose={handleCloseSnackbar}
                     severity={snackbar.severity}
-                    sx={{ width: '100%' }}
                 >
                     {snackbar.message}
                 </Alert>
