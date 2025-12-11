@@ -16,8 +16,8 @@ export const GridLayout = <T extends { id: number }>(
                 <Grid2
                     key={item.id}
                     size={columns}
-                    display={'flex'}
-                    justifyContent={'center'}
+                    display="flex"
+                    justifyContent="center"
                 >
                     {renderItem(item)}
                 </Grid2>

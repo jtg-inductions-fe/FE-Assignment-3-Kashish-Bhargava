@@ -29,7 +29,7 @@ export const StyledCard = styled(Card)(
 export const StyledCardMedia = styled(CardMedia)(({ theme: { spacing } }) => ({
     aspectRatio: 2 / 3,
     objectFit: 'cover',
-    minHeight: spacing(240),
+    minHeight: spacing(32),
 }));
 
 export const StyledCardContent = styled(CardContent)(() => ({
