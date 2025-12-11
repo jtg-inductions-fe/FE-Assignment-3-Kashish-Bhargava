@@ -12,9 +12,9 @@ export const GridLayout = <T extends { id: number }>(
     } = props;
     return (
         <Grid2 container columnSpacing={16} rowGap={20}>
-            {items.map((item, index) => (
+            {items.map((item) => (
                 <Grid2
-                    key={item.id ?? index}
+                    key={item.id}
                     size={columns}
                     display={'flex'}
                     justifyContent={'center'}
