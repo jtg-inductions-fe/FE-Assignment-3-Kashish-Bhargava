@@ -13,9 +13,9 @@ export const HomeLayout = styled(Box)(({ theme: { spacing } }) => ({
 export const HomePageBanner = styled(Box)(
     ({
         theme: {
-            spacing,
             breakpoints: { up },
             shape: { borderRadius },
+            typography: { pxToRem },
         },
     }) => ({
         borderRadius: borderRadius,
@@ -23,7 +23,7 @@ export const HomePageBanner = styled(Box)(
         width: '100%',
         height: 'auto',
         [up('md')]: {
-            height: spacing(400),
+            height: pxToRem(400),
         },
     }),
 );
@@ -91,15 +91,15 @@ export const CinemaBlock = styled(Box)(
 export const CinemaBlockImage = styled(Box)(
     ({
         theme: {
-            spacing,
             breakpoints: { up },
+            typography: { pxToRem },
         },
     }) => ({
-        width: spacing(80),
-        height: spacing(80),
+        width: pxToRem(80),
+        height: pxToRem(80),
         [up('md')]: {
-            width: spacing(100),
-            height: spacing(100),
+            width: pxToRem(100),
+            height: pxToRem(100),
         },
     }),
 );
@@ -122,15 +122,15 @@ export const BrowseByCinema = styled(Button)(
             palette: {
                 common: { black },
             },
-            spacing,
             breakpoints: { up },
+            typography: { pxToRem },
         },
     }) => ({
         color: black,
         padding: 0,
-        maxWidth: spacing(168),
+        maxWidth: pxToRem(168),
         [up('md')]: {
-            maxWidth: spacing(188),
+            maxWidth: pxToRem(188),
         },
     }),
 );
