@@ -8,9 +8,5 @@ import { ROUTES } from '@constant';
 export const ProtectedRoute = ({ children }: { children: ReactNode }) => {
     const { isAuthenticated } = useAppSelector((state) => state.auth);
 
-    return isAuthenticated ? (
-        <>{children}</>
-    ) : (
-        <Navigate to={ROUTES.LOGIN} replace />
-    );
+    return isAuthenticated ? children : <Navigate to={ROUTES.LOGIN} replace />;
 };

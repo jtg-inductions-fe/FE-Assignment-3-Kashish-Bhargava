@@ -26,11 +26,17 @@ export const StyledCard = styled(Card)(
     }),
 );
 
-export const StyledCardMedia = styled(CardMedia)(({ theme: { spacing } }) => ({
-    aspectRatio: 2 / 3,
-    objectFit: 'cover',
-    minHeight: spacing(32),
-}));
+export const StyledCardMedia = styled(CardMedia)(
+    ({
+        theme: {
+            typography: { pxToRem },
+        },
+    }) => ({
+        aspectRatio: 2 / 3,
+        objectFit: 'cover',
+        minHeight: pxToRem(32),
+    }),
+);
 
 export const StyledCardContent = styled(CardContent)(() => ({
     flexGrow: 1,

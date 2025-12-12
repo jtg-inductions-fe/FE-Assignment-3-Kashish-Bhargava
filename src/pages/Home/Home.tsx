@@ -47,6 +47,7 @@ export const Home = () => {
                         </Typography>
                         <SeeAllButton
                             onClick={() => void navigate(ROUTES.MOVIES)}
+                            aria-label="See all movies"
                         >
                             <Typography variant="body1">See All</Typography>
                             <NavigateNextIcon fontSize="medium" />

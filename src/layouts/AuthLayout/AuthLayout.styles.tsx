@@ -17,8 +17,13 @@ export const AuthLayoutWrapper = styled(Box)(
 );
 
 export const AuthLayoutContainer = styled(Container)(
-    ({ theme: { spacing } }) => ({
-        maxWidth: spacing(1440),
+    ({
+        theme: {
+            spacing,
+            typography: { pxToRem },
+        },
+    }) => ({
+        maxWidth: pxToRem(1440),
         flexGrow: 1,
         marginTop: spacing(160),
         paddingInline: spacing(16),
