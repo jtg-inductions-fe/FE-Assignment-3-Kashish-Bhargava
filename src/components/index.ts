@@ -5,3 +5,4 @@ export * from './GridLayout';
 export * from './MovieCard';
 export * from './AuthForm';
 export * from './Button';
+export * from './CinemaCard';
