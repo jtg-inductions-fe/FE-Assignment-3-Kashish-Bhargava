@@ -4,6 +4,7 @@
 export interface Movie {
     /**Unique movie identifier */
     id: number;
+    slug: string;
     /**Movie title */
     name: string;
     /**List of genres(e.g., action, drama) */
