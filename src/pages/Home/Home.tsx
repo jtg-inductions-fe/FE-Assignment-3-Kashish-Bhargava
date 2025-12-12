@@ -32,59 +32,57 @@ export const Home = () => {
     const gridColumns = { xs: 6, sm: 4, md: 3, lg: 2 };
 
     return (
-        <>
-            <HomeLayout>
-                <HomePageBanner>
-                    <StyledImage src={MovieBanner} alt="Movie Banner" />
-                </HomePageBanner>
-                <HomePageMainSection>
-                    <HomePageHeading>
-                        <Typography variant="h2" color="text.primary">
-                            Latest Movies
-                        </Typography>
-                        <SeeAllButton
-                            onClick={() => void navigate(ROUTES.MOVIES)}
-                            aria-label="See all movies"
-                        >
-                            <Typography variant="body1">See All</Typography>
-                            <NavigateNextIcon fontSize="medium" />
-                        </SeeAllButton>
-                    </HomePageHeading>
+        <HomeLayout>
+            <HomePageBanner>
+                <StyledImage src={MovieBanner} alt="Movie Banner" />
+            </HomePageBanner>
+            <HomePageMainSection>
+                <HomePageHeading>
+                    <Typography variant="h2" color="text.primary">
+                        Latest Movies
+                    </Typography>
+                    <SeeAllButton
+                        onClick={() => void navigate(ROUTES.MOVIES)}
+                        aria-label="See all movies"
+                    >
+                        <Typography variant="body1">See All</Typography>
+                        <NavigateNextIcon fontSize="medium" />
+                    </SeeAllButton>
+                </HomePageHeading>
 
-                    {isLoading ? (
-                        <LoadingBox>
-                            <CircularProgress />
-                        </LoadingBox>
-                    ) : isError ? (
-                        <ErrorMessageBox>Failed to load movies</ErrorMessageBox>
-                    ) : (
-                        <GridLayout
-                            items={movies}
-                            columns={gridColumns}
-                            renderItem={(movie) => <MovieCard movie={movie} />}
-                        />
-                    )}
-                </HomePageMainSection>
-                <CinemaBlock onClick={() => void navigate(ROUTES.CINEMAS)}>
-                    <CinemaBlockImage>
-                        <StyledImage
-                            src={BrowseByCinemaImage}
-                            alt="Browse by cinema"
-                        />
-                    </CinemaBlockImage>
-                    <CinemaBlockContent>
-                        <BrowseByCinema>
-                            <BrowseByCinemaHeading>
-                                BROWSE BY CINEMA
-                            </BrowseByCinemaHeading>
-                            <NavigateNextIcon fontSize="medium" />
-                        </BrowseByCinema>
-                        <BrowseByCinemaDescription>
-                            See what&apos;s playing in cinemas near you
-                        </BrowseByCinemaDescription>
-                    </CinemaBlockContent>
-                </CinemaBlock>
-            </HomeLayout>
-        </>
+                {isLoading ? (
+                    <LoadingBox>
+                        <CircularProgress />
+                    </LoadingBox>
+                ) : isError ? (
+                    <ErrorMessageBox>Failed to load movies</ErrorMessageBox>
+                ) : (
+                    <GridLayout
+                        items={movies}
+                        columns={gridColumns}
+                        renderItem={(movie) => <MovieCard movie={movie} />}
+                    />
+                )}
+            </HomePageMainSection>
+            <CinemaBlock onClick={() => void navigate(ROUTES.CINEMAS)}>
+                <CinemaBlockImage>
+                    <StyledImage
+                        src={BrowseByCinemaImage}
+                        alt="Browse by cinema"
+                    />
+                </CinemaBlockImage>
+                <CinemaBlockContent>
+                    <BrowseByCinema>
+                        <BrowseByCinemaHeading>
+                            BROWSE BY CINEMA
+                        </BrowseByCinemaHeading>
+                        <NavigateNextIcon fontSize="medium" />
+                    </BrowseByCinema>
+                    <BrowseByCinemaDescription>
+                        See what&apos;s playing in cinemas near you
+                    </BrowseByCinemaDescription>
+                </CinemaBlockContent>
+            </CinemaBlock>
+        </HomeLayout>
     );
 };
