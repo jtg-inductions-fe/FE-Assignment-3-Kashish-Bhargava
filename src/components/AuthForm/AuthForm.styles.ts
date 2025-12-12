@@ -8,13 +8,14 @@ export const FormContainer = styled('form')(
             palette: { background },
             spacing,
             shape: { borderRadius },
+            typography: { pxToRem },
         },
     }) => ({
         display: 'flex',
         flexDirection: 'column',
         gap: spacing(12),
         width: '100%',
-        maxWidth: spacing(400),
+        maxWidth: pxToRem(400),
         marginInline: 'auto',
         padding: spacing(12),
         borderRadius: borderRadius,
@@ -31,13 +32,12 @@ export const GoBackHomeButton = styled(IconButton)(() => ({
 export const StyledButton = styled(Button)(
     ({
         theme: {
-            spacing,
-            typography: { button },
+            typography: { button, pxToRem },
         },
     }) => ({
         ...button,
         fontWeight: 600,
-        height: spacing(48),
+        height: pxToRem(48),
     }),
 );
 
