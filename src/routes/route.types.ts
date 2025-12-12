@@ -19,9 +19,6 @@ export interface ChildRoute {
  * Used to structure routes by access level and layout.
  */
 export interface RouteConfig {
-    /** Optional layout component (e.g., MainLayout, AuthLayout) */
-    layout?: ComponentType;
-
     /** Type of guard — 'protected' for logged-in users, 'nonProtected' for guests */
     guard?: 'protected' | 'nonProtected';
 

@@ -1,15 +1,12 @@
+import { ReactNode } from 'react';
+
 import { Navigate } from 'react-router-dom';
 
 import { useAppSelector } from '@app/hooks';
 import { ROUTES } from '@constant';
-import { MainLayout } from '@layouts';
 
-export const ProtectedRoute = () => {
+export const ProtectedRoute = ({ children }: { children: ReactNode }) => {
     const { isAuthenticated } = useAppSelector((state) => state.auth);
 
-    return isAuthenticated ? (
-        <MainLayout />
-    ) : (
-        <Navigate to={ROUTES.LOGIN} replace />
-    );
+    return isAuthenticated ? children : <Navigate to={ROUTES.LOGIN} replace />;
 };
