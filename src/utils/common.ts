@@ -15,3 +15,7 @@ export const formatReleaseDate = (dateStr: string): string => {
     };
     return date.toLocaleDateString('en-GB', options);
 };
+
+//Capitalizes the first letter of each string in an array. (e.g., ['action', 'drama'] to ['Action','Drama']
+export const capitalizeArray = (items: string[]): string[] =>
+    items.map((item) => item.charAt(0).toUpperCase() + item.slice(1));

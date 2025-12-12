@@ -6,6 +6,7 @@ import { Typography } from '@mui/material';
 
 import DummyPoster from '@assets/images/movie-poster.png';
 import { ROUTES } from '@constant';
+import { capitalizeArray } from '@utils';
 
 import {
     MovieName,
@@ -38,7 +39,7 @@ export const MovieCard = ({ movie }: MovieCardProps) => {
             <StyledCardContent>
                 <MovieName>{movie.name}</MovieName>
                 <Typography variant="body1" color="text.secondary">
-                    {movie.genres?.join(', ')}
+                    {capitalizeArray(movie.genres)?.join(', ')}
                 </Typography>
             </StyledCardContent>
         </StyledCard>

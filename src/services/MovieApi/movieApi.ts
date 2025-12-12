@@ -1,5 +1,6 @@
 import { Movie } from '@models/movie';
 import { baseApi } from '@services/baseApi';
+import { capitalizeArray } from '@utils';
 
 import {
     GenreResponse,
@@ -42,13 +43,13 @@ export const movieApi = baseApi.injectEndpoints({
         getMovieGenres: builder.query<string[], void>({
             query: () => ({ url: 'movies/genres/' }),
             transformResponse: (response: GenreResponse[]) =>
-                response.map((g) => g.genre),
+                capitalizeArray(response.map((g) => g.genre)),
         }),
         //Fetch all languages for filters
         getMovieLanguages: builder.query<string[], void>({
             query: () => ({ url: 'movies/languages/' }),
             transformResponse: (response: LanguageResponse[]) =>
-                response.map((l) => l.language),
+                capitalizeArray(response.map((l) => l.language)),
         }),
         //Fetch single movie by slug
         getMovieBySlug: builder.query<Movie, string>({

@@ -53,7 +53,7 @@ export const MovieDetailTopContentSection = styled(Box)(
         margin: 'auto',
         flexDirection: 'column',
         gap: spacing(20),
-        padding: spacing(20),
+        padding: spacing(32),
         [up('sm')]: {
             alignItems: 'center',
             flexDirection: 'row',

@@ -21,6 +21,9 @@ export const StyledToolbar = styled(Toolbar)(() => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
+    maxWidth: '1440px',
+    width: '100%',
+    margin: '0 auto',
 }));
 
 export const LogoBox = styled(Box)(

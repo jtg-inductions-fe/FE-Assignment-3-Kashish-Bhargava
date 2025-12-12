@@ -8,6 +8,7 @@ import { Button } from '@components';
 import { ROUTES } from '@constant';
 import { useGetMovieBySlugQuery } from '@services/MovieApi';
 import { formatDuration, formatReleaseDate } from '@utils';
+import { capitalizeArray } from '@utils';
 
 import {
     ActionButtons,
@@ -77,7 +78,7 @@ export const MovieDetail = () => {
                         {/*Info — Date | Duration | Genres*/}
                         <MovieInfo>
                             <Typography variant="h3">
-                                {`${formatReleaseDate(movie.release_date)} • ${formatDuration(movie.duration)} • ${movie.genres.join(', ')}`}
+                                {`${formatReleaseDate(movie.release_date)} • ${formatDuration(movie.duration)} • ${capitalizeArray(movie.genres).join(', ')}`}
                             </Typography>
                         </MovieInfo>
 
@@ -110,7 +111,7 @@ export const MovieDetail = () => {
                         <Typography variant="h2" color="common.black">
                             About the movie
                         </Typography>
-                        <Typography variant="h3">
+                        <Typography variant="subtitle2">
                             {movie.description}
                         </Typography>
                     </DescriptionSection>
@@ -119,7 +120,7 @@ export const MovieDetail = () => {
                             Language
                         </Typography>
                         <ChipsContainer>
-                            {movie.languages.map((lang) => (
+                            {capitalizeArray(movie.languages).map((lang) => (
                                 <LanguageChip key={lang} label={lang} />
                             ))}
                         </ChipsContainer>
