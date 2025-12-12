@@ -35,10 +35,7 @@ export const Home = () => {
         <>
             <HomeLayout>
                 <HomePageBanner>
-                    <StyledImage
-                        src={MovieBanner}
-                        alt="Movie Banner"
-                    ></StyledImage>
+                    <StyledImage src={MovieBanner} alt="Movie Banner" />
                 </HomePageBanner>
                 <HomePageMainSection>
                     <HomePageHeading>

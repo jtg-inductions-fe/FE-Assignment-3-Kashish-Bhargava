@@ -13,5 +13,5 @@ export interface GridLayoutProps<T extends { id: number }> {
     /**
      * Used to provide the no. of grid cells to be displayed on different breakpoints.
      */
-    columns?: { xs: number; sm: number; md: number; lg: number };
+    columns?: Partial<{ xs: number; sm: number; md: number; lg: number }>;
 }
