@@ -36,3 +36,7 @@ export const LocationTextField = styled(TextField)(
         maxWidth: pxToRem(400),
     }),
 );
+
+export const ScrollBox = styled(Box)(({ theme: { spacing } }) => ({
+    height: spacing(2),
+}));

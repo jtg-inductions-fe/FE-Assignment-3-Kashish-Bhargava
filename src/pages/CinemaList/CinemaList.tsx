@@ -10,6 +10,7 @@ import {
     CinemaListHeader,
     CinemaListLayout,
     LocationTextField,
+    ScrollBox,
 } from './CinemaList.styles';
 
 export const CinemaList = () => {
@@ -79,6 +80,7 @@ export const CinemaList = () => {
                     value={location}
                     onChange={(e) => setSearch(e.target.value)}
                     fullWidth
+                    aria-label="Search cinemas by location"
                 />
             </CinemaListHeader>
             {isLoading && !cinemas.length ? (
@@ -103,7 +105,7 @@ export const CinemaList = () => {
                 </Box>
             )}
 
-            <Box ref={loaderRef} style={{ height: '1px' }} />
+            <ScrollBox ref={loaderRef} />
         </CinemaListLayout>
     );
 };
