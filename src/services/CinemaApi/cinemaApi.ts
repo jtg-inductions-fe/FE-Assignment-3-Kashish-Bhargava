@@ -12,7 +12,10 @@ export const cinemaApi = baseApi.injectEndpoints({
                 const params = new URLSearchParams();
                 if (cursor) params.append('cursor', cursor);
                 if (location) params.append('location', location);
-                return { url: `cinemas/?${params.toString()}` };
+                const queryString = params.toString();
+                return {
+                    url: queryString ? `cinemas/?${queryString}` : 'cinemas/',
+                };
             },
             providesTags: ['Cinemas'],
         }),

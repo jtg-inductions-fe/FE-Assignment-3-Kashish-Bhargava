@@ -1,4 +1,10 @@
-import { Card, CardContent, CardMedia, styled } from '@mui/material';
+import {
+    Card,
+    CardContent,
+    CardMedia,
+    styled,
+    Typography,
+} from '@mui/material';
 
 export const StyledCinemaCard = styled(Card)(
     ({
@@ -43,3 +49,11 @@ export const StyledCinemaCardMedia = styled(CardMedia)(
         minHeight: spacing(32),
     }),
 );
+
+export const StyledLocationText = styled(Typography)(() => ({
+    textTransform: 'capitalize',
+}));
+
+export const StyledCinemaName = styled(Typography)(() => ({
+    textTransform: 'capitalize',
+}));

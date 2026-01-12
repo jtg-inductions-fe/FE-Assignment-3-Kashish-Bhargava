@@ -2,8 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { Box, CircularProgress, Typography } from '@mui/material';
 
-import { GridLayout } from '@components';
-import { CinemaCard } from '@components';
+import { CinemaCard, GridLayout } from '@components';
 import { useGetCinemasQuery } from '@services/CinemaApi/cinemaApi';
 import type { Cinema } from '@services/CinemaApi/cinemaApi.types';
 
@@ -49,14 +48,14 @@ export const CinemaList = () => {
     const handleObserver = useCallback(
         (entries: IntersectionObserverEntry[]) => {
             const target = entries[0];
-            if (target.isIntersecting && data?.next) {
+            if (target.isIntersecting && data?.next && !isFetching) {
                 const nextCursor = new URL(data.next).searchParams.get(
                     'cursor',
                 );
                 setCursor(nextCursor);
             }
         },
-        [data],
+        [data, isFetching],
     );
 
     useEffect(() => {

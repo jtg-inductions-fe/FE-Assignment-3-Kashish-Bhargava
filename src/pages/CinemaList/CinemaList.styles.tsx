@@ -26,8 +26,13 @@ export const CinemaListHeader = styled(Box)(
 );
 
 export const LocationTextField = styled(TextField)(
-    ({ theme: { spacing } }) => ({
+    ({
+        theme: {
+            spacing,
+            typography: { pxToRem },
+        },
+    }) => ({
         marginBottom: spacing(4),
-        maxWidth: 400,
+        maxWidth: pxToRem(400),
     }),
 );
