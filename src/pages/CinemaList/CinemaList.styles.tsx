@@ -1,4 +1,4 @@
-import { Box, styled } from '@mui/material';
+import { Box, styled, TextField } from '@mui/material';
 
 export const CinemaListLayout = styled(Box)(({ theme: { spacing } }) => ({
     display: 'flex',
@@ -22,5 +22,12 @@ export const CinemaListHeader = styled(Box)(
             flexDirection: 'row',
             alignItems: 'center',
         },
+    }),
+);
+
+export const LocationTextField = styled(TextField)(
+    ({ theme: { spacing } }) => ({
+        marginBottom: spacing(4),
+        maxWidth: 400,
     }),
 );

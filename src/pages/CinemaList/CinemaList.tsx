@@ -1,13 +1,17 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-import { Box, CircularProgress, TextField, Typography } from '@mui/material';
+import { Box, CircularProgress, Typography } from '@mui/material';
 
 import { GridLayout } from '@components';
 import { CinemaCard } from '@components';
 import { useGetCinemasQuery } from '@services/CinemaApi/cinemaApi';
 import type { Cinema } from '@services/CinemaApi/cinemaApi.types';
 
-import { CinemaListHeader, CinemaListLayout } from './CinemaList.styles';
+import {
+    CinemaListHeader,
+    CinemaListLayout,
+    LocationTextField,
+} from './CinemaList.styles';
 
 export const CinemaList = () => {
     const [location, setSearch] = useState('');
@@ -38,7 +42,7 @@ export const CinemaList = () => {
                 cursor ? [...prev, ...data.results] : data.results,
             );
         }
-    }, [data]);
+    }, [data, cursor]);
 
     // Infinite scroll
     const loaderRef = useRef<HTMLDivElement | null>(null);
@@ -70,13 +74,12 @@ export const CinemaList = () => {
             <CinemaListHeader>
                 <Typography variant="h2">Browse Cinemas</Typography>
 
-                <TextField
+                <LocationTextField
                     variant="outlined"
                     placeholder="Search by location..."
                     value={location}
                     onChange={(e) => setSearch(e.target.value)}
                     fullWidth
-                    sx={{ mb: 4, maxWidth: 400 }}
                 />
             </CinemaListHeader>
             {isLoading && !cinemas.length ? (
@@ -101,7 +104,7 @@ export const CinemaList = () => {
                 </Box>
             )}
 
-            <div ref={loaderRef} style={{ height: '1px' }} />
+            <Box ref={loaderRef} style={{ height: '1px' }} />
         </CinemaListLayout>
     );
 };
