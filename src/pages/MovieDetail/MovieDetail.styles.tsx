@@ -111,6 +111,8 @@ export const DescriptionSection = styled(Box)(({ theme: { spacing } }) => ({
     display: 'flex',
     flexDirection: 'column',
     gap: spacing(8),
+    wordWrap: 'break-word',
+    overflowWrap: 'break-word',
 }));
 
 export const MovieLanguageSection = styled(Box)(({ theme: { spacing } }) => ({
