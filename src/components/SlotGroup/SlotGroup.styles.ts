@@ -5,8 +5,9 @@ export const useSlotGroupStyles = makeStyles()((theme) => ({
         display: 'flex',
         justifyContent: 'space-between',
         gap: theme.spacing(6),
-        padding: theme.spacing(4, 0),
+        padding: theme.spacing(12, 20),
         borderBottom: `1px solid ${theme.palette.divider}`,
+        background: theme.palette.common.white,
     },
     left: {
         minWidth: 220,

@@ -1,5 +1,4 @@
-import { useState } from 'react';
-
+import { useSearchParams } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 
 import { skipToken } from '@reduxjs/toolkit/query';
@@ -10,19 +9,37 @@ import { useGetMovieCinemaSlotsQuery } from '@services/SlotApi';
 
 export const MovieCinemaSlot = () => {
     const { slug } = useParams<{ slug: string }>();
-    const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
-
+    const [searchParams, setSearchParams] = useSearchParams();
+    const date =
+        searchParams.get('date') ?? new Date().toISOString().split('T')[0];
     // Fetch movie by slug
-    const { data: movie } = useGetMovieBySlugQuery(slug ?? '', {
-        skip: !slug,
-    });
+    const { data: movie, isLoading: isMovieLoading } = useGetMovieBySlugQuery(
+        slug ?? '',
+        {
+            skip: !slug,
+        },
+    );
 
-    const { data: cinemas, isLoading } = useGetMovieCinemaSlotsQuery(
+    const {
+        data: cinemas,
+        isLoading: isSlotsLoading,
+        isError: isSlotsError,
+    } = useGetMovieCinemaSlotsQuery(
         movie ? { movieId: movie.id, date } : skipToken,
     );
 
-    if (isLoading || !movie || !cinemas) {
-        return null;
+    const handleDateChange = (newDate: string) => {
+        setSearchParams({ date: newDate });
+    };
+
+    if (isMovieLoading) {
+        return <p style={{ textAlign: 'center' }}>Loading movie...</p>;
+    }
+
+    if (!movie) {
+        return (
+            <p style={{ textAlign: 'center', color: 'red' }}>Movie not found</p>
+        );
     }
 
     return (
@@ -33,10 +50,21 @@ export const MovieCinemaSlot = () => {
                 genres={movie.genres}
                 languages={movie.languages}
                 selectedDate={date}
-                onDateChange={setDate}
+                onDateChange={handleDateChange}
             />
 
-            {cinemas.map((cinema) => (
+            {isSlotsLoading && (
+                <p style={{ textAlign: 'center' }}>Loading slots...</p>
+            )}
+
+            {isSlotsError && (
+                <p style={{ textAlign: 'center', color: 'red' }}>
+                    No slots available.
+                </p>
+            )}
+
+            {cinemas?.length === 0 && <p>No slots available on this date.</p>}
+            {cinemas?.map((cinema) => (
                 <SlotGroup
                     key={cinema.id}
                     title={cinema.name}
