@@ -4,7 +4,7 @@ import { CardActionArea, Typography } from '@mui/material';
 
 import CinemaPoster from '@assets/images/cinemas.jpg';
 import { ROUTES } from '@constant';
-import type { Cinema } from '@services/CinemaApi/cinemaApi.types';
+import type { Cinema } from '@models/cinema';
 
 import {
     StyledCinemaCard,

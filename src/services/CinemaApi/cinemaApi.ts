@@ -1,3 +1,4 @@
+import { Cinema } from '@models/cinema';
 import { API_CONSTANT } from '@app/apiConstant';
 import { baseApi } from '@services/BaseApi';
 
@@ -21,7 +22,15 @@ export const cinemaApi = baseApi.injectEndpoints({
             },
             providesTags: ['Cinemas'],
         }),
+        getCinemaBySlug: builder.query<Cinema, string>({
+            query: (slug) => ({
+                url: `cinemas/${slug}`,
+            }),
+            providesTags: (result, error, slug) => [
+                { type: 'Cinemas', id: slug },
+            ],
+        }),
     }),
 });
 
-export const { useGetCinemasQuery } = cinemaApi;
+export const { useGetCinemasQuery, useGetCinemaBySlugQuery } = cinemaApi;

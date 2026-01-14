@@ -151,7 +151,9 @@ export const MovieDetail = () => {
                             <Button
                                 variant="contained"
                                 onClick={() =>
-                                    void navigate(ROUTES.MOVIE_CINEMA_SLOTS)
+                                    void navigate(
+                                        `${ROUTES.MOVIE_CINEMA_SLOTS.replace(':slug', movie.slug)}`,
+                                    )
                                 }
                             >
                                 Book Tickets
