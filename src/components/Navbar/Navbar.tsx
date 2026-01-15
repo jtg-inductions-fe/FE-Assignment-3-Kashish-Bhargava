@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import HomeIcon from '@mui/icons-material/Home';
+import { IconButton, Link } from '@mui/material';
 
 import { useAppSelector } from '@app/hooks';
 import BookMyShowLogo from '@assets/images/book-my-show-logo.png';
@@ -10,13 +11,13 @@ import { ROUTES } from '@constant';
 
 import {
     LogoBox,
-    ProfileButton,
     StyledAppBar,
     StyledImage,
     StyledToolbar,
 } from './Navbar.styles';
 
 export const Navbar = () => {
+    // Check if the user is authenticated
     const isAuthenticated = useAppSelector(
         (state) => state.auth.isAuthenticated,
     );
@@ -25,19 +26,14 @@ export const Navbar = () => {
     return (
         <StyledAppBar position="static">
             <StyledToolbar>
-                <LogoBox
-                    onClick={() => void navigate(ROUTES.HOME)}
-                    onKeyDown={(e) => {
-                        if (e.key === 'Enter' || e.key === ' ') {
-                            void navigate(ROUTES.HOME);
-                        }
-                    }}
-                    role="button"
-                    tabIndex={0}
-                    aria-label="Navigate to Home"
-                >
-                    <StyledImage src={BookMyShowLogo} alt="BookMyShow Logo" />
-                </LogoBox>
+                <Link href={ROUTES.HOME} aria-label="Navigate to Home">
+                    <LogoBox>
+                        <StyledImage
+                            src={BookMyShowLogo}
+                            alt="BookMyShow Logo"
+                        />
+                    </LogoBox>
+                </Link>
 
                 <Button
                     variant="outlined"
@@ -48,12 +44,13 @@ export const Navbar = () => {
                 </Button>
 
                 {isAuthenticated ? (
-                    <ProfileButton
+                    <IconButton
                         onClick={() => void navigate(ROUTES.PROFILE)}
                         aria-label="Navigate to Profile"
+                        color="primary"
                     >
                         <AccountCircleIcon fontSize="large" />
-                    </ProfileButton>
+                    </IconButton>
                 ) : (
                     <Button
                         variant="contained"

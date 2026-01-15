@@ -9,7 +9,6 @@ export const AuthLayoutWrapper = styled(Box)(
         },
     }) => ({
         display: 'flex',
-        flexDirection: 'column',
         backgroundColor: light,
         minHeight: '100vh',
         width: '100%',
@@ -20,10 +19,10 @@ export const AuthLayoutContainer = styled(Container)(
     ({
         theme: {
             spacing,
-            typography: { pxToRem },
+            appVars: { layoutContainerWidth },
         },
     }) => ({
-        maxWidth: pxToRem(1440),
+        maxWidth: layoutContainerWidth,
         flexGrow: 1,
         marginTop: spacing(160),
         paddingInline: spacing(16),

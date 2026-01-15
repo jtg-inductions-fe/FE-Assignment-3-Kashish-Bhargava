@@ -1,11 +1,4 @@
-import {
-    Card,
-    CardContent,
-    CardMedia,
-    styled,
-    Typography,
-} from '@mui/material';
-import shadows from '@mui/material/styles/shadows';
+import { Card, CardContent, CardMedia, styled } from '@mui/material';
 
 export const StyledCard = styled(Card)(
     ({
@@ -13,13 +6,14 @@ export const StyledCard = styled(Card)(
             palette: {
                 background: { paper },
             },
-            shape: { borderRadius },
+            shape: { borderRadiusLg },
+            shadows,
         },
     }) => ({
         display: 'flex',
         flexDirection: 'column',
         width: '100%',
-        borderRadius: borderRadius,
+        borderRadius: borderRadiusLg,
         boxShadow: shadows[8],
         height: '100%',
         backgroundColor: paper,
@@ -41,18 +35,3 @@ export const StyledCardMedia = styled(CardMedia)(
 export const StyledCardContent = styled(CardContent)(() => ({
     flexGrow: 1,
 }));
-
-export const MovieName = styled(Typography)(
-    ({
-        theme: {
-            palette: {
-                secondary: { dark },
-            },
-            typography: { subtitle1 },
-        },
-    }) => ({
-        ...subtitle1,
-        fontWeight: 600,
-        color: dark,
-    }),
-);

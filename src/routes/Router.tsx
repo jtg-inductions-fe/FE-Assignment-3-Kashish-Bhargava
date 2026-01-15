@@ -21,6 +21,7 @@ const wrapWithGuards = (config: RouteConfig) => {
             </NonProtectedRoute>
         );
     }
+
     return <Outlet />;
 };
 
