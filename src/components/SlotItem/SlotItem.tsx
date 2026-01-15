@@ -1,5 +1,7 @@
 import dayjs from 'dayjs';
 
+import { Box, Typography } from '@mui/material';
+
 import { calculateFillPercentage, getSlotFillStatus } from '@utils';
 
 import { useSlotItemStyles } from './SlotItem.styles';
@@ -13,6 +15,10 @@ export const SlotItem = ({ startTime, metrics }: SlotItemProps) => {
     const { classes } = useSlotItemStyles({ status });
 
     return (
-        <div className={classes.slot}>{dayjs(startTime).format('hh:mm A')}</div>
+        <Box className={classes.slot}>
+            <Typography variant="h3">
+                {dayjs(startTime).format('hh:mm A')}
+            </Typography>
+        </Box>
     );
 };

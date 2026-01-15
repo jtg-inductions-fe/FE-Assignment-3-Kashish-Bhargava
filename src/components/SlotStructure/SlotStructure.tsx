@@ -23,7 +23,11 @@ export const SlotStructure = ({
     return (
         <div className={classes.container}>
             <div className={classes.header}>
-                <Typography variant="h1" color="common.black">
+                <Typography
+                    variant="h1"
+                    color="common.black"
+                    textTransform="capitalize"
+                >
                     {title}
                 </Typography>
 
@@ -80,11 +84,11 @@ export const SlotStructure = ({
             <div className={classes.statusRow}>
                 <div className={classes.availability}>
                     <span className={classes.availabilityIndicator}></span>
-                    <Typography variant="body2">Available</Typography>
+                    <Typography variant="body1">Available</Typography>
                 </div>
                 <div className={classes.fastFilling}>
                     <span className={classes.fastFillingIndicator}></span>
-                    <Typography variant="body2">Fast Filling</Typography>
+                    <Typography variant="body1">Fast Filling</Typography>
                 </div>
             </div>
         </div>

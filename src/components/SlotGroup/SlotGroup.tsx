@@ -1,4 +1,4 @@
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 import { useSlotGroupStyles } from './SlotGroup.styles';
 import { SlotGroupProps } from './SlotGroup.types';
@@ -8,21 +8,27 @@ export const SlotGroup = ({ title, subtitle, slots }: SlotGroupProps) => {
     const { classes } = useSlotGroupStyles();
 
     return (
-        <div className={classes.container}>
-            <div className={classes.left}>
-                <Typography variant="h6">{title}</Typography>
+        <Box className={classes.container}>
+            <Box className={classes.left}>
+                <Typography
+                    variant="h2"
+                    textTransform="capitalize"
+                    color="common.black"
+                >
+                    {title}
+                </Typography>
                 {subtitle && (
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="h3" textTransform="capitalize">
                         {subtitle}
                     </Typography>
                 )}
-            </div>
+            </Box>
 
-            <div className={classes.right}>
+            <Box className={classes.right}>
                 {slots.map((slot) => (
                     <SlotItem key={slot.id} startTime={slot.start_time} />
                 ))}
-            </div>
-        </div>
+            </Box>
+        </Box>
     );
 };

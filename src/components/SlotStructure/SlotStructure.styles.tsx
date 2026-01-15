@@ -7,11 +7,11 @@ export const useSlotStructureStyles = makeStyles()(
             divider,
             common: { white },
         },
+        typography: { pxToRem },
     }) => ({
         container: {
             display: 'flex',
             flexDirection: 'column',
-            // gap: spacing(8),
         },
         header: {
             display: 'flex',
@@ -30,9 +30,11 @@ export const useSlotStructureStyles = makeStyles()(
         },
         movieDetailChip: { borderRadius: spacing(12) },
         dateChip: {
-            margin: spacing(1),
-            padding: spacing(18),
+            padding: spacing(24),
             borderRadius: spacing(2),
+            '& .MuiChip-label': {
+                fontSize: pxToRem(16),
+            },
         },
         dateRow: {
             display: 'flex',
