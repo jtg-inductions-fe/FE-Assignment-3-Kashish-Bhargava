@@ -3,7 +3,7 @@ export interface Slot {
     start_time: string;
     end_time: string;
     price: string;
-    fill_percentage?: number; //check
+    fill_percentage?: number;
 }
 
 export interface SlotMetrics {

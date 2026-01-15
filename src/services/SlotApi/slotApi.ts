@@ -1,9 +1,10 @@
 import { baseApi } from '@services/baseApi';
 
 import type {
+    CinemaMovieSlotArgs,
     CinemaMovieSlotResponse,
+    MovieCinemaSlotArgs,
     MovieCinemaSlotResponse,
-    SlotQueryArgs,
 } from './slotApi.types';
 
 export const slotApi = baseApi.injectEndpoints({
@@ -11,7 +12,7 @@ export const slotApi = baseApi.injectEndpoints({
         /** Movie Cinema slots */
         getMovieCinemaSlots: builder.query<
             MovieCinemaSlotResponse,
-            { movieId: number } & SlotQueryArgs //check
+            MovieCinemaSlotArgs
         >({
             query: ({ movieId, date }) => ({
                 url: `movies/${movieId}/slots/`,
@@ -22,7 +23,7 @@ export const slotApi = baseApi.injectEndpoints({
         /** Cinema Movie slots */
         getCinemaMovieSlots: builder.query<
             CinemaMovieSlotResponse,
-            { cinemaId: number } & SlotQueryArgs
+            CinemaMovieSlotArgs
         >({
             query: ({ cinemaId, date }) => ({
                 url: `cinemas/${cinemaId}/slots/`,

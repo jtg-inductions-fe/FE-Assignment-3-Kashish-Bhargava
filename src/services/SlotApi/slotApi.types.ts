@@ -26,3 +26,11 @@ export type MovieCinemaSlotResponse = CinemaWithSlots[];
 export interface SlotQueryArgs {
     date: string;
 }
+
+export type MovieCinemaSlotArgs = {
+    movieId: number;
+} & SlotQueryArgs;
+
+export type CinemaMovieSlotArgs = {
+    cinemaId: number;
+} & SlotQueryArgs;
