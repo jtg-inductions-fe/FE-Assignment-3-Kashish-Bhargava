@@ -50,6 +50,13 @@ export const Home = () => {
         return <ErrorMessageBox>Failed to load movies</ErrorMessageBox>;
     }
 
+    //Show empty state if no movies available
+    if (movies.length === 0) {
+        return (
+            <ErrorMessageBox>No movies available at the moment</ErrorMessageBox>
+        );
+    }
+
     return (
         <HomeLayout>
             {/*Top banner section*/}

@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { Grid2 } from '@mui/material';
 
 import { GRID_CONSTANTS } from '@constant';
@@ -14,20 +16,11 @@ export const GridLayout = (props: GridLayoutProps) => {
 
     return (
         <Grid2 container columnSpacing={16} rowGap={20}>
-            {Array.isArray(children) ? (
-                children.map((child, index) => (
-                    <Grid2
-                        key={index}
-                        size={columns}
-                        display="flex"
-                        justifyContent="center"
-                    >
-                        {child}
-                    </Grid2>
-                ))
-            ) : (
-                <Grid2 size={columns}>{children}</Grid2>
-            )}
+            {React.Children.map(children, (child) => (
+                <Grid2 size={columns} display="flex" justifyContent="center">
+                    {child}
+                </Grid2>
+            ))}
         </Grid2>
     );
 };

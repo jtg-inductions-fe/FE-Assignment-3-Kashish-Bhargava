@@ -24,6 +24,7 @@ const commonConfig: UserConfig = {
                     }
                     if (/\.(woff2|ttf)$/.test(name ?? ''))
                         return 'assets/fonts/[name]-[hash][extname]';
+
                     return '[name]-[hash][extname]';
                 },
             },

@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import HomeIcon from '@mui/icons-material/Home';
 import { IconButton, Link } from '@mui/material';
 
 import { useAppSelector } from '@app/hooks';
@@ -35,14 +34,6 @@ export const Navbar = () => {
                     </LogoBox>
                 </Link>
 
-                <Button
-                    variant="outlined"
-                    onClick={() => void navigate(ROUTES.HOME)}
-                    aria-label="Home button"
-                >
-                    <HomeIcon />
-                </Button>
-
                 {isAuthenticated ? (
                     <IconButton
                         onClick={() => void navigate(ROUTES.PROFILE)}
@@ -55,6 +46,7 @@ export const Navbar = () => {
                     <Button
                         variant="contained"
                         onClick={() => void navigate(ROUTES.LOGIN)}
+                        aria-label="Navigate to Login"
                     >
                         Login
                     </Button>

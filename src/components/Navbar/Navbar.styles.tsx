@@ -38,7 +38,7 @@ export const LogoBox = styled(Box)(
             typography: { pxToRem },
         },
     }) => ({
-        height: pxToRem(48),
+        height: pxToRem(56),
     }),
 );
 

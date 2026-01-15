@@ -18,7 +18,6 @@ export const MainContainer = styled(Container)(
     ({
         theme: {
             spacing,
-            breakpoints: { up },
             appVars: { layoutContainerWidth },
         },
     }) => ({
@@ -26,8 +25,5 @@ export const MainContainer = styled(Container)(
         flexGrow: 1,
         marginTop: spacing(32),
         paddingInline: spacing(16),
-        [up('sm')]: {
-            paddingInline: spacing(16),
-        },
     }),
 );

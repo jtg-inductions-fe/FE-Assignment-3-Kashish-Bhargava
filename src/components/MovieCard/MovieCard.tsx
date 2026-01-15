@@ -1,6 +1,9 @@
+import { useNavigate } from 'react-router-dom';
+
 import { CardActionArea, Typography } from '@mui/material';
 
 import DummyPoster from '@assets/images/movie-poster.png';
+import { ROUTES } from '@constant';
 
 import {
     StyledCard,
@@ -16,14 +19,15 @@ import { MovieCardProps } from './MovieCard.types';
  */
 export const MovieCard = (props: MovieCardProps) => {
     const { movie } = props;
+    const navigate = useNavigate();
 
     return (
         <StyledCard>
-            <CardActionArea>
+            <CardActionArea onClick={() => void navigate(ROUTES.MOVIES)}>
                 <StyledCardMedia image={DummyPoster} title={movie.name} />
                 <StyledCardContent>
                     <Typography
-                        variant="body1"
+                        variant="h3"
                         color="secondary.dark"
                         fontWeight={600}
                     >
