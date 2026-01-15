@@ -104,7 +104,7 @@ export const CinemaBlockImage = styled(Box)(
     }),
 );
 
-export const StyledImage = styled('img')(() => ({
+export const StyledCoverImage = styled('img')(() => ({
     width: '100%',
     height: '100%',
     objectFit: 'cover',

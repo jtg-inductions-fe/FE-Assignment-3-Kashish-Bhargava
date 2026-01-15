@@ -26,7 +26,7 @@ export const TextWrapper = styled(Box)(
     }),
 );
 
-export const StyledImage = styled('img')({
+export const StyledErrorViewImage = styled('img')({
     width: '100%',
     height: 'auto',
 });

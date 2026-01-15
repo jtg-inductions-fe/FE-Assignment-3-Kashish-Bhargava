@@ -1,7 +1,7 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { IconButton, Link } from '@mui/material';
+import { IconButton } from '@mui/material';
 
 import { useAppSelector } from '@app/hooks';
 import BookMyShowLogo from '@assets/images/book-my-show-logo.png';
@@ -11,7 +11,7 @@ import { ROUTES } from '@constant';
 import {
     LogoBox,
     StyledAppBar,
-    StyledImage,
+    StyledLogoImage,
     StyledToolbar,
 } from './Navbar.styles';
 
@@ -25,9 +25,9 @@ export const Navbar = () => {
     return (
         <StyledAppBar position="static">
             <StyledToolbar>
-                <Link href={ROUTES.HOME} aria-label="Navigate to Home">
+                <Link to={ROUTES.HOME} aria-label="Navigate to Home">
                     <LogoBox>
-                        <StyledImage
+                        <StyledLogoImage
                             src={BookMyShowLogo}
                             alt="BookMyShow Logo"
                         />

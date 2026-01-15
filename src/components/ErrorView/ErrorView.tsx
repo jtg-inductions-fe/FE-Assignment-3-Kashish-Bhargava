@@ -5,7 +5,7 @@ import { Box, Typography } from '@mui/material';
 import { Button } from '@components';
 import { ROUTES } from '@constant';
 
-import { StyledImage, TextWrapper, Wrapper } from './ErrorView.styles';
+import { StyledErrorViewImage, TextWrapper, Wrapper } from './ErrorView.styles';
 import { ErrorProps } from './ErrorView.types';
 
 export const ErrorView = (props: ErrorProps) => {
@@ -15,7 +15,7 @@ export const ErrorView = (props: ErrorProps) => {
     return (
         <Wrapper>
             <Box>
-                <StyledImage src={image} alt={altText} />
+                <StyledErrorViewImage src={image} alt={altText} />
             </Box>
 
             <TextWrapper>

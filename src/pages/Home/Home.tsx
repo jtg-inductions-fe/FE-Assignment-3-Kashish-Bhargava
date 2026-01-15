@@ -23,7 +23,7 @@ import {
     HomePageMainSection,
     LoadingBox,
     SeeAllButton,
-    StyledImage,
+    StyledCoverImage,
 } from './Home.styles';
 
 export const Home = () => {
@@ -61,7 +61,7 @@ export const Home = () => {
         <HomeLayout>
             {/*Top banner section*/}
             <HomePageBanner>
-                <StyledImage src={MovieBanner} alt="Movie Banner" />
+                <StyledCoverImage src={MovieBanner} alt="Movie Banner" />
             </HomePageBanner>
             {/*Latest movies section*/}
             <HomePageMainSection>
@@ -88,7 +88,7 @@ export const Home = () => {
             {/*Browse by cinema section*/}
             <CinemaBlock onClick={() => void navigate(ROUTES.CINEMAS)}>
                 <CinemaBlockImage>
-                    <StyledImage
+                    <StyledCoverImage
                         src={BrowseByCinemaImage}
                         alt="Browse by cinema"
                     />
