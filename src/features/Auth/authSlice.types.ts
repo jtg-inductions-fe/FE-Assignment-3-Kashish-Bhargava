@@ -33,16 +33,16 @@ export interface AuthState {
 }
 
 /**
- * Payload structure for the setCredentials action.
+ * Payload structure for the setAccessToken action.
  * Used to update authentication details after login or signup.
  */
-export interface SetCredentialsPayload {
-    /** Authenticated user's information */
-    user?: User;
+export interface SetAccessTokenPayload {
+    // /** Authenticated user's information */
+    // user?: User;
 
     /** New access token received from the backend */
     accessToken: string;
 
-    /** Corresponding refresh token */
-    refreshToken: string;
+    //     /** Corresponding refresh token */
+    //     refreshToken: string;
 }

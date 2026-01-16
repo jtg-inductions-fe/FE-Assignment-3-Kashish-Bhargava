@@ -15,12 +15,7 @@ export interface SignupRequest {
 }
 
 export interface SignupResponse {
-    /**Registered user's email address */
-    email: string;
-    /**Registered user's full name */
-    name: string;
-    /**Registered user's contact phone number */
-    phone_number: string;
+    access: string;
 }
 
 // Login

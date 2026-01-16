@@ -1,3 +1,4 @@
+import { API_CONSTANT } from '@constant';
 import { baseApi } from '@services/baseApi';
 
 import type {
@@ -11,7 +12,7 @@ export const userApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
         signup: builder.mutation<SignupResponse, SignupRequest>({
             query: (data) => ({
-                url: 'users/signup/',
+                url: API_CONSTANT.SIGNUP,
                 method: 'POST',
                 body: data,
             }),
@@ -19,7 +20,7 @@ export const userApi = baseApi.injectEndpoints({
 
         login: builder.mutation<LoginResponse, LoginRequest>({
             query: (data) => ({
-                url: 'users/login/',
+                url: API_CONSTANT.LOGIN,
                 method: 'POST',
                 body: data,
             }),

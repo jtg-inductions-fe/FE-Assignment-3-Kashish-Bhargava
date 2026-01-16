@@ -1,21 +1,24 @@
 import { useState } from 'react';
 
-import { useNavigate } from 'react-router-dom';
-
+// import { useLocation, useNavigate } from 'react-router-dom';
 import { Alert, Snackbar } from '@mui/material';
 
 import { useAppDispatch } from '@app/hooks';
 import { AuthForm } from '@components';
-import { ROUTES } from '@constant';
-import { setCredentials } from '@features/Auth/authSlice';
+// import { ROUTES } from '@constant';
+import { setAccessToken } from '@features/Auth/authSlice';
 import type { AuthError, SnackbarState } from '@models/auth';
+// import { LocationState } from '@models/auth';
 import { useLoginMutation } from '@services/UserApi/userApi';
 import type { LoginRequest } from '@services/UserApi/userApi.types';
 
 export const Login = () => {
     const [login, { isLoading }] = useLoginMutation();
     const dispatch = useAppDispatch();
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
+    // const location = useLocation();
+    // const state = (location.state as LocationState) || null;
+    // const from = state?.from ?? ROUTES.HOME;
 
     // Snackbar state
     const [snackbar, setSnackbar] = useState<SnackbarState>({
@@ -35,9 +38,8 @@ export const Login = () => {
             //200 — successful login
             if (response) {
                 dispatch(
-                    setCredentials({
+                    setAccessToken({
                         accessToken: response.access,
-                        refreshToken: '',
                     }),
                 );
 
@@ -48,9 +50,9 @@ export const Login = () => {
                 });
 
                 // Redirect after a short delay
-                setTimeout(() => {
-                    void navigate(ROUTES.HOME);
-                }, 1500);
+                // setTimeout(() => {
+                //     void navigate(from, { replace: true });
+                // }, 1500);
             }
         } catch (error) {
             const err = error as AuthError;

@@ -1,4 +1,6 @@
-import { IconButton, Link, styled } from '@mui/material';
+import { Link } from 'react-router-dom';
+
+import { IconButton, styled } from '@mui/material';
 
 import { Button } from '../Button/Button';
 
@@ -7,7 +9,7 @@ export const FormContainer = styled('form')(
         theme: {
             palette: { background },
             spacing,
-            shape: { borderRadius },
+            shape: { borderRadiusLg },
             typography: { pxToRem },
         },
     }) => ({
@@ -18,7 +20,7 @@ export const FormContainer = styled('form')(
         maxWidth: pxToRem(400),
         marginInline: 'auto',
         padding: spacing(12),
-        borderRadius: borderRadius,
+        borderRadius: borderRadiusLg,
         backgroundColor: background.default,
         position: 'relative',
         textAlign: 'center',

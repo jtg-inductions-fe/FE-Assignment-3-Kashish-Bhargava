@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { FieldValues, Path, useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import Visibility from '@mui/icons-material/Visibility';
@@ -16,6 +16,7 @@ import {
 } from '@mui/material';
 
 import { ROUTES } from '@constant';
+import { LocationState } from '@models/auth';
 
 import {
     FormContainer,
@@ -34,6 +35,8 @@ const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
 export const AuthForm = <T extends FieldValues>(props: AuthFormProps<T>) => {
     const { mode, onSubmit, isLoading = false } = props;
     const navigate = useNavigate();
+    const location = useLocation();
+    const state = location.state as LocationState | null;
     const isSignup = mode === 'signup';
 
     const {
@@ -210,12 +213,16 @@ export const AuthForm = <T extends FieldValues>(props: AuthFormProps<T>) => {
                 {mode === 'login' ? (
                     <>
                         Don&apos;t have an account?{' '}
-                        <StyledLink href={ROUTES.SIGNUP}>Sign Up</StyledLink>
+                        <StyledLink to={ROUTES.SIGNUP} state={state}>
+                            Sign Up
+                        </StyledLink>
                     </>
                 ) : (
                     <>
                         Already have an account?{' '}
-                        <StyledLink href={ROUTES.LOGIN}>Login</StyledLink>
+                        <StyledLink to={ROUTES.LOGIN} state={state}>
+                            Login
+                        </StyledLink>
                     </>
                 )}
             </Typography>

@@ -1,18 +1,17 @@
 import { useState } from 'react';
 
-import { useNavigate } from 'react-router-dom';
-
 import { Alert, Snackbar } from '@mui/material';
 
+import { useAppDispatch } from '@app/hooks';
 import { AuthForm } from '@components';
-import { ROUTES } from '@constant';
+import { setAccessToken } from '@features/Auth';
 import type { AuthError, BackendError, SnackbarState } from '@models/auth';
 import { useSignupMutation } from '@services/UserApi/userApi';
 import type { SignupRequest } from '@services/UserApi/userApi.types';
 
 export const Signup = () => {
     const [signup, { isLoading }] = useSignupMutation();
-    const navigate = useNavigate();
+    const dispatch = useAppDispatch();
 
     // Snackbar state
     const [snackbar, setSnackbar] = useState<SnackbarState>({
@@ -29,17 +28,17 @@ export const Signup = () => {
         try {
             const response = await signup(data).unwrap();
 
-            if (response) {
-                setSnackbar({
-                    open: true,
-                    message: 'Signup successful! Redirecting to login...',
-                    severity: 'success',
-                });
+            dispatch(
+                setAccessToken({
+                    accessToken: response.access,
+                }),
+            );
 
-                setTimeout(() => {
-                    void navigate(ROUTES.LOGIN);
-                }, 2000);
-            }
+            setSnackbar({
+                open: true,
+                message: 'Signup successful! Redirecting...',
+                severity: 'success',
+            });
         } catch (error) {
             const err = error as AuthError;
 
