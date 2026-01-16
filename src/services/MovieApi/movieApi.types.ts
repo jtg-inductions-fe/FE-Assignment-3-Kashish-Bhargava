@@ -20,6 +20,8 @@ export interface MoviesQueryArgs {
     languages?: string[];
     /**List of selected genres to filter movies. */
     genres?: string[];
+    /**Flag to fetch latest movies */
+    latest?: boolean;
 }
 
 /**API response structure for a single movie genre */

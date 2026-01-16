@@ -7,7 +7,7 @@ import BrowseByCinemaImage from '@assets/images/browse-by-cinema.svg';
 import MovieBanner from '@assets/images/movie-banner.png';
 import { GridLayout, MovieCard } from '@components';
 import { ROUTES } from '@constant';
-import { useGetLatestMoviesQuery } from '@services/MovieApi/movieApi';
+import { useGetMoviesQuery } from '@services/MovieApi/movieApi';
 
 import {
     BrowseByCinema,
@@ -28,7 +28,8 @@ import {
 
 export const Home = () => {
     const navigate = useNavigate();
-    const { data: movies = [], isLoading, isError } = useGetLatestMoviesQuery();
+    const { data, isLoading, isError } = useGetMoviesQuery({ latest: true });
+    const movies = data?.results ?? [];
     const gridColumns = { xs: 6, sm: 4, md: 3, lg: 2 };
 
     return (

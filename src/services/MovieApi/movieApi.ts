@@ -1,4 +1,3 @@
-import { Movie } from '@models/movie';
 import { baseApi } from '@services/baseApi';
 
 import {
@@ -10,21 +9,18 @@ import {
 
 export const movieApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
-        getLatestMovies: builder.query<Movie[], void>({
-            query: () => ({
-                url: 'movies/',
-                params: { latest: 'true' },
-            }),
-            transformResponse: (response: MoviesResponse | Movie[]) =>
-                Array.isArray(response) ? response : (response.results ?? []),
-            providesTags: ['Movies'],
-        }),
         getMovies: builder.query<MoviesResponse, MoviesQueryArgs | void>({
             query: (args) => {
-                const { cursor, languages = [], genres = [] } = args ?? {};
+                const {
+                    cursor,
+                    languages = [],
+                    genres = [],
+                    latest,
+                } = args ?? {};
 
                 const searchParams = new URLSearchParams();
                 if (cursor) searchParams.append('cursor', cursor);
+                if (latest) searchParams.set('latest', 'true');
                 languages.forEach((lang) =>
                     searchParams.append('languages', lang),
                 );
@@ -52,7 +48,6 @@ export const movieApi = baseApi.injectEndpoints({
 });
 
 export const {
-    useGetLatestMoviesQuery,
     useGetMoviesQuery,
     useGetMovieGenresQuery,
     useGetMovieLanguagesQuery,
