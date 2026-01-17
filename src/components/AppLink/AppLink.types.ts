@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 import { LinkProps as RouterLinkProps } from 'react-router-dom';
 
 import { TypographyProps } from '@mui/material';
@@ -19,8 +21,8 @@ export interface AppLinkProps extends RouterLinkProps {
     noUnderline?: boolean;
 
     /** Optional icon before text */
-    startIcon?: React.ReactNode;
+    startIcon?: ReactNode;
 
     /** Optional icon after text */
-    endIcon?: React.ReactNode;
+    endIcon?: ReactNode;
 }
