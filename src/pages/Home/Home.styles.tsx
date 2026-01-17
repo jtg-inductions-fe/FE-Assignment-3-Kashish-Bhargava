@@ -1,6 +1,7 @@
-import { Box, styled, Typography } from '@mui/material';
-
-import { Button } from '@components';
+/**
+ * Styled components for the Home page.
+ */
+import { Box, BoxProps, styled, Typography } from '@mui/material';
 
 export const HomeLayout = styled(Box)(({ theme: { spacing } }) => ({
     display: 'flex',
@@ -22,6 +23,7 @@ export const HomePageBanner = styled(Box)(
         overflow: 'hidden',
         width: '100%',
         height: 'auto',
+
         [up('md')]: {
             height: pxToRem(400),
         },
@@ -32,10 +34,6 @@ export const HomePageHeading = styled(Box)(() => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-}));
-
-export const SeeAllButton = styled(Button)(() => ({
-    padding: 0,
 }));
 
 export const HomePageMainSection = styled(Box)(({ theme: { spacing } }) => ({
@@ -65,7 +63,7 @@ export const ErrorMessageBox = styled(Box)(
     }),
 );
 
-export const CinemaBlock = styled(Box)(
+export const CinemaBlock = styled(Box)<BoxProps>(
     ({
         theme: {
             spacing,
@@ -78,10 +76,11 @@ export const CinemaBlock = styled(Box)(
     }) => ({
         display: 'flex',
         alignItems: 'center',
+        justifyContent: 'flex-start',
         gap: spacing(4),
         backgroundColor: light,
         borderRadius: borderRadius,
-        cursor: 'pointer',
+
         [up('md')]: {
             padding: spacing(12),
         },
@@ -97,6 +96,7 @@ export const CinemaBlockImage = styled(Box)(
     }) => ({
         width: pxToRem(80),
         height: pxToRem(80),
+
         [up('md')]: {
             width: pxToRem(100),
             height: pxToRem(100),
@@ -116,7 +116,7 @@ export const CinemaBlockContent = styled(Box)(() => ({
     flexDirection: 'column',
 }));
 
-export const BrowseByCinema = styled(Button)(
+export const BrowseByCinema = styled(Box)(
     ({
         theme: {
             palette: {
@@ -126,9 +126,11 @@ export const BrowseByCinema = styled(Button)(
             typography: { pxToRem },
         },
     }) => ({
+        display: 'flex',
+        alignItems: 'center',
         color: black,
-        padding: 0,
         maxWidth: pxToRem(168),
+
         [up('md')]: {
             maxWidth: pxToRem(188),
         },
@@ -143,6 +145,7 @@ export const BrowseByCinemaHeading = styled(Typography)(
         },
     }) => ({
         ...subtitle1,
+
         [up('md')]: {
             ...body1,
         },
@@ -161,6 +164,7 @@ export const BrowseByCinemaDescription = styled(Typography)(
     }) => ({
         ...caption,
         color: primary,
+
         [up('md')]: {
             ...subtitle2,
         },

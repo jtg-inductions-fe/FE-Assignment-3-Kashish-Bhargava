@@ -9,7 +9,14 @@ import { StyledErrorViewImage, TextWrapper, Wrapper } from './ErrorView.styles';
 import { ErrorProps } from './ErrorView.types';
 
 export const ErrorView = (props: ErrorProps) => {
+    /**
+     * Props for the error view component.
+     */
     const { title, description, image, altText } = props;
+
+    /**
+     * Hook for navigating programmatically.
+     */
     const navigate = useNavigate();
 
     return (

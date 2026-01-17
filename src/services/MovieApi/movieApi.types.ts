@@ -11,3 +11,11 @@ export interface MoviesResponse {
     /**List of movies returned in the current page. */
     results: Movie[];
 }
+
+/** Query parameters used when fetching paginated movie lists  */
+export interface MoviesQueryArgs {
+    /**Cursor for pagination (used to fetch next or previous results).*/
+    cursor?: string | null;
+    /**Flag to fetch latest movies */
+    latest?: boolean;
+}

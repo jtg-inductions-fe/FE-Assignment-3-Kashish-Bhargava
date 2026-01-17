@@ -1,3 +1,6 @@
+/**
+ * Styled MovieCard component.
+ */
 import { Card, CardContent, CardMedia, styled } from '@mui/material';
 
 export const StyledCard = styled(Card)(
@@ -6,14 +9,14 @@ export const StyledCard = styled(Card)(
             palette: {
                 background: { paper },
             },
-            shape: { borderRadiusLg },
+            shape: { borderRadius },
             shadows,
         },
     }) => ({
         display: 'flex',
         flexDirection: 'column',
         width: '100%',
-        borderRadius: borderRadiusLg,
+        borderRadius: borderRadius,
         boxShadow: shadows[8],
         height: '100%',
         backgroundColor: paper,

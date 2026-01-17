@@ -18,7 +18,14 @@ import { MovieCardProps } from './MovieCard.types';
  * @returns The rendered movie card component.
  */
 export const MovieCard = (props: MovieCardProps) => {
+    /**
+     * Props for the movie card component.
+     */
     const { movie } = props;
+
+    /**
+     * Hook for navigating programmatically.
+     */
     const navigate = useNavigate();
 
     return (

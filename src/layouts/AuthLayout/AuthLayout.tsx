@@ -9,6 +9,9 @@ import { AuthLayoutProps } from './AuthLayout.types';
  * @returns The rendered auth layout component.
  */
 export const AuthLayout = (props: AuthLayoutProps) => {
+    /**
+     * Props for the auth layout component.
+     */
     const { children } = props;
 
     return (

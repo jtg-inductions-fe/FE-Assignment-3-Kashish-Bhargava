@@ -1,3 +1,6 @@
+/**
+ * Styled Navbar component.
+ */
 import { AppBar, Box, styled, Toolbar } from '@mui/material';
 
 export const StyledAppBar = styled(AppBar)(

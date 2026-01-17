@@ -20,11 +20,16 @@ export const Navbar = () => {
     const isAuthenticated = useAppSelector(
         (state) => state.auth.isAuthenticated,
     );
+
+    /**
+     * Hook for navigating programmatically.
+     */
     const navigate = useNavigate();
 
     return (
         <StyledAppBar position="static">
             <StyledToolbar>
+                {/* Logo */}
                 <Link to={ROUTES.HOME} aria-label="Navigate to Home">
                     <LogoBox>
                         <StyledLogoImage
@@ -33,7 +38,7 @@ export const Navbar = () => {
                         />
                     </LogoBox>
                 </Link>
-
+                {/* User Profile */}
                 {isAuthenticated ? (
                     <IconButton
                         onClick={() => void navigate(ROUTES.PROFILE)}

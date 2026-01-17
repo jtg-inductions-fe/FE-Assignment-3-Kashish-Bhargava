@@ -11,6 +11,9 @@ import { ROUTES } from '@constant';
  * @returns The rendered non-protected route component.
  */
 export const NonProtectedRoute = ({ children }: { children: ReactNode }) => {
+    /**
+     * Get the authentication status from the Redux store.
+     */
     const { isAuthenticated } = useAppSelector((state) => state.auth);
 
     return !isAuthenticated ? children : <Navigate to={ROUTES.HOME} replace />;

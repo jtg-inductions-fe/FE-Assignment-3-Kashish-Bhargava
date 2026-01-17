@@ -5,9 +5,9 @@ import { CircularProgress, Typography } from '@mui/material';
 
 import BrowseByCinemaImage from '@assets/images/browse-by-cinema.svg';
 import MovieBanner from '@assets/images/movie-banner.png';
-import { GridLayout, MovieCard } from '@components';
+import { AppLink, Button, GridLayout, MovieCard } from '@components';
 import { GRID_CONSTANTS, ROUTES } from '@constant';
-import { useGetLatestMoviesQuery } from '@services/MovieApi/movieApi';
+import { useGetMoviesQuery } from '@services/MovieApi/movieApi';
 
 import {
     BrowseByCinema,
@@ -22,7 +22,6 @@ import {
     HomePageHeading,
     HomePageMainSection,
     LoadingBox,
-    SeeAllButton,
     StyledCoverImage,
 } from './Home.styles';
 
@@ -31,7 +30,8 @@ export const Home = () => {
     const navigate = useNavigate();
 
     //Fetch latest movies for homepage
-    const { data: movies = [], isLoading, isError } = useGetLatestMoviesQuery();
+    const { data, isLoading, isError } = useGetMoviesQuery({ latest: true });
+    const movies = data?.results || [];
 
     //Grid column configuration
     const gridColumns = GRID_CONSTANTS.DEFAULT_GRID;
@@ -70,13 +70,14 @@ export const Home = () => {
                         Latest Movies
                     </Typography>
                     {/*Navigate to all movies page*/}
-                    <SeeAllButton
-                        onClick={() => void navigate(ROUTES.MOVIES)}
+                    <AppLink
+                        to={ROUTES.MOVIES}
+                        label="See All"
+                        variant="body1"
+                        endIcon={<NavigateNextIcon fontSize="medium" />}
+                        color="primary.main"
                         aria-label="See all movies"
-                    >
-                        <Typography variant="body1">See All</Typography>
-                        <NavigateNextIcon fontSize="medium" />
-                    </SeeAllButton>
+                    />
                 </HomePageHeading>
                 {/*Movies grid layout*/}
                 <GridLayout columns={gridColumns}>
@@ -86,7 +87,10 @@ export const Home = () => {
                 </GridLayout>
             </HomePageMainSection>
             {/*Browse by cinema section*/}
-            <CinemaBlock onClick={() => void navigate(ROUTES.CINEMAS)}>
+            <CinemaBlock
+                onClick={() => void navigate(ROUTES.CINEMAS)}
+                component={Button}
+            >
                 <CinemaBlockImage>
                     <StyledCoverImage
                         src={BrowseByCinemaImage}
