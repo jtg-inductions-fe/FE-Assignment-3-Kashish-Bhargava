@@ -1,9 +1,5 @@
 /**Styled AuthForm component  */
-import { Link } from 'react-router-dom';
-
 import { IconButton, styled } from '@mui/material';
-
-import { Button } from '../Button/Button';
 
 export const FormContainer = styled('form')(
     ({
@@ -31,32 +27,3 @@ export const FormContainer = styled('form')(
 export const GoBackHomeButton = styled(IconButton)(() => ({
     position: 'absolute',
 }));
-
-export const StyledButton = styled(Button)(
-    ({
-        theme: {
-            typography: { button, pxToRem },
-        },
-    }) => ({
-        ...button,
-        fontWeight: 600,
-        height: pxToRem(48),
-    }),
-);
-
-export const StyledLink = styled(Link)(
-    ({
-        theme: {
-            palette: {
-                primary: { main },
-            },
-        },
-    }) => ({
-        textDecoration: 'none',
-        color: main,
-        cursor: 'pointer',
-        '&:hover': {
-            textDecoration: 'underline',
-        },
-    }),
-);

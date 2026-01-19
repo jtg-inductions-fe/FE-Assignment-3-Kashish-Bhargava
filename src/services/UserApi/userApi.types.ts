@@ -15,6 +15,7 @@ export interface SignupRequest {
 }
 
 export interface SignupResponse {
+    /**JWT access token for authenticated requests */
     access: string;
 }
 

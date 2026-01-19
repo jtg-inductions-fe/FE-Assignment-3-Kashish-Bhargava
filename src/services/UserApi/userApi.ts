@@ -1,6 +1,6 @@
 import { API_CONSTANT } from '@app/apiConstant';
 import { User } from '@features/Auth';
-import { baseApi } from '@services/baseApi';
+import { baseApi } from '@services/BaseApi/baseApi';
 
 import type {
     LoginRequest,
@@ -9,6 +9,9 @@ import type {
     SignupResponse,
 } from './userApi.types';
 
+/**
+ * User API service for signup,login,profile fetching and logout.
+ */
 export const userApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
         signup: builder.mutation<SignupResponse, SignupRequest>({

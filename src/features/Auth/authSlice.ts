@@ -4,17 +4,19 @@ import { User } from '@features/Auth';
 
 import { AuthState, SetAccessTokenPayload } from './authSlice.types';
 
+//Initial authentication state
 const initialState: AuthState = {
     user: null,
     accessToken: null,
     isAuthenticated: false,
 };
 
+//Authentication slice
 const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        // Sets user data and tokens after successful login/signup
+        // Sets access token after login/signup
         setAccessToken: (
             state,
             action: PayloadAction<SetAccessTokenPayload>,
@@ -22,10 +24,12 @@ const authSlice = createSlice({
             state.accessToken = action.payload.accessToken;
             state.isAuthenticated = true;
         },
+        //Store logged-in user profile
         setUser: (state, action: PayloadAction<User>) => {
             state.user = action.payload;
             state.isAuthenticated = true;
         },
+        //Clears auth state on logout
         logout: (state) => {
             state.accessToken = null;
             state.user = null;
@@ -34,5 +38,6 @@ const authSlice = createSlice({
     },
 });
 
+//export actions and reducers
 export const { setAccessToken, setUser, logout } = authSlice.actions;
 export default authSlice.reducer;

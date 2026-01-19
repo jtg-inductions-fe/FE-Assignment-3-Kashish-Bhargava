@@ -9,7 +9,7 @@ import { Box, Divider, ListItemIcon, Tooltip } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@app/hooks';
 import { ROUTES } from '@constant';
 import { logout } from '@features/Auth';
-import { baseApi } from '@services/baseApi';
+import { baseApi } from '@services/BaseApi/baseApi';
 import { useLogoutMutation } from '@services/UserApi';
 
 import {

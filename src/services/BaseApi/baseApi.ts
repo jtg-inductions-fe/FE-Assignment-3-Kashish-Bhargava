@@ -1,13 +1,10 @@
-import {
-    BaseQueryFn,
-    createApi,
-    fetchBaseQuery,
-    FetchBaseQueryError,
-} from '@reduxjs/toolkit/query/react';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 import { API_CONSTANT } from '@app/apiConstant';
-import { setAccessToken } from '@features/Auth/authSlice';
+import { logout, setAccessToken } from '@features/Auth/authSlice';
 import type { RootState } from '@models/store';
+
+import { BaseQueryWithReauth, RefreshTokenResponse } from './baseApi.types';
 
 const rawBaseQuery = fetchBaseQuery({
     baseUrl:
@@ -24,7 +21,7 @@ const rawBaseQuery = fetchBaseQuery({
         // Extract the access token from the Redux auth state
         const token = (getState() as RootState).auth.accessToken;
 
-        // Attach token to all authenticated requests
+        // Attach access token to all authenticated requests
         if (token) {
             headers.set('Authorization', `Bearer ${token}`);
         }
@@ -33,14 +30,19 @@ const rawBaseQuery = fetchBaseQuery({
     },
 });
 
-const baseQueryWithReauth: BaseQueryFn<
-    string | { url: string; method?: string; body?: unknown },
-    unknown,
-    FetchBaseQueryError
-> = async (args, api, extraOptions) => {
+//Base Query to handle token refresh on 401
+
+export const baseQueryWithReauth: BaseQueryWithReauth = async (
+    args,
+    api,
+    extraOptions,
+) => {
+    //Execute original API request
     let result = await rawBaseQuery(args, api, extraOptions);
 
-    if (result.error && result.error.status === 401) {
+    //If access token is expired
+    if (result.error?.status === 401) {
+        //Request new access token using refresh token
         const refreshResult = await rawBaseQuery(
             {
                 url: API_CONSTANT.TOKEN_REFRESH,
@@ -50,21 +52,26 @@ const baseQueryWithReauth: BaseQueryFn<
             extraOptions,
         );
 
+        //If refresh succeeds, update store and retry request
         if (refreshResult.data) {
-            const { access } = refreshResult.data as { access: string };
+            const { access } = refreshResult.data as RefreshTokenResponse;
 
             api.dispatch(
                 setAccessToken({
                     accessToken: access,
                 }),
             );
+            //Retry original request with new token
             result = await rawBaseQuery(args, api, extraOptions);
+        } else {
+            api.dispatch(logout());
         }
     }
 
     return result;
 };
 
+//RTK Query API instance
 export const baseApi = createApi({
     reducerPath: 'api',
     baseQuery: baseQueryWithReauth,

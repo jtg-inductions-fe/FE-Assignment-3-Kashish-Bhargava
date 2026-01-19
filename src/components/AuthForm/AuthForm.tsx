@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import { AppLink } from 'components';
 import { FieldValues, Path, useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -18,26 +19,33 @@ import {
 import { COMMON_CONSTANTS, ROUTES } from '@constant';
 import { LocationState } from '@models/auth';
 
-import {
-    FormContainer,
-    GoBackHomeButton,
-    StyledButton,
-    StyledLink,
-} from './AuthForm.styles';
+import { FormContainer, GoBackHomeButton } from './AuthForm.styles';
 import type { AuthFormProps } from './authForm.types';
+import { Button } from '../Button/Button';
 
 // Regex patterns
 const phoneRegex = COMMON_CONSTANTS.PHONE_REGEX;
 const passwordRegex = COMMON_CONSTANTS.PASSWORD_REGEX;
 const emailRegex = COMMON_CONSTANTS.EMAIL_REGEX;
 
+/**
+ * Reusable authentication form for login and signup
+ */
 export const AuthForm = <T extends FieldValues>(props: AuthFormProps<T>) => {
+    //Props
     const { mode, onSubmit, isLoading = false } = props;
+
+    //Navigation helpers
     const navigate = useNavigate();
     const location = useLocation();
+
+    //Preserve previous route for redirect
     const state = location.state as LocationState | null;
+
+    //Check current mode
     const isSignup = mode === 'signup';
 
+    //React Hook Form setup
     const {
         register,
         handleSubmit,
@@ -45,11 +53,14 @@ export const AuthForm = <T extends FieldValues>(props: AuthFormProps<T>) => {
         formState: { errors },
     } = useForm<T>({ mode: 'onBlur' });
 
+    //Watch password for confirm password validation
     const password = watch('password' as Path<T>);
 
+    //Password visibility state
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
+    //Toggle password visibility
     const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
 
     const toggleConfirmPasswordVisibility = () =>
@@ -70,6 +81,7 @@ export const AuthForm = <T extends FieldValues>(props: AuthFormProps<T>) => {
 
     return (
         <FormContainer onSubmit={(e) => void handleSubmit(onSubmit)(e)}>
+            {/*Back to home button*/}
             <GoBackHomeButton
                 aria-label="Go back to home"
                 onClick={() => void navigate(ROUTES.HOME)}
@@ -77,28 +89,35 @@ export const AuthForm = <T extends FieldValues>(props: AuthFormProps<T>) => {
                 <ArrowBackIosNewIcon />
             </GoBackHomeButton>
 
+            {/*Form heading*/}
             <Typography variant="h3" color="text.primary">
-                {isSignup ? 'Sign Up' : 'Login'}
+                {isSignup
+                    ? COMMON_CONSTANTS.SIGNUP_HEADING
+                    : COMMON_CONSTANTS.LOGIN_HEADING}
             </Typography>
 
+            {/*Form SubHeading and description*/}
             <Box display="flex" flexDirection="column">
                 <Typography variant="h2" color="text.primary">
-                    {isSignup ? 'Create Account' : 'Welcome Back'}
+                    {isSignup
+                        ? COMMON_CONSTANTS.SIGNUP_SUBHEADING
+                        : COMMON_CONSTANTS.LOGIN_SUBHEADING}
                 </Typography>
                 <Typography variant="body2" color="text.primary">
                     {isSignup
-                        ? 'Sign up to book your favorite movies effortlessly!'
-                        : 'Login to continue your movie experience!'}
+                        ? COMMON_CONSTANTS.SIGNUP_PARA
+                        : COMMON_CONSTANTS.LOGIN_PARA}
                 </Typography>
             </Box>
 
+            {/*Signup only fields*/}
             {isSignup && (
                 <>
                     <TextField
                         label="Name"
                         fullWidth
                         {...register('name' as Path<T>, {
-                            required: 'Name is required',
+                            required: COMMON_CONSTANTS.NAME_REQUIRED,
                         })}
                         error={!!errors.name}
                         helperText={errors.name?.message as string}
@@ -108,7 +127,7 @@ export const AuthForm = <T extends FieldValues>(props: AuthFormProps<T>) => {
                         label="Phone Number"
                         fullWidth
                         {...register('phone_number' as Path<T>, {
-                            required: 'Phone number is required',
+                            required: COMMON_CONSTANTS.PHONE_REQUIRED,
                             validate: validatePhone,
                         })}
                         error={!!errors.phone_number}
@@ -116,25 +135,25 @@ export const AuthForm = <T extends FieldValues>(props: AuthFormProps<T>) => {
                     />
                 </>
             )}
-
+            {/*Email field*/}
             <TextField
                 label="Email"
                 type="email"
                 fullWidth
                 {...register('email' as Path<T>, {
-                    required: 'Email is required',
+                    required: COMMON_CONSTANTS.EMAIL_REQUIRED,
                     validate: validateEmail,
                 })}
                 error={!!errors.email}
                 helperText={errors.email?.message as string}
             />
-
+            {/*Password field*/}
             <TextField
                 label="Password"
                 type={showPassword ? 'text' : 'password'}
                 fullWidth
                 {...register('password' as Path<T>, {
-                    required: 'Password is required',
+                    required: COMMON_CONSTANTS.PASSWORD_REQUIRED,
                     validate: validatePassword,
                 })}
                 error={!!errors.password}
@@ -159,14 +178,14 @@ export const AuthForm = <T extends FieldValues>(props: AuthFormProps<T>) => {
                     },
                 }}
             />
-
+            {/*Confirm Password (Signup only)*/}
             {isSignup && (
                 <TextField
                     label="Confirm Password"
                     type={showConfirmPassword ? 'text' : 'password'}
                     fullWidth
                     {...register('confirm_password' as Path<T>, {
-                        required: 'Confirm your password',
+                        required: COMMON_CONSTANTS.CONFIRM_PASSWORD_REQUIRED,
                         validate: validateConfirmPassword,
                     })}
                     error={!!errors.confirm_password}
@@ -194,33 +213,39 @@ export const AuthForm = <T extends FieldValues>(props: AuthFormProps<T>) => {
                     }}
                 />
             )}
-
-            <StyledButton
-                type="submit"
-                variant="contained"
-                disabled={isLoading}
-            >
+            {/*Submit button*/}
+            <Button type="submit" variant="contained" disabled={isLoading}>
                 {isLoading ? (
                     <CircularProgress size={24} />
                 ) : (
                     <>{isSignup ? 'Sign Up' : 'Login'}</>
                 )}
-            </StyledButton>
-
+            </Button>
+            {/*Switch between Signup and Login*/}
             <Typography variant="body1" color="text.primary">
                 {mode === 'login' ? (
                     <>
                         Don&apos;t have an account?{' '}
-                        <StyledLink to={ROUTES.SIGNUP} state={state}>
-                            Sign Up
-                        </StyledLink>
+                        <AppLink
+                            to={ROUTES.SIGNUP}
+                            label="Sign Up"
+                            state={state}
+                            color="primary.main"
+                            aria-label="Go to Sign Up"
+                            underline="hover"
+                        />
                     </>
                 ) : (
                     <>
                         Already have an account?{' '}
-                        <StyledLink to={ROUTES.LOGIN} state={state}>
-                            Login
-                        </StyledLink>
+                        <AppLink
+                            to={ROUTES.LOGIN}
+                            state={state}
+                            label="Login"
+                            color="primary.main"
+                            aria-label="Go to Login"
+                            underline="hover"
+                        />
                     </>
                 )}
             </Typography>
