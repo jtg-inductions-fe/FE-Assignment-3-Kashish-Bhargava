@@ -34,12 +34,6 @@ export interface AuthState {
  * Used to update authentication details after login or signup.
  */
 export interface SetAccessTokenPayload {
-    // /** Authenticated user's information */
-    // user?: User;
-
     /** New access token received from the backend */
     accessToken: string;
-
-    //     /** Corresponding refresh token */
-    //     refreshToken: string;
 }

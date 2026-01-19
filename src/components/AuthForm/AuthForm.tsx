@@ -15,7 +15,7 @@ import {
     Typography,
 } from '@mui/material';
 
-import { ROUTES } from '@constant';
+import { COMMON_CONSTANTS, ROUTES } from '@constant';
 import { LocationState } from '@models/auth';
 
 import {
@@ -27,10 +27,9 @@ import {
 import type { AuthFormProps } from './authForm.types';
 
 // Regex patterns
-const phoneRegex = /^\+?\d{7,15}$/;
-const passwordRegex =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%?&])[A-Za-z\d@$!%?&]{8,}$/;
-const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
+const phoneRegex = COMMON_CONSTANTS.PHONE_REGEX;
+const passwordRegex = COMMON_CONSTANTS.PASSWORD_REGEX;
+const emailRegex = COMMON_CONSTANTS.EMAIL_REGEX;
 
 export const AuthForm = <T extends FieldValues>(props: AuthFormProps<T>) => {
     const { mode, onSubmit, isLoading = false } = props;
@@ -58,17 +57,16 @@ export const AuthForm = <T extends FieldValues>(props: AuthFormProps<T>) => {
 
     // Validation rules
     const validateEmail = (value: string) =>
-        emailRegex.test(value) || 'Enter a valid email';
+        emailRegex.test(value) || COMMON_CONSTANTS.EMAIL_VALIDATION_RULE;
 
     const validatePassword = (value: string) =>
-        passwordRegex.test(value) ||
-        'Must include at least one uppercase, lowercase, number & special character';
+        passwordRegex.test(value) || COMMON_CONSTANTS.PASSWORD_VALIDATION_RULE;
 
     const validatePhone = (value: string) =>
-        phoneRegex.test(value) || 'Enter a valid phone number (7-15 digits)';
+        phoneRegex.test(value) || COMMON_CONSTANTS.PHONE_VALIDATION_RULE;
 
     const validateConfirmPassword = (value: string) =>
-        value === password || 'Passwords do not match';
+        value === password || COMMON_CONSTANTS.CONFIRM_PASSWORD_VALIDATION_RULE;
 
     return (
         <FormContainer onSubmit={(e) => void handleSubmit(onSubmit)(e)}>

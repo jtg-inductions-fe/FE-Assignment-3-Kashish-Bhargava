@@ -19,25 +19,43 @@ import {
     StyledMenuItem,
     UserAvatar,
 } from './AccountMenu.styles';
+import {
+    AccountMenuAnchor,
+    AccountMenuClickHandler,
+    LogoutHandler,
+} from './AccountMenu.types';
 
+/**
+ * Account Menu shown in the navbar for authenticated users.
+ * Displays user avatar with profile and logout actions.
+ */
 export const AccountMenu = () => {
-    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+    //Anchor element for opening and closing the menu.
+    const [anchorEl, setAnchorEl] = useState<AccountMenuAnchor>(null);
     const open = Boolean(anchorEl);
 
+    //Redux and navigation hooks
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+
+    //Logout API mutation
     const [logoutApi] = useLogoutMutation();
+
+    //Logged-in user data
     const user = useAppSelector((state) => state.auth.user);
 
-    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    //Open menu on Avatar click
+    const handleClick = (event: React.MouseEvent<AccountMenuClickHandler>) => {
         setAnchorEl(event.currentTarget);
     };
 
+    //Close Menu
     const handleClose = () => {
         setAnchorEl(null);
     };
 
-    const handleLogout = async () => {
+    //Logout user and reset app state
+    const handleLogout: LogoutHandler = async () => {
         try {
             await logoutApi().unwrap();
         } finally {
@@ -49,6 +67,7 @@ export const AccountMenu = () => {
 
     return (
         <>
+            {/*User Avatar Button*/}
             <Box display="flex" alignItems="center" textAlign="center">
                 <Tooltip title="Account settings">
                     <AccountIconButton
@@ -64,7 +83,7 @@ export const AccountMenu = () => {
                     </AccountIconButton>
                 </Tooltip>
             </Box>
-
+            {/*Account dropdown menu*/}
             <StyledMenu
                 anchorEl={anchorEl}
                 id="account-menu"
@@ -74,13 +93,14 @@ export const AccountMenu = () => {
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
+                {/*View Profile option*/}
                 <StyledMenuItem>
                     <MenuAvatar />
                     Profile
                 </StyledMenuItem>
 
                 <Divider />
-
+                {/*Logout Option */}
                 <StyledMenuItem
                     onClick={() => {
                         void handleLogout();

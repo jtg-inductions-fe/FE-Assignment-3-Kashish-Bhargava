@@ -1,3 +1,4 @@
+/**Styled AuthForm component  */
 import { Link } from 'react-router-dom';
 
 import { IconButton, styled } from '@mui/material';
