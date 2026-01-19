@@ -25,9 +25,6 @@ export interface AuthState {
     /** JWT access token used for API authentication */
     accessToken: string | null;
 
-    /** JWT refresh token used to renew the access token */
-    refreshToken: string | null;
-
     /** Boolean flag indicating if the user is authenticated */
     isAuthenticated: boolean;
 }

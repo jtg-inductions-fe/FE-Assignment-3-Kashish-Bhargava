@@ -1,4 +1,5 @@
 import { API_CONSTANT } from '@app/apiConstant';
+import { User } from '@features/Auth';
 import { baseApi } from '@services/baseApi';
 
 import type {
@@ -16,6 +17,7 @@ export const userApi = baseApi.injectEndpoints({
                 method: 'POST',
                 body: data,
             }),
+            invalidatesTags: ['User'],
         }),
 
         login: builder.mutation<LoginResponse, LoginRequest>({
@@ -24,8 +26,29 @@ export const userApi = baseApi.injectEndpoints({
                 method: 'POST',
                 body: data,
             }),
+            invalidatesTags: ['User'],
+        }),
+
+        getProfile: builder.query<User, void>({
+            query: () => ({
+                url: API_CONSTANT.PROFILE,
+            }),
+            providesTags: ['User'],
+        }),
+
+        logout: builder.mutation<void, void>({
+            query: () => ({
+                url: API_CONSTANT.LOGOUT,
+                method: 'POST',
+            }),
+            invalidatesTags: ['User'],
         }),
     }),
 });
 
-export const { useSignupMutation, useLoginMutation } = userApi;
+export const {
+    useSignupMutation,
+    useLoginMutation,
+    useGetProfileQuery,
+    useLogoutMutation,
+} = userApi;

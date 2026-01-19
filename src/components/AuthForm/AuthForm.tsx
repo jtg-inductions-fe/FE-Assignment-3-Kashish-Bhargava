@@ -65,7 +65,7 @@ export const AuthForm = <T extends FieldValues>(props: AuthFormProps<T>) => {
         'Must include at least one uppercase, lowercase, number & special character';
 
     const validatePhone = (value: string) =>
-        phoneRegex.test(value) || 'Enter a valid phone number (7–15 digits)';
+        phoneRegex.test(value) || 'Enter a valid phone number (7-15 digits)';
 
     const validateConfirmPassword = (value: string) =>
         value === password || 'Passwords do not match';

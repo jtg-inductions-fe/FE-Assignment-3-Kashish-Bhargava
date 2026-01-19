@@ -1,10 +1,8 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { IconButton } from '@mui/material';
-
 import { useAppSelector } from '@app/hooks';
 import BookMyShowLogo from '@assets/images/book-my-show-logo.png';
+import { AccountMenu } from '@components';
 import { Button } from '@components';
 import { ROUTES } from '@constant';
 
@@ -41,13 +39,7 @@ export const Navbar = () => {
                 </Link>
                 {/* User Profile */}
                 {isAuthenticated ? (
-                    <IconButton
-                        onClick={() => void navigate(ROUTES.PROFILE)}
-                        aria-label="Navigate to Profile"
-                        color="primary"
-                    >
-                        <AccountCircleIcon fontSize="large" />
-                    </IconButton>
+                    <AccountMenu />
                 ) : (
                     <Button
                         variant="contained"

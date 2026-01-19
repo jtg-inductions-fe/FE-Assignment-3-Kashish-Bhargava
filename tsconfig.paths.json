@@ -14,7 +14,7 @@
             "@routes": ["routes/index"],
             "@services/*": ["services/*"],
             "@models/*": ["models/*"],
-            "@hoc/*": ["hoc/*"]
+            "@containers/*": ["containers/index"]
         }
     }
 }
