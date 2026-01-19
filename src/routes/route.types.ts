@@ -12,6 +12,11 @@ export interface ChildRoute {
 
     /** The React component to render for this route */
     element: ComponentType;
+
+    /** Optional metadata for layout configuration */
+    handle?: {
+        layout?: LayoutHandle;
+    };
 }
 
 /**
@@ -19,9 +24,6 @@ export interface ChildRoute {
  * Used to structure routes by access level and layout.
  */
 export interface RouteConfig {
-    /** Optional layout component (e.g., MainLayout, AuthLayout) */
-    layout?: ComponentType;
-
     /** Type of guard — 'protected' for logged-in users, 'nonProtected' for guests */
     guard?: 'protected' | 'nonProtected';
 
@@ -36,4 +38,14 @@ export interface RouteConfig {
 
     /** Component to render for standalone routes */
     element?: ComponentType;
+}
+
+/**
+ * Layout configuration options for routes.
+ */
+export interface LayoutHandle {
+    /** Whether to show the navbar */
+    showNavbar?: boolean;
+    /** Whether the layout is containerized */
+    isContainerized?: boolean;
 }

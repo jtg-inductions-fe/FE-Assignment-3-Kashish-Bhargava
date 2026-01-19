@@ -1,3 +1,6 @@
+/**
+ * Styled ErrorView component.
+ */
 import { Box, styled } from '@mui/material';
 
 export const Wrapper = styled(Box)(({ theme: { spacing } }) => ({
@@ -20,13 +23,14 @@ export const TextWrapper = styled(Box)(
         flexDirection: 'column',
         gap: spacing(8),
         textAlign: 'center',
+
         [up('lg')]: {
             gap: spacing(12),
         },
     }),
 );
 
-export const StyledImage = styled('img')({
+export const StyledErrorViewImage = styled('img')({
     width: '100%',
     height: 'auto',
 });

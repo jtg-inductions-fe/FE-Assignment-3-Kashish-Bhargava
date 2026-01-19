@@ -10,14 +10,30 @@ export declare module '@mui/material/styles/createMixins' {
  */
 declare module '@mui/material/styles' {
     interface Theme {
-        borderRadius: {
-            button: number;
+        shape: {
+            borderRadius: number;
+            borderRadiusLg: number;
+        };
+        border: {
+            layoutBorder: string;
+        };
+        appVars: {
+            navbarWidth: number;
+            layoutContainerWidth: number;
         };
     }
 
     interface ThemeOptions {
-        borderRadius?: {
-            button?: number;
+        shape?: {
+            borderRadius?: number;
+            borderRadiusLg?: number;
+        };
+        border?: {
+            layoutBorder?: string;
+        };
+        appVars?: {
+            navbarWidth?: number;
+            layoutContainerWidth?: number;
         };
     }
 }

@@ -85,6 +85,24 @@ export default tseslint.config(
                 },
             ],
             'arrow-body-style': ['error', 'as-needed'],
+            'padding-line-between-statements': [
+                'error',
+                {
+                    blankLine: 'always',
+                    prev: '*',
+                    next: 'export',
+                },
+                {
+                    blankLine: 'any',
+                    prev: 'export',
+                    next: 'export',
+                },
+                {
+                    blankLine: 'always',
+                    prev: '*',
+                    next: 'return',
+                },
+            ],
         },
         /* Specify React version for eslint-plugin-react */
         settings: {
