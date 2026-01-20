@@ -1,6 +1,5 @@
+//Styled components for MovieList Page
 import { Box, CircularProgress, Fab, styled } from '@mui/material';
-
-import { Button } from '@components';
 
 export const MovieListContainer = styled(Box)(
     ({
@@ -16,10 +15,6 @@ export const MovieListContainer = styled(Box)(
     }),
 );
 
-export const MoviesListSideSection = styled(Box)(() => ({
-    display: 'flex',
-    flex: '0 0 25%',
-}));
 export const MovieListMainContent = styled(Box)(
     ({
         theme: {
@@ -31,6 +26,7 @@ export const MovieListMainContent = styled(Box)(
         flexDirection: 'column',
         flex: '0 0 100%',
         gap: spacing(16),
+
         [up('md')]: {
             flex: '0 0 65%',
         },
@@ -40,17 +36,6 @@ export const MovieListMainContent = styled(Box)(
 export const CenteredLoader = styled(CircularProgress)(() => ({
     display: 'block',
     margin: 'auto',
-}));
-
-export const PaginationContainer = styled(Box)(({ theme: { spacing } }) => ({
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: spacing(20),
-}));
-
-export const PaginationButton = styled(Button)(({ theme: { spacing } }) => ({
-    minWidth: spacing(80),
 }));
 
 export const FilterFab = styled(Fab)(({ theme: { spacing } }) => ({

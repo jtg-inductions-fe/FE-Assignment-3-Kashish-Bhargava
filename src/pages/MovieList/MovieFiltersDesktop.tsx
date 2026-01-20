@@ -1,22 +1,15 @@
 import { useNavigate } from 'react-router-dom';
 
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { AccordionSummary, Stack, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
+import { FilterAccordion } from '@components';
 import { Button } from '@components';
 import { ROUTES } from '@constant';
 
-import {
-    ClearAllButton,
-    FilterChip,
-    FiltersContainer,
-    FiltersHeader,
-    StyledAccordion,
-    StyledAccordionDetails,
-} from './MovieFiltersDesktop.styles';
 import { MovieFilterDesktopProps } from './MovieFiltersDesktop.types';
 
 export const MovieFiltersDesktop = (props: MovieFilterDesktopProps) => {
+    //Props
     const {
         availableLanguages,
         availableGenres,
@@ -26,87 +19,70 @@ export const MovieFiltersDesktop = (props: MovieFilterDesktopProps) => {
         setSelectedGenres,
     } = props;
 
-    const toggleValue = (list: string[], value: string) =>
-        list.includes(value)
-            ? list.filter((v) => v !== value)
-            : [...list, value];
+    //Filter Configuration
+    const filterConfig = [
+        {
+            id: 'languages',
+            title: 'Languages',
+            options: availableLanguages,
+            selectedValues: selectedLanguages,
+            setSelectedValues: setSelectedLanguages,
+        },
+        {
+            id: 'genres',
+            title: 'Genres',
+            options: availableGenres,
+            selectedValues: selectedGenres,
+            setSelectedValues: setSelectedGenres,
+        },
+    ];
 
+    //Navigation
+    const navigate = useNavigate();
+
+    //Reset all applied filters
     const handleReset = () => {
         setSelectedLanguages([]);
         setSelectedGenres([]);
     };
 
-    const navigate = useNavigate();
-
     return (
-        <FiltersContainer>
-            <FiltersHeader>
+        <Box
+            marginBottom={12}
+            display={'flex'}
+            flexDirection={'column'}
+            gap={12}
+        >
+            {/*Header Section*/}
+            <Box
+                display={'flex'}
+                justifyContent={'space-between'}
+                alignItems={'center'}
+            >
                 <Typography variant="h2">Filters</Typography>
-                <ClearAllButton onClick={handleReset}>Clear All</ClearAllButton>
-            </FiltersHeader>
-
-            <StyledAccordion defaultExpanded disableGutters>
-                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                    <Typography>Languages</Typography>
-                </AccordionSummary>
-                <StyledAccordionDetails>
-                    <Stack direction="row" flexWrap="wrap" gap={8}>
-                        {availableLanguages.map((lang) => {
-                            const isSelected = selectedLanguages.includes(lang);
-                            return (
-                                <FilterChip
-                                    key={lang}
-                                    label={lang}
-                                    clickable
-                                    color={isSelected ? 'primary' : 'default'}
-                                    variant={isSelected ? 'filled' : 'outlined'}
-                                    onClick={() =>
-                                        setSelectedLanguages(
-                                            toggleValue(
-                                                selectedLanguages,
-                                                lang,
-                                            ),
-                                        )
-                                    }
-                                />
-                            );
-                        })}
-                    </Stack>
-                </StyledAccordionDetails>
-            </StyledAccordion>
-
-            <StyledAccordion defaultExpanded disableGutters>
-                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                    <Typography>Genres</Typography>
-                </AccordionSummary>
-                <StyledAccordionDetails>
-                    <Stack direction="row" flexWrap="wrap" gap={8}>
-                        {availableGenres.map((genre) => {
-                            const isSelected = selectedGenres.includes(genre);
-                            return (
-                                <FilterChip
-                                    key={genre}
-                                    label={genre}
-                                    clickable
-                                    color={isSelected ? 'primary' : 'default'}
-                                    variant={isSelected ? 'filled' : 'outlined'}
-                                    onClick={() =>
-                                        setSelectedGenres(
-                                            toggleValue(selectedGenres, genre),
-                                        )
-                                    }
-                                />
-                            );
-                        })}
-                    </Stack>
-                </StyledAccordionDetails>
-            </StyledAccordion>
+                <Button onClick={handleReset} variant="text">
+                    Clear All
+                </Button>
+            </Box>
+            {/*Filter Accordion*/}
+            {filterConfig.map(
+                ({ id, title, options, selectedValues, setSelectedValues }) => (
+                    <FilterAccordion
+                        key={id}
+                        title={title}
+                        options={options}
+                        selectedValues={selectedValues}
+                        setSelectedValues={setSelectedValues}
+                    />
+                ),
+            )}
+            {/*Browse by cinemas button*/}
             <Button
                 variant="outlined"
                 onClick={() => void navigate(ROUTES.CINEMAS)}
             >
                 Browse by Cinemas
             </Button>
-        </FiltersContainer>
+        </Box>
     );
 };

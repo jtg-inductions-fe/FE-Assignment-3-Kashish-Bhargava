@@ -11,44 +11,48 @@ import { formatDuration, formatReleaseDate } from '@utils';
 import { capitalizeArray } from '@utils';
 
 import {
-    ActionButtons,
-    ChipsContainer,
-    ContentSection,
     DescriptionSection,
-    FailedToLoadText,
     LanguageChip,
-    LoadingBox,
-    MovieDetailBottomContentSection,
-    MovieDetailContainer,
     MovieDetailTopContentSection,
-    MovieDetailTopSection,
-    MovieInfo,
-    MovieLanguageSection,
     Poster,
 } from './MovieDetail.styles';
 
 export const MovieDetail = () => {
+    //Movie slug from URL
     const { slug } = useParams<{ slug: string }>();
-    const navigate = useNavigate();
 
+    //Fetch movie details by slug
     const {
         data: movie,
         isLoading,
         isError,
     } = useGetMovieBySlugQuery(slug ?? '', { skip: !slug });
 
+    //Navigate
+    const navigate = useNavigate();
+
+    //Loading state
     if (isLoading)
         return (
-            <LoadingBox>
+            <Box display="flex" justifyContent="center" marginTop={40}>
                 <CircularProgress />
-            </LoadingBox>
+            </Box>
         );
 
+    //Error State
     if (isError || !movie)
         return (
-            <FailedToLoadText>Failed to load movie details.</FailedToLoadText>
+            <Typography
+                variant="h1"
+                color="primary.main"
+                textAlign="center"
+                marginTop={40}
+            >
+                Failed to load movie details.
+            </Typography>
         );
 
+    //Share movie handler
     const handleShare = () => {
         if (navigator.share) {
             void navigator.share({
@@ -63,32 +67,44 @@ export const MovieDetail = () => {
     };
 
     return (
-        <MovieDetailContainer>
-            <MovieDetailTopSection>
-                <MovieDetailTopContentSection>
+        <Box display="flex" flexDirection="column" gap={24}>
+            <Box bgcolor="common.black">
+                <MovieDetailTopContentSection
+                    backdrop={DummyPoster}
+                    display="flex"
+                    flexDirection="column"
+                    gap={20}
+                    padding={32}
+                    maxWidth={1440}
+                    margin="auto"
+                >
                     {/* Movie Poster */}
-                    <Poster src={DummyPoster} alt={movie.name} />
+                    <Poster src={DummyPoster} alt={movie.name} width="100%" />
 
-                    {/* Right Section */}
-                    <ContentSection>
+                    {/* Movie info and action*/}
+                    <Box display="flex" flexDirection="column" gap={16}>
+                        {/*Movie Title*/}
                         <Typography variant="h1" color="common.white">
                             {movie.name}
                         </Typography>
 
                         {/*Info — Date | Duration | Genres*/}
-                        <MovieInfo>
+                        <Box
+                            display="flex"
+                            flexWrap="wrap"
+                            gap={8}
+                            color="secondary.light"
+                        >
                             <Typography variant="h3">
                                 {`${formatReleaseDate(movie.release_date)} • ${formatDuration(movie.duration)} • ${capitalizeArray(movie.genres).join(', ')}`}
                             </Typography>
-                        </MovieInfo>
-
-                        <ActionButtons>
+                        </Box>
+                        {/*Book Tickets and share buttons*/}
+                        <Box display="flex" flexWrap="wrap" gap={8}>
                             <Button
                                 variant="contained"
                                 onClick={() =>
-                                    void navigate(
-                                        `${ROUTES.CINEMAS}?movie=${movie.id}`,
-                                    )
+                                    void navigate(ROUTES.MOVIE_CINEMA_SLOTS)
                                 }
                             >
                                 Book Tickets
@@ -101,13 +117,26 @@ export const MovieDetail = () => {
                             >
                                 Share
                             </Button>
-                        </ActionButtons>
-                    </ContentSection>
+                        </Box>
+                    </Box>
                 </MovieDetailTopContentSection>
-            </MovieDetailTopSection>
+            </Box>
             <Box>
-                <MovieDetailBottomContentSection>
-                    <DescriptionSection>
+                {/*Bottom content section*/}
+                <Box
+                    display="flex"
+                    flexDirection="column"
+                    gap={16}
+                    maxWidth={1440}
+                    margin="auto"
+                    paddingInline={20}
+                >
+                    {/*Movie Description*/}
+                    <DescriptionSection
+                        display="flex"
+                        flexDirection="column"
+                        gap={8}
+                    >
                         <Typography variant="h2" color="common.black">
                             About the movie
                         </Typography>
@@ -115,18 +144,19 @@ export const MovieDetail = () => {
                             {movie.description}
                         </Typography>
                     </DescriptionSection>
-                    <MovieLanguageSection>
+                    {/*Available Languages*/}
+                    <Box display="flex" flexDirection="column" gap={16}>
                         <Typography variant="h2" color="common.black">
                             Language
                         </Typography>
-                        <ChipsContainer>
+                        <Box display="flex" flexWrap="wrap" gap={12}>
                             {capitalizeArray(movie.languages).map((lang) => (
                                 <LanguageChip key={lang} label={lang} />
                             ))}
-                        </ChipsContainer>
-                    </MovieLanguageSection>
-                </MovieDetailBottomContentSection>
+                        </Box>
+                    </Box>
+                </Box>
             </Box>
-        </MovieDetailContainer>
+        </Box>
     );
 };

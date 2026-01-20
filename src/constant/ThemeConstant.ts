@@ -12,7 +12,7 @@ export const COLORS = {
         medium: '#999999',
         light: '#E5E5E5',
         lighter: '#EEEEEE',
-        darkest: '#111827',
+        darkest: '#000000ff',
     },
     WHITE: {
         main: '#FFFFFF',

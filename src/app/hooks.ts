@@ -1,3 +1,6 @@
+/**
+ * hooks for accessing the Redux store.
+ */
 import { useDispatch, useSelector } from 'react-redux';
 
 import type { AppDispatch, RootState } from '@models/store';

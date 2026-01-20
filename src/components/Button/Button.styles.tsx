@@ -1,3 +1,6 @@
+/**
+ * Styled Button component.
+ */
 import { Button, styled } from '@mui/material';
 
 export const StyledButton = styled(Button)(
@@ -5,11 +8,11 @@ export const StyledButton = styled(Button)(
         theme: {
             spacing,
             typography: { button: typographyButton },
-            borderRadius: { button: borderRadiusButton },
+            shape: { borderRadius },
         },
     }) => ({
         ...typographyButton,
-        borderRadius: borderRadiusButton,
+        borderRadius: borderRadius,
         padding: spacing(8, 16),
         textTransform: 'none',
     }),

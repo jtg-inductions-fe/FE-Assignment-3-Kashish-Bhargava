@@ -38,15 +38,16 @@ theme = createTheme(theme, {
         ...typography.typographyStyle(),
     },
     shape: {
-        borderRadius: 16,
-    },
-    /* Custom border radius for buttons */
-    borderRadius: {
-        button: 8,
+        borderRadius: 8,
+        borderRadiusLg: 16,
     },
     /*Custom border for layout*/
     border: {
         layoutBorder: `1px solid ${theme.palette.secondary.dark}`,
+    },
+    appVars: {
+        navbarWidth: theme.typography.pxToRem(1440),
+        layoutContainerWidth: theme.typography.pxToRem(1440),
     },
 });
 

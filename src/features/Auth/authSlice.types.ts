@@ -25,24 +25,15 @@ export interface AuthState {
     /** JWT access token used for API authentication */
     accessToken: string | null;
 
-    /** JWT refresh token used to renew the access token */
-    refreshToken: string | null;
-
     /** Boolean flag indicating if the user is authenticated */
     isAuthenticated: boolean;
 }
 
 /**
- * Payload structure for the setCredentials action.
+ * Payload structure for the setAccessToken action.
  * Used to update authentication details after login or signup.
  */
-export interface SetCredentialsPayload {
-    /** Authenticated user's information */
-    user?: User;
-
+export interface SetAccessTokenPayload {
     /** New access token received from the backend */
     accessToken: string;
-
-    /** Corresponding refresh token */
-    refreshToken: string;
 }

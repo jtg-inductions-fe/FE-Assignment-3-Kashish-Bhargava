@@ -2,6 +2,7 @@
 export const formatDuration = (duration: string): string => {
     const [hours, minutes] = duration.split(':').map(Number);
     if (!hours && !minutes) return '';
+
     return `${hours ? `${hours}h` : ''}${minutes ? ` ${minutes}m` : ''}`.trim();
 };
 
@@ -13,6 +14,7 @@ export const formatReleaseDate = (dateStr: string): string => {
         month: 'short',
         year: 'numeric',
     };
+
     return date.toLocaleDateString('en-GB', options);
 };
 
