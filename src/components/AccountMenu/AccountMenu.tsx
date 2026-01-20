@@ -72,6 +72,7 @@ export const AccountMenu = () => {
                     <AccountIconButton
                         onClick={handleClick}
                         size="large"
+                        aria-label="Account Menu"
                         aria-controls={open ? 'account-menu' : undefined}
                         aria-haspopup="true"
                         aria-expanded={open ? 'true' : undefined}
