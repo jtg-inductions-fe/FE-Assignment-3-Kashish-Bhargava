@@ -3,20 +3,26 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { Box, CircularProgress, Typography } from '@mui/material';
 
 import { CinemaCard, GridLayout } from '@components';
+import { GRID_CONSTANTS } from '@constant';
 import { useGetCinemasQuery } from '@services/CinemaApi/cinemaApi';
 import type { Cinema } from '@services/CinemaApi/cinemaApi.types';
 
-import {
-    CinemaListHeader,
-    CinemaListLayout,
-    LocationTextField,
-    ScrollBox,
-} from './CinemaList.styles';
+import { CinemaListHeader, LocationTextField } from './CinemaList.styles';
 
 export const CinemaList = () => {
+    //Grid column configuration
+    const gridColumns = GRID_CONSTANTS.CINEMA_LIST_GRID;
+
+    //Search input value
     const [location, setSearch] = useState('');
+
+    //Debounced Search Value
     const [debouncedSearch, setDebouncedSearch] = useState('');
+
+    //Pagination cursor
     const [cursor, setCursor] = useState<string | null>(null);
+
+    //Cinema List
     const [cinemas, setCinemas] = useState<Cinema[]>([]);
 
     // Debounce logic
@@ -59,21 +65,22 @@ export const CinemaList = () => {
         [data, isFetching],
     );
 
+    //Attach intersection observer
     useEffect(() => {
         const observer = new IntersectionObserver(handleObserver, {
             threshold: 1.0,
         });
         if (loaderRef.current) observer.observe(loaderRef.current);
+
         return () => observer.disconnect();
     }, [handleObserver]);
 
-    const gridColumns = { xs: 12, sm: 6, md: 4, lg: 3 };
-
     return (
-        <CinemaListLayout>
+        <Box display="flex" flexDirection="column" gap={20}>
+            {/*Page Header*/}
             <CinemaListHeader>
                 <Typography variant="h2">Browse Cinemas</Typography>
-
+                {/*Search field*/}
                 <LocationTextField
                     variant="outlined"
                     placeholder="Search by location..."
@@ -83,29 +90,31 @@ export const CinemaList = () => {
                     aria-label="Search cinemas by location"
                 />
             </CinemaListHeader>
+            {/*Initial loading*/}
             {isLoading && !cinemas.length ? (
                 <Box display="flex" justifyContent="center" mt={4}>
                     <CircularProgress />
                 </Box>
             ) : cinemas.length > 0 ? (
-                <GridLayout
-                    items={cinemas}
-                    columns={gridColumns}
-                    renderItem={(cinema) => <CinemaCard cinema={cinema} />}
-                />
+                <GridLayout columns={gridColumns}>
+                    {cinemas.map((cinema) => (
+                        <CinemaCard key={cinema.id} cinema={cinema} />
+                    ))}
+                </GridLayout>
             ) : (
                 <Typography align="center" color="text.secondary" mt={4}>
                     No cinemas found
                 </Typography>
             )}
 
-            {isFetching && cinemas.length > 0 && (
-                <Box display="flex" justifyContent="center" mt={3}>
+            {/*Pagination loader*/}
+            <Box display="flex" justifyContent="center" minHeight={48}>
+                {isFetching && cinemas.length > 0 && (
                     <CircularProgress size={24} />
-                </Box>
-            )}
-
-            <ScrollBox ref={loaderRef} />
-        </CinemaListLayout>
+                )}
+            </Box>
+            {/*Intersection observer trigger*/}
+            <Box ref={loaderRef} height={2} />
+        </Box>
     );
 };

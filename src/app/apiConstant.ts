@@ -10,4 +10,5 @@ export const API_CONSTANT = {
     TOKEN_REFRESH: '/users/token/refresh/',
     GENRES: 'movies/genres/',
     LANGUAGES: 'movies/languages/',
+    CINEMAS: 'cinemas/',
 } as const;
