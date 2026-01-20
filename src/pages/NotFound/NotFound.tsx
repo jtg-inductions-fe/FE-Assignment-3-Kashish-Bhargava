@@ -1,6 +1,10 @@
 import NotFoundImage from '@assets/images/not-found.png';
 import { ErrorView } from '@components';
 
+/**
+ * Not Found page component.
+ * @returns The rendered Not Found page.
+ */
 export const NotFound = () => (
     <ErrorView
         title="Page not found"

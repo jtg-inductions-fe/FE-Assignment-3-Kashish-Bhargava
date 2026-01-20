@@ -5,8 +5,8 @@ import { CircularProgress, Typography } from '@mui/material';
 
 import BrowseByCinemaImage from '@assets/images/browse-by-cinema.svg';
 import MovieBanner from '@assets/images/movie-banner.png';
-import { GridLayout, MovieCard } from '@components';
-import { ROUTES } from '@constant';
+import { AppLink, Button, GridLayout, MovieCard } from '@components';
+import { GRID_CONSTANTS, ROUTES } from '@constant';
 import { useGetMoviesQuery } from '@services/MovieApi/movieApi';
 
 import {
@@ -22,52 +22,77 @@ import {
     HomePageHeading,
     HomePageMainSection,
     LoadingBox,
-    SeeAllButton,
-    StyledImage,
+    StyledCoverImage,
 } from './Home.styles';
 
 export const Home = () => {
+    //Used for navigation between routes
     const navigate = useNavigate();
+
+    //Fetch latest movies for homepage
     const { data, isLoading, isError } = useGetMoviesQuery({ latest: true });
-    const movies = data?.results ?? [];
-    const gridColumns = { xs: 6, sm: 4, md: 3, lg: 2 };
+    const movies = data?.results || [];
+
+    //Grid column configuration
+    const gridColumns = GRID_CONSTANTS.DEFAULT_GRID;
+
+    //Shows loader while data is being fetched
+    if (isLoading) {
+        return (
+            <LoadingBox>
+                <CircularProgress />
+            </LoadingBox>
+        );
+    }
+
+    //Show error state if API fails
+    if (isError) {
+        return <ErrorMessageBox>Failed to load movies</ErrorMessageBox>;
+    }
+
+    //Show empty state if no movies available
+    if (movies.length === 0) {
+        return (
+            <ErrorMessageBox>No movies available at the moment</ErrorMessageBox>
+        );
+    }
 
     return (
         <HomeLayout>
+            {/*Top banner section*/}
             <HomePageBanner>
-                <StyledImage src={MovieBanner} alt="Movie Banner" />
+                <StyledCoverImage src={MovieBanner} alt="Movie Banner" />
             </HomePageBanner>
+            {/*Latest movies section*/}
             <HomePageMainSection>
                 <HomePageHeading>
                     <Typography variant="h2" color="text.primary">
                         Latest Movies
                     </Typography>
-                    <SeeAllButton
-                        onClick={() => void navigate(ROUTES.MOVIES)}
+                    {/*Navigate to all movies page*/}
+                    <AppLink
+                        to={ROUTES.MOVIES}
+                        label="See All"
+                        variant="body1"
+                        endIcon={<NavigateNextIcon fontSize="medium" />}
+                        color="primary.main"
                         aria-label="See all movies"
-                    >
-                        <Typography variant="body1">See All</Typography>
-                        <NavigateNextIcon fontSize="medium" />
-                    </SeeAllButton>
-                </HomePageHeading>
-
-                {isLoading ? (
-                    <LoadingBox>
-                        <CircularProgress />
-                    </LoadingBox>
-                ) : isError ? (
-                    <ErrorMessageBox>Failed to load movies</ErrorMessageBox>
-                ) : (
-                    <GridLayout
-                        items={movies}
-                        columns={gridColumns}
-                        renderItem={(movie) => <MovieCard movie={movie} />}
                     />
-                )}
+                </HomePageHeading>
+                {/*Movies grid layout*/}
+                <GridLayout columns={gridColumns}>
+                    {movies.map((movie) => (
+                        <MovieCard key={movie.id} movie={movie} />
+                    ))}
+                </GridLayout>
             </HomePageMainSection>
-            <CinemaBlock onClick={() => void navigate(ROUTES.CINEMAS)}>
+            {/*Browse by cinema section*/}
+            <CinemaBlock
+                onClick={() => void navigate(ROUTES.CINEMAS)}
+                component={Button}
+            >
                 <CinemaBlockImage>
-                    <StyledImage
+                    <StyledCoverImage
                         src={BrowseByCinemaImage}
                         alt="Browse by cinema"
                     />

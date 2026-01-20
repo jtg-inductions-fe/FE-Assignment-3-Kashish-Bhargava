@@ -15,3 +15,7 @@ export type AuthError = FetchBaseQueryError | SerializedError;
 export type BackendError = FetchBaseQueryError & {
     data?: Record<string, unknown>;
 };
+
+export interface LocationState {
+    from?: string;
+}

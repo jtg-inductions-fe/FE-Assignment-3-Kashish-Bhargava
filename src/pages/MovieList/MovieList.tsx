@@ -6,8 +6,8 @@ import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { Box, Typography, useMediaQuery, useTheme } from '@mui/material';
 
-import { GridLayout, MovieCard } from '@components';
-import { ROUTES } from '@constant';
+import { Button, GridLayout, MovieCard } from '@components';
+import { GRID_CONSTANTS, ROUTES } from '@constant';
 import { MovieFiltersDesktop, MovieFiltersMobile } from '@pages';
 import {
     useGetMovieGenresQuery,
@@ -21,21 +21,27 @@ import {
     FilterFab,
     MovieListContainer,
     MovieListMainContent,
-    MoviesListSideSection,
-    PaginationButton,
-    PaginationContainer,
 } from './MovieList.styles';
 
 export const MovieList = () => {
+    //Theme and responsive breakpoint
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
+    //Grid Layout configuration
+    const gridColumns = GRID_CONSTANTS.MOVIE_LIST_GRID;
+
+    //URL Search params
     const [searchParams, setSearchParams] = useSearchParams();
 
+    //Applied filter state
     const [selectedLanguages, setSelectedLanguages] = useState<string[]>([]);
     const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
+
+    //Pagination cursor
     const [cursor, setCursor] = useState<string | null>(null);
 
-    const gridColumns = { xs: 6, sm: 4, md: 4, lg: 3 };
+    //Navigation
     const navigate = useNavigate();
 
     //Temporary filters for mobile drawer
@@ -50,6 +56,7 @@ export const MovieList = () => {
         cursor,
     });
 
+    //Fetch available filter options
     const { data: languages = [] } = useGetMovieLanguagesQuery();
     const { data: genres = [] } = useGetMovieGenresQuery();
 
@@ -62,7 +69,7 @@ export const MovieList = () => {
         if (urlLanguages.length > 0) setSelectedLanguages(urlLanguages);
     }, [searchParams]);
 
-    //Update URL when filters change
+    //Update URL when filters and pagination change
     useEffect(() => {
         const params = new URLSearchParams();
 
@@ -73,6 +80,7 @@ export const MovieList = () => {
         setSearchParams(params);
     }, [selectedGenres, selectedLanguages, cursor, setSearchParams]);
 
+    //Handle next page navigation
     const handleNext = () => {
         if (data?.next) {
             const nextCursor = new URL(data.next).searchParams.get('cursor');
@@ -80,6 +88,7 @@ export const MovieList = () => {
         }
     };
 
+    //Handle previous page navigation
     const handlePrevious = () => {
         if (data?.previous) {
             const prevCursor = new URL(data.previous).searchParams.get(
@@ -89,18 +98,21 @@ export const MovieList = () => {
         }
     };
 
+    //Open mobile filters drawer
     const handleOpenFilters = () => {
         setTempLanguages(selectedLanguages);
         setTempGenres(selectedGenres);
         setMobileFilterOpen(true);
     };
 
+    //Apply mobile filters
     const handleApplyFilters = () => {
         setSelectedLanguages(tempLanguages);
         setSelectedGenres(tempGenres);
         setMobileFilterOpen(false);
     };
 
+    //Reset mobile filter selections
     const handleResetFilters = () => {
         setTempLanguages([]);
         setTempGenres([]);
@@ -108,7 +120,8 @@ export const MovieList = () => {
 
     return (
         <MovieListContainer>
-            <MoviesListSideSection>
+            {/*Desktop filter sidebar*/}
+            <Box display={'flex'} flex={'0 0 25%'}>
                 {!isMobile && (
                     <MovieFiltersDesktop
                         availableLanguages={languages}
@@ -119,19 +132,23 @@ export const MovieList = () => {
                         setSelectedGenres={setSelectedGenres}
                     />
                 )}
-            </MoviesListSideSection>
+            </Box>
+            {/*Main movie list content*/}
             <MovieListMainContent>
                 <Typography variant="h2">Explore All Movies</Typography>
                 <Box>
+                    {/*Loading State*/}
                     {isLoading || isFetching ? (
                         <CenteredLoader />
                     ) : data?.results?.length ? (
-                        <GridLayout
-                            items={data.results}
-                            columns={gridColumns}
-                            renderItem={(movie) => <MovieCard movie={movie} />}
-                        />
+                        /*Movie Grid*/
+                        <GridLayout columns={gridColumns}>
+                            {data.results.map((movie) => (
+                                <MovieCard key={movie.id} movie={movie} />
+                            ))}
+                        </GridLayout>
                     ) : (
+                        /*Empty State*/
                         <Typography
                             align="center"
                             color="text.secondary"
@@ -141,28 +158,35 @@ export const MovieList = () => {
                         </Typography>
                     )}
                 </Box>
-
+                {/*Pagination Buttons*/}
                 {data && (
-                    <PaginationContainer>
-                        <PaginationButton
+                    <Box
+                        display={'flex'}
+                        justifyContent={'center'}
+                        alignItems={'center'}
+                        gap={20}
+                    >
+                        <Button
                             variant="outlined"
                             disabled={!data.previous || isFetching || isLoading}
                             onClick={handlePrevious}
                         >
                             Previous
-                        </PaginationButton>
-                        <PaginationButton
+                        </Button>
+                        <Button
                             variant="contained"
                             disabled={!data.next || isFetching || isLoading}
                             onClick={handleNext}
                         >
                             Next
-                        </PaginationButton>
-                    </PaginationContainer>
+                        </Button>
+                    </Box>
                 )}
             </MovieListMainContent>
+            {/*Mobile View Filter*/}
             {isMobile && (
                 <>
+                    {/*Open filters button*/}
                     <FilterFab
                         color="primary"
                         onClick={() => {
@@ -171,6 +195,7 @@ export const MovieList = () => {
                     >
                         <FilterAltIcon />
                     </FilterFab>
+                    {/*Mobile filters drawers*/}
                     <MovieFiltersMobile
                         open={mobileFilterOpen}
                         onClose={() => setMobileFilterOpen(false)}
@@ -183,6 +208,7 @@ export const MovieList = () => {
                         onApply={handleApplyFilters}
                         onReset={handleResetFilters}
                     />
+                    {/*Browse by cinema button*/}
                     <BrowseByCinemaFab
                         color="primary"
                         variant="extended"

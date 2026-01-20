@@ -1,18 +1,13 @@
-import { List, ListItemButton, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
+import { FilterList } from '@components';
 import { Button } from '@components';
 
-import {
-    DrawerContent,
-    DrawerHeader,
-    ResetAllButton,
-    StyledCheckbox,
-    StyledDivider,
-    StyledDrawer,
-} from './MovieFiltersMobile.styles';
+import { StyledDivider, StyledDrawer } from './MovieFiltersMobile.styles';
 import { MovieFiltersMobileProps } from './MovieFiltersMobile.types';
 
 export const MovieFiltersMobile = (props: MovieFiltersMobileProps) => {
+    //Props
     const {
         open,
         onClose,
@@ -26,69 +21,69 @@ export const MovieFiltersMobile = (props: MovieFiltersMobileProps) => {
         onReset,
     } = props;
 
-    const toggleValue = (list: string[], value: string) =>
-        list.includes(value)
-            ? list.filter((v) => v !== value)
-            : [...list, value];
+    //Filter configuration
+    const filterConfig = [
+        {
+            id: 'languages',
+            title: 'Languages',
+            options: availableLanguages,
+            selectedValues: selectedLanguages,
+            setSelectedValues: setSelectedLanguages,
+        },
+        {
+            id: 'genres',
+            title: 'Genres',
+            options: availableGenres,
+            selectedValues: selectedGenres,
+            setSelectedValues: setSelectedGenres,
+        },
+    ];
 
     return (
         <StyledDrawer anchor="bottom" open={open} onClose={onClose}>
-            <DrawerContent>
-                <DrawerHeader>
+            <Box display={'flex'} flexDirection={'column'} gap={16} padding={8}>
+                {/*Drawer header*/}
+                <Box
+                    display={'flex'}
+                    justifyContent={'space-between'}
+                    alignItems={'center'}
+                >
                     <Typography variant="h2">Filters</Typography>
-                    <ResetAllButton onClick={onReset}>Reset All</ResetAllButton>
-                </DrawerHeader>
-
-                <Typography variant="subtitle1" m={0}>
-                    Languages
-                </Typography>
-                <List dense disablePadding>
-                    {availableLanguages.map((lang) => (
-                        <ListItemButton
-                            disableGutters
-                            key={lang}
-                            onClick={() =>
-                                setSelectedLanguages(
-                                    toggleValue(selectedLanguages, lang),
-                                )
-                            }
-                        >
-                            <StyledCheckbox
-                                checked={selectedLanguages.includes(lang)}
+                    <Button onClick={onReset} variant="text">
+                        Reset All
+                    </Button>
+                </Box>
+                {/*Filter section*/}
+                {filterConfig.map(
+                    (
+                        {
+                            id,
+                            options,
+                            title,
+                            selectedValues,
+                            setSelectedValues,
+                        },
+                        index,
+                    ) => (
+                        <Box key={id}>
+                            {/*FilterList component*/}
+                            <FilterList
+                                title={title}
+                                options={options}
+                                selectedValues={selectedValues}
+                                setSelectedValues={setSelectedValues}
                             />
-                            {lang}
-                        </ListItemButton>
-                    ))}
-                </List>
-
-                <StyledDivider />
-
-                <Typography variant="subtitle1" m={0}>
-                    Genres
-                </Typography>
-                <List dense disablePadding>
-                    {availableGenres.map((genre) => (
-                        <ListItemButton
-                            disableGutters
-                            key={genre}
-                            onClick={() =>
-                                setSelectedGenres(
-                                    toggleValue(selectedGenres, genre),
-                                )
-                            }
-                        >
-                            <StyledCheckbox
-                                checked={selectedGenres.includes(genre)}
-                            />
-                            {genre}
-                        </ListItemButton>
-                    ))}
-                </List>
-
+                            {index < filterConfig.length - 1 && (
+                                <StyledDivider />
+                            )}
+                        </Box>
+                    ),
+                )}
+                {/*Apply filters button*/}
                 <Button variant="contained" fullWidth onClick={onApply}>
                     Apply
                 </Button>
-            </DrawerContent>
+            </Box>
         </StyledDrawer>
     );
 };

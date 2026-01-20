@@ -1,63 +1,54 @@
-import { useNavigate } from 'react-router-dom';
-
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import HomeIcon from '@mui/icons-material/Home';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import { useAppSelector } from '@app/hooks';
 import BookMyShowLogo from '@assets/images/book-my-show-logo.png';
+import { AccountMenu } from '@components';
 import { Button } from '@components';
 import { ROUTES } from '@constant';
 
 import {
     LogoBox,
-    ProfileButton,
     StyledAppBar,
-    StyledImage,
+    StyledLogoImage,
     StyledToolbar,
 } from './Navbar.styles';
 
 export const Navbar = () => {
+    // Check if the user is authenticated
     const isAuthenticated = useAppSelector(
         (state) => state.auth.isAuthenticated,
     );
+
+    /**
+     * Hook for navigating programmatically.
+     */
     const navigate = useNavigate();
+    const location = useLocation();
 
     return (
         <StyledAppBar position="static">
             <StyledToolbar>
-                <LogoBox
-                    onClick={() => void navigate(ROUTES.HOME)}
-                    onKeyDown={(e) => {
-                        if (e.key === 'Enter' || e.key === ' ') {
-                            void navigate(ROUTES.HOME);
-                        }
-                    }}
-                    role="button"
-                    tabIndex={0}
-                    aria-label="Navigate to Home"
-                >
-                    <StyledImage src={BookMyShowLogo} alt="BookMyShow Logo" />
-                </LogoBox>
-
-                <Button
-                    variant="outlined"
-                    onClick={() => void navigate(ROUTES.HOME)}
-                    aria-label="Home button"
-                >
-                    <HomeIcon />
-                </Button>
-
+                {/* Logo */}
+                <Link to={ROUTES.HOME} aria-label="Navigate to Home">
+                    <LogoBox>
+                        <StyledLogoImage
+                            src={BookMyShowLogo}
+                            alt="BookMyShow Logo"
+                        />
+                    </LogoBox>
+                </Link>
+                {/* User Profile */}
                 {isAuthenticated ? (
-                    <ProfileButton
-                        onClick={() => void navigate(ROUTES.PROFILE)}
-                        aria-label="Navigate to Profile"
-                    >
-                        <AccountCircleIcon fontSize="large" />
-                    </ProfileButton>
+                    <AccountMenu />
                 ) : (
                     <Button
                         variant="contained"
-                        onClick={() => void navigate(ROUTES.LOGIN)}
+                        onClick={() =>
+                            void navigate(ROUTES.LOGIN, {
+                                state: { from: location.pathname },
+                            })
+                        }
+                        aria-label="Navigate to Login"
                     >
                         Login
                     </Button>

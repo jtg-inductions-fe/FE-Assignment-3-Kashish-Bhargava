@@ -1,4 +1,6 @@
-import { baseApi } from '@services/baseApi';
+import { API_CONSTANT } from '@app/apiConstant';
+import { User } from '@features/Auth';
+import { baseApi } from '@services/BaseApi/baseApi';
 
 import type {
     LoginRequest,
@@ -7,24 +9,49 @@ import type {
     SignupResponse,
 } from './userApi.types';
 
+/**
+ * User API service for signup,login,profile fetching and logout.
+ */
 export const userApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
         signup: builder.mutation<SignupResponse, SignupRequest>({
             query: (data) => ({
-                url: 'users/signup/',
+                url: API_CONSTANT.SIGNUP,
                 method: 'POST',
                 body: data,
             }),
+            invalidatesTags: ['User'],
         }),
 
         login: builder.mutation<LoginResponse, LoginRequest>({
             query: (data) => ({
-                url: 'users/login/',
+                url: API_CONSTANT.LOGIN,
                 method: 'POST',
                 body: data,
             }),
+            invalidatesTags: ['User'],
+        }),
+
+        getProfile: builder.query<User, void>({
+            query: () => ({
+                url: API_CONSTANT.PROFILE,
+            }),
+            providesTags: ['User'],
+        }),
+
+        logout: builder.mutation<void, void>({
+            query: () => ({
+                url: API_CONSTANT.LOGOUT,
+                method: 'POST',
+            }),
+            invalidatesTags: ['User'],
         }),
     }),
 });
 
-export const { useSignupMutation, useLoginMutation } = userApi;
+export const {
+    useSignupMutation,
+    useLoginMutation,
+    useGetProfileQuery,
+    useLogoutMutation,
+} = userApi;

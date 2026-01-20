@@ -13,11 +13,14 @@ import { ErrorPage } from '@pages';
 import { router } from '@routes';
 import { theme } from '@theme';
 
+import { AppInitializer } from './containers/AppInitializer';
+
 const rootElement = document.getElementById('root') as HTMLElement;
 
 createRoot(rootElement).render(
     <StrictMode>
         <Provider store={store}>
+            <AppInitializer />
             <ThemeProvider theme={theme}>
                 <CssBaseline />
                 <ErrorBoundary fallback={<ErrorPage />}>

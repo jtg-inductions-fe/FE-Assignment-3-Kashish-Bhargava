@@ -1,4 +1,5 @@
-import { baseApi } from '@services/baseApi';
+import { API_CONSTANT } from '@app/apiConstant';
+import { baseApi } from '@services/BaseApi/baseApi';
 
 import {
     GenreResponse,
@@ -7,6 +8,9 @@ import {
     MoviesResponse,
 } from './movieApi.types';
 
+/**
+ * Movie API service for fetching movie-related data.
+ */
 export const movieApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
         getMovies: builder.query<MoviesResponse, MoviesQueryArgs | void>({
@@ -27,20 +31,20 @@ export const movieApi = baseApi.injectEndpoints({
                 genres.forEach((genre) => searchParams.append('genres', genre));
 
                 return {
-                    url: `movies/?${searchParams.toString()}`,
+                    url: `${API_CONSTANT.MOVIES}?${searchParams.toString()}`,
                 };
             },
             providesTags: ['Movies'],
         }),
 
         getMovieGenres: builder.query<string[], void>({
-            query: () => ({ url: 'movies/genres/' }),
+            query: () => ({ url: API_CONSTANT.GENRES }),
             transformResponse: (response: GenreResponse[]) =>
                 response.map((g) => g.genre),
         }),
 
         getMovieLanguages: builder.query<string[], void>({
-            query: () => ({ url: 'movies/languages/' }),
+            query: () => ({ url: API_CONSTANT.LANGUAGES }),
             transformResponse: (response: LanguageResponse[]) =>
                 response.map((l) => l.language),
         }),
