@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
@@ -45,7 +44,7 @@ export const AccountMenu = () => {
     const user = useAppSelector((state) => state.auth.user);
 
     //Open menu on Avatar click
-    const handleClick = (event: React.MouseEvent<AccountMenuClickHandler>) => {
+    const handleClick: AccountMenuClickHandler = (event) => {
         setAnchorEl(event.currentTarget);
     };
 
@@ -94,7 +93,7 @@ export const AccountMenu = () => {
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
                 {/*View Profile option*/}
-                <StyledMenuItem>
+                <StyledMenuItem onClick={() => void navigate(ROUTES.PROFILE)}>
                     <MenuAvatar />
                     Profile
                 </StyledMenuItem>

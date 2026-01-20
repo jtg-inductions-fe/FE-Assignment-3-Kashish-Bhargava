@@ -26,4 +26,6 @@ export const FormContainer = styled('form')(
 
 export const GoBackHomeButton = styled(IconButton)(() => ({
     position: 'absolute',
+    top: 0,
+    left: 0,
 }));
