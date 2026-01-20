@@ -1,5 +1,5 @@
 /**
- * Regex Pattern constants.
+ * Common constants.
  */
 export const COMMON_CONSTANTS = {
     PHONE_REGEX: /^\+?\d{7,15}$/,

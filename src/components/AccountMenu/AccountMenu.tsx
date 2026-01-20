@@ -77,7 +77,7 @@ export const AccountMenu = () => {
                         aria-expanded={open ? 'true' : undefined}
                     >
                         <UserAvatar>
-                            {user?.name?.charAt(0).toUpperCase() ?? '?'}
+                            {user?.name?.charAt(0).toUpperCase() || '?'}
                         </UserAvatar>
                     </AccountIconButton>
                 </Tooltip>
