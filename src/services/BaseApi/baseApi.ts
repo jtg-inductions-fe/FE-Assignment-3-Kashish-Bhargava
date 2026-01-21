@@ -1,8 +1,10 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-import { logout } from '@features/Auth/authSlice';
+import { API_CONSTANT } from '@app/apiConstant';
+import { logout, setAccessToken } from '@features/Auth/authSlice';
 import type { RootState } from '@models/store';
 
+import { RefreshTokenResponse } from './baseApi.types';
 import { BaseQueryWithReauth } from './baseApi.types';
 
 const rawBaseQuery = fetchBaseQuery({
@@ -36,10 +38,34 @@ export const baseQueryWithReauth: BaseQueryWithReauth = async (
     extraOptions,
 ) => {
     //Execute original API request
-    const result = await rawBaseQuery(args, api, extraOptions);
-    //If token is expired
-    if (result.error?.status === 401) {
-        api.dispatch(logout());
+    let result = await rawBaseQuery(args, api, extraOptions);
+    const state = api.getState() as RootState;
+    //If access token is expired and the user was authenticated
+    if (result.error?.status === 401 && state.auth.isAuthenticated) {
+        //Request new access token using refresh token
+        const refreshResult = await rawBaseQuery(
+            {
+                url: API_CONSTANT.TOKEN_REFRESH,
+                method: 'POST',
+            },
+            api,
+            extraOptions,
+        );
+
+        //If refresh succeeds, update store and retry request
+        if (refreshResult.data) {
+            const { access } = refreshResult.data as RefreshTokenResponse;
+
+            api.dispatch(
+                setAccessToken({
+                    accessToken: access,
+                }),
+            );
+            //Retry original request with new token
+            result = await rawBaseQuery(args, api, extraOptions);
+        } else {
+            api.dispatch(logout());
+        }
     }
 
     return result;
