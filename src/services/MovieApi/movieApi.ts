@@ -1,5 +1,5 @@
 import { API_CONSTANT } from '@app/apiConstant';
-import { baseApi } from '@services/baseApi';
+import { baseApi } from '@services/BaseApi/baseApi';
 
 import { MoviesQueryArgs, MoviesResponse } from './movieApi.types';
 

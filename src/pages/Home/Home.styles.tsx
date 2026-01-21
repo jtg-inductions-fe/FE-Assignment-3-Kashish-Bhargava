@@ -15,11 +15,11 @@ export const HomePageBanner = styled(Box)(
     ({
         theme: {
             breakpoints: { up },
-            shape: { borderRadius },
+            shape: { borderRadiusLg },
             typography: { pxToRem },
         },
     }) => ({
-        borderRadius: borderRadius,
+        borderRadius: borderRadiusLg,
         overflow: 'hidden',
         width: '100%',
         height: 'auto',
@@ -71,7 +71,7 @@ export const CinemaBlock = styled(Box)<BoxProps>(
                 primary: { light },
             },
             breakpoints: { up },
-            shape: { borderRadius },
+            shape: { borderRadiusLg },
         },
     }) => ({
         display: 'flex',
@@ -79,7 +79,7 @@ export const CinemaBlock = styled(Box)<BoxProps>(
         justifyContent: 'flex-start',
         gap: spacing(4),
         backgroundColor: light,
-        borderRadius: borderRadius,
+        borderRadius: borderRadiusLg,
 
         [up('md')]: {
             padding: spacing(12),

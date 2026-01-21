@@ -2,9 +2,10 @@ import { ReactNode } from 'react';
 
 import { LinkProps as RouterLinkProps } from 'react-router-dom';
 
+import { LinkProps as MuiLinkProps } from '@mui/material';
 import { TypographyProps } from '@mui/material';
 
-export interface AppLinkProps extends RouterLinkProps {
+export interface AppLinkProps extends RouterLinkProps, MuiLinkProps {
     /** Link text */
     label: string;
 

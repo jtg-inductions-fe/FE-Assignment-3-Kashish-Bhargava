@@ -1,3 +1,4 @@
+import { UserInitializer } from 'containers/UserInitializer';
 import { Outlet, useMatches } from 'react-router-dom';
 
 import { Navbar } from '@components';
@@ -29,6 +30,7 @@ export const MainLayout = () => {
 
     return (
         <MainLayoutWrapper>
+            <UserInitializer />
             {showNavbar && <Navbar />}
             {isContainerized ? (
                 <MainContainer>

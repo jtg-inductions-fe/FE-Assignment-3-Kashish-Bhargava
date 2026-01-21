@@ -1,10 +1,8 @@
-import { Link, useNavigate } from 'react-router-dom';
-
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { IconButton } from '@mui/material';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import { useAppSelector } from '@app/hooks';
 import BookMyShowLogo from '@assets/images/book-my-show-logo.png';
+import { AccountMenu } from '@components';
 import { Button } from '@components';
 import { ROUTES } from '@constant';
 
@@ -25,6 +23,7 @@ export const Navbar = () => {
      * Hook for navigating programmatically.
      */
     const navigate = useNavigate();
+    const location = useLocation();
 
     return (
         <StyledAppBar position="static">
@@ -40,17 +39,15 @@ export const Navbar = () => {
                 </Link>
                 {/* User Profile */}
                 {isAuthenticated ? (
-                    <IconButton
-                        onClick={() => void navigate(ROUTES.PROFILE)}
-                        aria-label="Navigate to Profile"
-                        color="primary"
-                    >
-                        <AccountCircleIcon fontSize="large" />
-                    </IconButton>
+                    <AccountMenu />
                 ) : (
                     <Button
                         variant="contained"
-                        onClick={() => void navigate(ROUTES.LOGIN)}
+                        onClick={() =>
+                            void navigate(ROUTES.LOGIN, {
+                                state: { from: location.pathname },
+                            })
+                        }
                         aria-label="Navigate to Login"
                     >
                         Login

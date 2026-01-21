@@ -1,6 +1,6 @@
 import { Link as RouterLink } from 'react-router-dom';
 
-import { Box, Typography } from '@mui/material';
+import { Link, Typography } from '@mui/material';
 
 import { AppLinkProps } from './AppLink.types';
 
@@ -25,7 +25,7 @@ export const AppLink = (props: AppLinkProps) => {
     } = props;
 
     return (
-        <Box
+        <Link
             component={RouterLink}
             display="inline-flex"
             alignItems="center"
@@ -36,11 +36,11 @@ export const AppLink = (props: AppLinkProps) => {
             }}
             {...linkProps}
         >
-            {startIcon}
+            {startIcon ? startIcon : null}
             <Typography variant={variant} fontWeight={fontWeight}>
                 {label}
             </Typography>
-            {endIcon}
-        </Box>
+            {endIcon ? endIcon : null}
+        </Link>
     );
 };

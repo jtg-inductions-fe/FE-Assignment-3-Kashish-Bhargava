@@ -1,30 +1,46 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { AuthState, SetCredentialsPayload } from './authSlice.types';
+import { User } from '@features/Auth';
 
+import { AuthState, SetAccessTokenPayload } from './authSlice.types';
+
+//Initial authentication state
 const initialState: AuthState = {
     user: null,
     accessToken: null,
-    refreshToken: null,
     isAuthenticated: false,
+    hasLoggedOut: false,
 };
 
+//Authentication slice
 const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        // Sets user data and tokens after successful login/signup
-        setCredentials: (
+        // Sets access token after login/signup
+        setAccessToken: (
             state,
-            action: PayloadAction<SetCredentialsPayload>,
+            action: PayloadAction<SetAccessTokenPayload>,
         ) => {
-            state.user = action.payload.user;
             state.accessToken = action.payload.accessToken;
-            state.refreshToken = action.payload.refreshToken;
             state.isAuthenticated = true;
+            state.hasLoggedOut = false;
+        },
+        //Store logged-in user profile
+        setUser: (state, action: PayloadAction<User>) => {
+            state.user = action.payload;
+            state.isAuthenticated = true;
+        },
+        //Clears auth state on logout
+        logout: (state) => {
+            state.accessToken = null;
+            state.user = null;
+            state.isAuthenticated = false;
+            state.hasLoggedOut = true;
         },
     },
 });
 
-export const { setCredentials } = authSlice.actions;
+//export actions and reducers
+export const { setAccessToken, setUser, logout } = authSlice.actions;
 export default authSlice.reducer;

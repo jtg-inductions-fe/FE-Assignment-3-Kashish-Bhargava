@@ -9,6 +9,7 @@ import { Provider } from 'react-redux';
 
 import { store } from '@app/store';
 import { ErrorBoundary } from '@components';
+import { AppInitializer } from '@containers/AppInitializer';
 import { ErrorPage } from '@pages';
 import { router } from '@routes';
 import { theme } from '@theme';
@@ -18,6 +19,7 @@ const rootElement = document.getElementById('root') as HTMLElement;
 createRoot(rootElement).render(
     <StrictMode>
         <Provider store={store}>
+            <AppInitializer />
             <ThemeProvider theme={theme}>
                 <CssBaseline />
                 <ErrorBoundary fallback={<ErrorPage />}>
