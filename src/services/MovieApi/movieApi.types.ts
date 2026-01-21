@@ -16,6 +16,21 @@ export interface MoviesResponse {
 export interface MoviesQueryArgs {
     /**Cursor for pagination (used to fetch next or previous results).*/
     cursor?: string | null;
+    /**List of selected languages to filter movies */
+    languages?: string[];
+    /**List of selected genres to filter movies. */
+    genres?: string[];
     /**Flag to fetch latest movies */
     latest?: boolean;
+}
+
+/**API response structure for a single movie genre */
+export interface GenreResponse {
+    /**Name of the genre*/
+    genre: string;
+}
+
+export interface LanguageResponse {
+    /**Name of the language*/
+    language: string;
 }
