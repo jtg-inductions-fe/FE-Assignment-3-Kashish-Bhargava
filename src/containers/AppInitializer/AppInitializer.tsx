@@ -25,6 +25,8 @@ export const AppInitializer = () => {
                 dispatch(setAccessToken({ accessToken: result.access }));
             } catch {
                 // refresh failed user stays logged out
+                //eslint-disable-next-line no-console
+                console.debug('Session restore failed');
             }
         };
 

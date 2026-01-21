@@ -152,6 +152,7 @@ export const AuthForm = <T extends FieldValues>(props: AuthFormProps<T>) => {
                 label="Password"
                 type={showPassword ? 'text' : 'password'}
                 fullWidth
+                autoComplete={isSignup ? 'new-password' : 'current-password'}
                 {...register('password' as Path<T>, {
                     required: COMMON_CONSTANTS.PASSWORD_REQUIRED,
                     validate: validatePassword,
@@ -184,6 +185,7 @@ export const AuthForm = <T extends FieldValues>(props: AuthFormProps<T>) => {
                     label="Confirm Password"
                     type={showConfirmPassword ? 'text' : 'password'}
                     fullWidth
+                    autoComplete="new-password"
                     {...register('confirm_password' as Path<T>, {
                         required: COMMON_CONSTANTS.CONFIRM_PASSWORD_REQUIRED,
                         validate: validateConfirmPassword,
