@@ -2,6 +2,7 @@
  * Styled AccountMenu Component
  */
 import { Avatar, IconButton, Menu, MenuItem, styled } from '@mui/material';
+import { paperClasses } from '@mui/material/Paper';
 
 export const AccountIconButton = styled(IconButton)(() => ({
     padding: 0,
@@ -13,10 +14,11 @@ export const UserAvatar = styled(Avatar)(
             palette: {
                 primary: { main, light },
             },
+            typography: { pxToRem },
         },
     }) => ({
-        width: 42,
-        height: 42,
+        width: pxToRem(42),
+        height: pxToRem(42),
         color: main,
         backgroundColor: light,
     }),
@@ -29,9 +31,10 @@ export const StyledMenu = styled(Menu)(
                 common: { white },
             },
             spacing,
+            typography: { pxToRem },
         },
     }) => ({
-        '& .MuiPaper-root': {
+        [`& .${paperClasses.root}`]: {
             overflow: 'visible',
             marginTop: spacing(2),
             backgroundColor: white,
@@ -41,9 +44,9 @@ export const StyledMenu = styled(Menu)(
                 display: 'block',
                 position: 'absolute',
                 top: 0,
-                right: 14,
-                width: 10,
-                height: 10,
+                right: pxToRem(14),
+                width: pxToRem(10),
+                height: pxToRem(10),
                 backgroundColor: white,
                 transform: 'translateY(-50%) rotate(45deg)',
                 zIndex: 0,
@@ -72,10 +75,11 @@ export const MenuAvatar = styled(Avatar)(
             palette: {
                 primary: { main, light },
             },
+            typography: { pxToRem },
         },
     }) => ({
-        width: 32,
-        height: 32,
+        width: pxToRem(32),
+        height: pxToRem(32),
         color: main,
         backgroundColor: light,
     }),

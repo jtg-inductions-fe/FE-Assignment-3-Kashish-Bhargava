@@ -3,7 +3,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import LogoutIcon from '@mui/icons-material/Logout';
-import { Box, Divider, ListItemIcon, Tooltip } from '@mui/material';
+import PersonIcon from '@mui/icons-material/Person';
+import { Divider, ListItemIcon, Tooltip } from '@mui/material';
 
 import { useAppDispatch, useAppSelector } from '@app/hooks';
 import { ROUTES } from '@constant';
@@ -67,22 +68,22 @@ export const AccountMenu = () => {
     return (
         <>
             {/*User Avatar Button*/}
-            <Box display="flex" alignItems="center" textAlign="center">
-                <Tooltip title="Account settings">
-                    <AccountIconButton
-                        onClick={handleClick}
-                        size="large"
-                        aria-label="Account Menu"
-                        aria-controls={open ? 'account-menu' : undefined}
-                        aria-haspopup="true"
-                        aria-expanded={open ? 'true' : undefined}
-                    >
-                        <UserAvatar>
-                            {user?.name?.trim()?.charAt(0).toUpperCase() || '?'}
-                        </UserAvatar>
-                    </AccountIconButton>
-                </Tooltip>
-            </Box>
+            <Tooltip title="Account settings">
+                <AccountIconButton
+                    onClick={handleClick}
+                    size="large"
+                    aria-label="Account Menu"
+                    aria-controls={open ? 'account-menu' : undefined}
+                    aria-haspopup="true"
+                    aria-expanded={open ? 'true' : undefined}
+                >
+                    <UserAvatar>
+                        {user?.name?.trim()?.charAt(0).toUpperCase() || (
+                            <PersonIcon />
+                        )}
+                    </UserAvatar>
+                </AccountIconButton>
+            </Tooltip>
             {/*Account dropdown menu*/}
             <StyledMenu
                 anchorEl={anchorEl}

@@ -1,31 +1,35 @@
 import { useEffect } from 'react';
 
-import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import { useAppDispatch, useAppSelector } from '@app/hooks';
+import { setAccessToken } from '@features/Auth';
+import { useLazyRefreshTokenQuery } from '@services/UserApi';
 
-import { useAppDispatch } from '@app/hooks';
-import { logout, setAccessToken } from '@features/Auth';
-import { useRefreshTokenQuery } from '@services/UserApi';
-
-//Runs on app load
 export const AppInitializer = () => {
     const dispatch = useAppDispatch();
 
-    //Refresh using cookie
-    const { data, isSuccess, isError, error } = useRefreshTokenQuery();
+    //Flag to avoid refresh after logout
+    const hasLoggedOut = useAppSelector((state) => state.auth.hasLoggedOut);
+
+    const [triggerRefresh] = useLazyRefreshTokenQuery();
 
     useEffect(() => {
-        //Store access token if refresh succeed
-        if (isSuccess && data?.access) {
-            dispatch(setAccessToken({ accessToken: data.access }));
-        }
-        //Logout on error
-        if (isError) {
-            const status = (error as FetchBaseQueryError | undefined)?.status;
-            if (status === 401 || status === 403) {
-                dispatch(logout());
+        const restoreSession = async () => {
+            //Skip refresh if the user logs out
+            if (hasLoggedOut) return;
+
+            try {
+                //Try to refresh access token using cookie
+                const result = await triggerRefresh().unwrap();
+
+                //Store new access token on success
+                dispatch(setAccessToken({ accessToken: result.access }));
+            } catch {
+                // refresh failed user stays logged out
             }
-        }
-    }, [isSuccess, isError, data, error, dispatch]);
+        };
+
+        void restoreSession();
+    }, [triggerRefresh, dispatch, hasLoggedOut]);
 
     return null;
 };

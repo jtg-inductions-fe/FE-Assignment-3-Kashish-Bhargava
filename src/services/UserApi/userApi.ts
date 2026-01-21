@@ -44,7 +44,6 @@ export const userApi = baseApi.injectEndpoints({
                 url: API_CONSTANT.LOGOUT,
                 method: 'POST',
             }),
-            invalidatesTags: ['User'],
         }),
 
         refreshToken: builder.query<{ access: string }, void>({
@@ -61,5 +60,5 @@ export const {
     useLoginMutation,
     useGetProfileQuery,
     useLogoutMutation,
-    useRefreshTokenQuery,
+    useLazyRefreshTokenQuery,
 } = userApi;

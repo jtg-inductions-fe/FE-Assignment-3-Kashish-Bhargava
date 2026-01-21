@@ -16,12 +16,12 @@ import {
     Typography,
 } from '@mui/material';
 
+import { Button } from '@components';
 import { COMMON_CONSTANTS, ROUTES } from '@constant';
 import { LocationState } from '@models/auth';
 
 import { FormContainer, GoBackHomeButton } from './AuthForm.styles';
 import type { AuthFormProps } from './authForm.types';
-import { Button } from '../Button/Button';
 
 // Regex patterns
 const phoneRegex = COMMON_CONSTANTS.PHONE_REGEX;
@@ -225,7 +225,7 @@ export const AuthForm = <T extends FieldValues>(props: AuthFormProps<T>) => {
             <Typography variant="body1" color="text.primary">
                 {mode === 'login' ? (
                     <>
-                        Don&apos;t have an account?{' '}
+                        Don&apos;t have an account?&nbsp;
                         <AppLink
                             to={ROUTES.SIGNUP}
                             label="Sign Up"
@@ -237,7 +237,7 @@ export const AuthForm = <T extends FieldValues>(props: AuthFormProps<T>) => {
                     </>
                 ) : (
                     <>
-                        Already have an account?{' '}
+                        Already have an account?&nbsp;
                         <AppLink
                             to={ROUTES.LOGIN}
                             state={state}
