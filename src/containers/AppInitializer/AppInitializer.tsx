@@ -1,30 +1,26 @@
 import { useEffect } from 'react';
 
-import { useAppDispatch, useAppSelector } from '@app/hooks';
-import { setUser } from '@features/Auth';
-import { useGetProfileQuery } from '@services/UserApi';
+import { useAppDispatch } from '@app/hooks';
+import { logout, setAccessToken } from '@features/Auth';
+import { useRefreshTokenQuery } from '@services/UserApi';
 
-/**
- * Initializes auth state on app load by fetching user profile.
- */
+//Runs on app load
 export const AppInitializer = () => {
-    //Redux dispatcher
     const dispatch = useAppDispatch();
 
-    //Check if the user is authenticated
-    const isAuthenticated = useAppSelector(
-        (state) => state.auth.isAuthenticated,
-    );
+    //Refresh using cookie
+    const { data, isSuccess, isError } = useRefreshTokenQuery();
 
-    //Fetch user profile
-    const { data: user } = useGetProfileQuery();
-
-    //Store user data once authenticated
     useEffect(() => {
-        if (user && isAuthenticated) {
-            dispatch(setUser(user));
+        //Store access token if refresh succeed
+        if (isSuccess && data?.access) {
+            dispatch(setAccessToken({ accessToken: data.access }));
         }
-    }, [isAuthenticated, user, dispatch]);
+        //Logout on error
+        if (isError) {
+            dispatch(logout());
+        }
+    }, [isSuccess, isError, data, dispatch]);
 
     return null;
 };
