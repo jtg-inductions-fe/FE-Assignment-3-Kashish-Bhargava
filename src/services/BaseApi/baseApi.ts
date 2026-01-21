@@ -37,7 +37,7 @@ export const baseQueryWithReauth: BaseQueryWithReauth = async (
 ) => {
     //Execute original API request
     const result = await rawBaseQuery(args, api, extraOptions);
-    //If access token is expired
+    //If token is expired
     if (result.error?.status === 401) {
         api.dispatch(logout());
     }
