@@ -9,6 +9,7 @@ const initialState: AuthState = {
     user: null,
     accessToken: null,
     isAuthenticated: false,
+    hasLoggedOut: false,
 };
 
 //Authentication slice
@@ -23,6 +24,7 @@ const authSlice = createSlice({
         ) => {
             state.accessToken = action.payload.accessToken;
             state.isAuthenticated = true;
+            state.hasLoggedOut = false;
         },
         //Store logged-in user profile
         setUser: (state, action: PayloadAction<User>) => {
@@ -34,6 +36,7 @@ const authSlice = createSlice({
             state.accessToken = null;
             state.user = null;
             state.isAuthenticated = false;
+            state.hasLoggedOut = true;
         },
     },
 });

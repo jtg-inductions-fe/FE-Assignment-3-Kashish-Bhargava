@@ -1,30 +1,37 @@
 import { useEffect } from 'react';
 
 import { useAppDispatch, useAppSelector } from '@app/hooks';
-import { setUser } from '@features/Auth';
-import { useGetProfileQuery } from '@services/UserApi';
+import { setAccessToken } from '@features/Auth';
+import { useLazyRefreshTokenQuery } from '@services/UserApi';
 
-/**
- * Initializes auth state on app load by fetching user profile.
- */
 export const AppInitializer = () => {
-    //Redux dispatcher
     const dispatch = useAppDispatch();
 
-    //Check if the user is authenticated
-    const isAuthenticated = useAppSelector(
-        (state) => state.auth.isAuthenticated,
-    );
+    //Flag to avoid refresh after logout
+    const hasLoggedOut = useAppSelector((state) => state.auth.hasLoggedOut);
 
-    //Fetch user profile
-    const { data: user } = useGetProfileQuery();
+    const [triggerRefresh] = useLazyRefreshTokenQuery();
 
-    //Store user data once authenticated
     useEffect(() => {
-        if (user && isAuthenticated) {
-            dispatch(setUser(user));
-        }
-    }, [isAuthenticated, user, dispatch]);
+        const restoreSession = async () => {
+            //Skip refresh if the user logs out
+            if (hasLoggedOut) return;
+
+            try {
+                //Try to refresh access token using cookie
+                const result = await triggerRefresh().unwrap();
+
+                //Store new access token on success
+                dispatch(setAccessToken({ accessToken: result.access }));
+            } catch {
+                // refresh failed user stays logged out
+                //eslint-disable-next-line no-console
+                console.debug('Session restore failed');
+            }
+        };
+
+        void restoreSession();
+    }, [triggerRefresh, dispatch, hasLoggedOut]);
 
     return null;
 };

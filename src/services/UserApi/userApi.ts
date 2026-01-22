@@ -10,7 +10,7 @@ import type {
 } from './userApi.types';
 
 /**
- * User API service for signup,login,profile fetching and logout.
+ * User API service for signup,login,profile fetching, logout and token refresh.
  */
 export const userApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
@@ -44,7 +44,13 @@ export const userApi = baseApi.injectEndpoints({
                 url: API_CONSTANT.LOGOUT,
                 method: 'POST',
             }),
-            invalidatesTags: ['User'],
+        }),
+
+        refreshToken: builder.query<{ access: string }, void>({
+            query: () => ({
+                url: API_CONSTANT.TOKEN_REFRESH,
+                method: 'POST',
+            }),
         }),
     }),
 });
@@ -54,4 +60,5 @@ export const {
     useLoginMutation,
     useGetProfileQuery,
     useLogoutMutation,
+    useLazyRefreshTokenQuery,
 } = userApi;

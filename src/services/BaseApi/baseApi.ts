@@ -4,7 +4,8 @@ import { API_CONSTANT } from '@app/apiConstant';
 import { logout, setAccessToken } from '@features/Auth/authSlice';
 import type { RootState } from '@models/store';
 
-import { BaseQueryWithReauth, RefreshTokenResponse } from './baseApi.types';
+import { RefreshTokenResponse } from './baseApi.types';
+import { BaseQueryWithReauth } from './baseApi.types';
 
 const rawBaseQuery = fetchBaseQuery({
     baseUrl:
@@ -31,7 +32,6 @@ const rawBaseQuery = fetchBaseQuery({
 });
 
 //Base Query to handle token refresh on 401
-
 export const baseQueryWithReauth: BaseQueryWithReauth = async (
     args,
     api,
@@ -39,9 +39,9 @@ export const baseQueryWithReauth: BaseQueryWithReauth = async (
 ) => {
     //Execute original API request
     let result = await rawBaseQuery(args, api, extraOptions);
-
-    //If access token is expired
-    if (result.error?.status === 401) {
+    const state = api.getState() as RootState;
+    //If access token is expired and the user was authenticated
+    if (result.error?.status === 401 && state.auth.isAuthenticated) {
         //Request new access token using refresh token
         const refreshResult = await rawBaseQuery(
             {

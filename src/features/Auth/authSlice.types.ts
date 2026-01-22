@@ -27,6 +27,9 @@ export interface AuthState {
 
     /** Boolean flag indicating if the user is authenticated */
     isAuthenticated: boolean;
+
+    /**Boolean flag indicating if the user has logged out */
+    hasLoggedOut: boolean;
 }
 
 /**
