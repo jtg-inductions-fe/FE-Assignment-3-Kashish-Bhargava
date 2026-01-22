@@ -1,3 +1,6 @@
+/**
+ * Styles for SlotItem
+ */
 import { makeStyles } from 'tss-react/mui';
 
 export const useSlotItemStyles = makeStyles<{ status: 'available' | 'fast' }>()(
@@ -9,21 +12,25 @@ export const useSlotItemStyles = makeStyles<{ status: 'available' | 'fast' }>()(
                 warning: { main: mainWarning },
                 success: { main },
             },
+            breakpoints: { up },
         },
         { status },
     ) => ({
         slot: {
             padding: spacing(2, 16),
-            alignContent: 'center',
             borderRadius: spacing(2),
-            border: `2px solid ${status === 'fast' ? mainWarning : main}`,
-            borderLeft: `6px solid ${status === 'fast' ? mainWarning : main}`,
+            borderWidth: '2px 2px 2px 6px',
+            borderStyle: 'solid',
+            borderColor: `${status === 'fast' ? mainWarning : main}`,
             color: status === 'fast' ? mainWarning : main,
-            cursor: 'pointer',
             fontWeight: 500,
             fontSize: pxToRem(20),
             width: pxToRem(120),
-            height: pxToRem(62),
+            height: pxToRem(48),
+
+            [up('md')]: {
+                height: pxToRem(62),
+            },
         },
     }),
 );

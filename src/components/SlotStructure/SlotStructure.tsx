@@ -1,28 +1,34 @@
 import dayjs from 'dayjs';
 
-import { Chip, Typography } from '@mui/material';
+import { Box, Chip, Divider, Typography } from '@mui/material';
 
 import { formatDuration } from '@utils';
 
 import { useSlotStructureStyles } from './SlotStructure.styles';
 import { SlotStructureProps } from './SlotStructure.types';
 
-export const SlotStructure = ({
-    title,
-    duration,
-    genres,
-    languages,
-    selectedDate,
-    onDateChange,
-}: SlotStructureProps) => {
+export const SlotStructure = (props: SlotStructureProps) => {
+    //Props
+    const { title, duration, genres, languages, selectedDate, onDateChange } =
+        props;
+
+    //Styles using custom hook
     const { classes } = useSlotStructureStyles();
+
+    //Generate a list of 7 days starting from today
     const dates = Array.from({ length: 7 }).map((_, i) =>
         dayjs().add(i, 'day'),
     );
 
     return (
-        <div className={classes.container}>
-            <div className={classes.header}>
+        <Box display="flex" flexDirection="column">
+            {/*Header section containing title and movie details*/}
+            <Box
+                className={classes.header}
+                display="flex"
+                flexDirection="column"
+                gap={12}
+            >
                 <Typography
                     variant="h1"
                     color="common.black"
@@ -31,7 +37,12 @@ export const SlotStructure = ({
                     {title}
                 </Typography>
 
-                <div className={classes.chipRow}>
+                <Box
+                    display="flex"
+                    gap={8}
+                    flexWrap="wrap"
+                    textTransform="capitalize"
+                >
                     {duration && (
                         <Chip
                             className={classes.movieDetailChip}
@@ -55,11 +66,15 @@ export const SlotStructure = ({
                             variant="outlined"
                         />
                     ))}
-                </div>
-            </div>
-
-            <div className={classes.dateRow}>
+                </Box>
+            </Box>
+            <Divider />
+            {/*Date selection row*/}
+            <Box className={classes.dateRow} display="flex" gap={2}>
                 {dates.map((date) => {
+                    {
+                        /*Disable dates beyond 3 days from today*/
+                    }
                     const isDisabled = date.diff(dayjs(), 'day') > 3;
 
                     return (
@@ -67,6 +82,9 @@ export const SlotStructure = ({
                             className={classes.dateChip}
                             key={date.toString()}
                             label={date.format('ddd DD MMM')}
+                            classes={{
+                                label: classes.chipLabel,
+                            }}
                             disabled={isDisabled}
                             color={
                                 date.format('YYYY-MM-DD') === selectedDate
@@ -80,17 +98,35 @@ export const SlotStructure = ({
                         />
                     );
                 })}
-            </div>
-            <div className={classes.statusRow}>
-                <div className={classes.availability}>
-                    <span className={classes.availabilityIndicator}></span>
+            </Box>
+            <Divider />
+            {/*Slot availability status indicators*/}
+            <Box
+                className={classes.statusRow}
+                display="flex"
+                justifyContent="flex-end"
+                gap={12}
+                marginBottom={20}
+            >
+                <Box display="flex" alignItems="center" gap={4}>
+                    <Box
+                        borderRadius="50%"
+                        bgcolor="success.main"
+                        width={12}
+                        height={12}
+                    ></Box>
                     <Typography variant="body1">Available</Typography>
-                </div>
-                <div className={classes.fastFilling}>
-                    <span className={classes.fastFillingIndicator}></span>
+                </Box>
+                <Box display="flex" alignItems="center" gap={4}>
+                    <Box
+                        borderRadius="50%"
+                        bgcolor="warning.main"
+                        width={12}
+                        height={12}
+                    ></Box>
                     <Typography variant="body1">Fast Filling</Typography>
-                </div>
-            </div>
-        </div>
+                </Box>
+            </Box>
+        </Box>
     );
 };
