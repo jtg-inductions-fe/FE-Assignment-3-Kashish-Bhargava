@@ -7,3 +7,5 @@ export * from './AuthForm';
 export * from './Button';
 export * from './AppLink';
 export * from './AccountMenu';
+export * from './FilterAccordion';
+export * from './FilterList';

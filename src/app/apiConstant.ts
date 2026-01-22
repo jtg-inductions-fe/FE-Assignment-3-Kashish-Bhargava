@@ -8,4 +8,6 @@ export const API_CONSTANT = {
     PROFILE: 'users/profile/',
     LOGOUT: 'users/logout/',
     TOKEN_REFRESH: '/users/token/refresh/',
+    GENRES: 'movies/genres/',
+    LANGUAGES: 'movies/languages/',
 } as const;
