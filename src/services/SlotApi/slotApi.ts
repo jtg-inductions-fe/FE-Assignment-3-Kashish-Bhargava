@@ -1,4 +1,5 @@
-import { baseApi } from '@services/baseApi';
+import { API_CONSTANT } from '@app/apiConstant';
+import { baseApi } from '@services/BaseApi';
 
 import type {
     CinemaMovieSlotArgs,
@@ -15,7 +16,7 @@ export const slotApi = baseApi.injectEndpoints({
             MovieCinemaSlotArgs
         >({
             query: ({ movieId, date }) => ({
-                url: `movies/${movieId}/slots/`,
+                url: `${API_CONSTANT.MOVIES}${movieId}/${API_CONSTANT.SLOTS}`,
                 params: { date },
             }),
         }),
@@ -26,7 +27,7 @@ export const slotApi = baseApi.injectEndpoints({
             CinemaMovieSlotArgs
         >({
             query: ({ cinemaId, date }) => ({
-                url: `cinemas/${cinemaId}/slots/`,
+                url: `${API_CONSTANT.CINEMAS}${cinemaId}/${API_CONSTANT.SLOTS}`,
                 params: { date },
             }),
         }),

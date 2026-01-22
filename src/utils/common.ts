@@ -37,11 +37,13 @@ export const calculateFillPercentage = (
     total: number,
 ): number => {
     if (total === 0) return 0;
+
     return Math.round((booked / total) * 100);
 };
 
 //Determines the fill status of a cinema slot
 export const getSlotFillStatus = (fillPercentage: number) => {
     if (fillPercentage >= 60) return 'fast';
+
     return 'available';
 };

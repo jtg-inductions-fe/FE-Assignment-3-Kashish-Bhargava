@@ -1,28 +1,29 @@
 import { makeStyles } from 'tss-react/mui';
 
 export const useSlotItemStyles = makeStyles<{ status: 'available' | 'fast' }>()(
-    (theme, { status }) => ({
+    (
+        {
+            spacing,
+            typography: { pxToRem },
+            palette: {
+                warning: { main: mainWarning },
+                success: { main },
+            },
+        },
+        { status },
+    ) => ({
         slot: {
-            padding: theme.spacing(2, 16),
+            padding: spacing(2, 16),
             alignContent: 'center',
-            borderRadius: theme.spacing(2),
-            border: `2px solid ${
-                status === 'fast'
-                    ? theme.palette.warning.main
-                    : theme.palette.success.main
-            }`,
-            borderLeft: `6px solid ${
-                status === 'fast'
-                    ? theme.palette.warning.main
-                    : theme.palette.success.main
-            }`,
-            color:
-                status === 'fast'
-                    ? theme.palette.warning.main
-                    : theme.palette.success.main,
+            borderRadius: spacing(2),
+            border: `2px solid ${status === 'fast' ? mainWarning : main}`,
+            borderLeft: `6px solid ${status === 'fast' ? mainWarning : main}`,
+            color: status === 'fast' ? mainWarning : main,
             cursor: 'pointer',
             fontWeight: 500,
-            fontSize: theme.typography.pxToRem(20),
+            fontSize: pxToRem(20),
+            width: pxToRem(120),
+            height: pxToRem(62),
         },
     }),
 );

@@ -1,5 +1,5 @@
-import { Cinema } from '@models/cinema';
 import { API_CONSTANT } from '@app/apiConstant';
+import { Cinema } from '@models/cinema';
 import { baseApi } from '@services/BaseApi';
 
 import type { CinemaQueryArgs, CinemaResponse } from './cinemaApi.types';

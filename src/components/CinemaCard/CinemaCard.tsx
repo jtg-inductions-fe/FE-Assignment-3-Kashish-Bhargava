@@ -20,7 +20,9 @@ export const CinemaCard = ({ cinema }: { cinema: Cinema }) => {
         <StyledCinemaCard>
             <CardActionArea
                 onClick={() =>
-                    void navigate(`${ROUTES.CINEMAS}/${cinema.slug}`)
+                    void navigate(
+                        `${ROUTES.CINEMA_MOVIE_SLOTS.replace(':slug', cinema.slug)}`,
+                    )
                 }
             >
                 {/*Cinema Poster*/}

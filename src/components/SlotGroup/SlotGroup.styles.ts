@@ -1,22 +1,37 @@
 import { makeStyles } from 'tss-react/mui';
 
-export const useSlotGroupStyles = makeStyles()((theme) => ({
-    container: {
-        display: 'flex',
-        justifyContent: 'flex-start',
-        gap: theme.spacing(48),
-        padding: theme.spacing(20, 20),
-        borderBottom: `1px solid ${theme.palette.divider}`,
-        background: theme.palette.common.white,
-    },
-    left: {
-        display: 'flex',
-        flexDirection: 'column',
-        gap: theme.spacing(8),
-    },
-    right: {
-        display: 'flex',
-        gap: theme.spacing(12),
-        flexWrap: 'wrap',
-    },
-}));
+export const useSlotGroupStyles = makeStyles()(
+    ({
+        spacing,
+        palette: {
+            divider,
+            common: { white },
+        },
+        breakpoints: { up },
+    }) => ({
+        container: {
+            display: 'flex',
+            justifyContent: 'flex-start',
+            flexDirection: 'column',
+            gap: spacing(24),
+            padding: spacing(20, 20),
+            borderBottom: `1px solid ${divider}`,
+            background: white,
+
+            [up('md')]: {
+                flexDirection: 'row',
+                gap: spacing(48),
+            },
+        },
+        left: {
+            display: 'flex',
+            flexDirection: 'column',
+            gap: spacing(8),
+        },
+        right: {
+            display: 'flex',
+            gap: spacing(12),
+            flexWrap: 'wrap',
+        },
+    }),
+);
