@@ -27,3 +27,11 @@ export interface CinemaResponse {
     /**List of movies returned in the current page. */
     results: Cinema[];
 }
+
+/** Query parameters used when fetching paginated cinema lists  */
+export interface CinemaQueryArgs {
+    /**Cursor for pagination (used to fetch next or previous results).*/
+    cursor?: string | null;
+    /**Location of cinema*/
+    location?: string;
+}

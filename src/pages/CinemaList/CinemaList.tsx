@@ -44,14 +44,23 @@ export const CinemaList = () => {
     //Merge results for infinite scroll
     useEffect(() => {
         if (data?.results) {
-            setCinemas((prev) =>
-                cursor ? [...prev, ...data.results] : data.results,
-            );
+            setCinemas((prev) => {
+                if (!cursor) return data.results;
+
+                const map = new Map<number, Cinema>();
+
+                [...prev, ...data.results].forEach((cinema) => {
+                    map.set(cinema.id, cinema);
+                });
+
+                return Array.from(map.values());
+            });
         }
     }, [data, cursor]);
 
     // Infinite scroll
     const loaderRef = useRef<HTMLDivElement | null>(null);
+
     const handleObserver = useCallback(
         (entries: IntersectionObserverEntry[]) => {
             const target = entries[0];
@@ -75,6 +84,27 @@ export const CinemaList = () => {
         return () => observer.disconnect();
     }, [handleObserver]);
 
+    /*Initial loading*/
+    if (isLoading && !cinemas.length)
+        return (
+            <Box display="flex" justifyContent="center" mt={4}>
+                <CircularProgress />
+            </Box>
+        );
+
+    //Empty State
+    if (!(cinemas.length > 0))
+        return (
+            <Typography
+                align="center"
+                color="text.secondary"
+                mt={4}
+                variant="h2"
+            >
+                No cinemas found
+            </Typography>
+        );
+
     return (
         <Box display="flex" flexDirection="column" gap={20}>
             {/*Page Header*/}
@@ -90,23 +120,11 @@ export const CinemaList = () => {
                     aria-label="Search cinemas by location"
                 />
             </CinemaListHeader>
-            {/*Initial loading*/}
-            {isLoading && !cinemas.length ? (
-                <Box display="flex" justifyContent="center" mt={4}>
-                    <CircularProgress />
-                </Box>
-            ) : cinemas.length > 0 ? (
-                <GridLayout columns={gridColumns}>
-                    {cinemas.map((cinema) => (
-                        <CinemaCard key={cinema.id} cinema={cinema} />
-                    ))}
-                </GridLayout>
-            ) : (
-                <Typography align="center" color="text.secondary" mt={4}>
-                    No cinemas found
-                </Typography>
-            )}
-
+            <GridLayout columns={gridColumns}>
+                {cinemas.map((cinema) => (
+                    <CinemaCard key={cinema.id} cinema={cinema} />
+                ))}
+            </GridLayout>
             {/*Pagination loader*/}
             <Box display="flex" justifyContent="center" minHeight={48}>
                 {isFetching && cinemas.length > 0 && (
