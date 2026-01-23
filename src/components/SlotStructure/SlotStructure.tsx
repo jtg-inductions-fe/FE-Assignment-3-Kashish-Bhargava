@@ -50,19 +50,19 @@ export const SlotStructure = (props: SlotStructureProps) => {
                             variant="outlined"
                         />
                     )}
-                    {genres?.map((g) => (
+                    {genres?.map((genre) => (
                         <Chip
                             className={classes.movieDetailChip}
-                            key={g}
-                            label={g}
+                            key={genre}
+                            label={genre}
                             variant="outlined"
                         />
                     ))}
-                    {languages?.map((l) => (
+                    {languages?.map((language) => (
                         <Chip
                             className={classes.movieDetailChip}
-                            key={l}
-                            label={l}
+                            key={language}
+                            label={language}
                             variant="outlined"
                         />
                     ))}
