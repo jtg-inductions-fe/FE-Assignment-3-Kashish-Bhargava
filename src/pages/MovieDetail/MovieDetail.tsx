@@ -7,8 +7,7 @@ import DummyPoster from '@assets/images/movie-poster.png';
 import { Button } from '@components';
 import { ROUTES } from '@constant';
 import { useGetMovieBySlugQuery } from '@services/MovieApi';
-import { formatDuration, formatReleaseDate } from '@utils';
-import { capitalizeArray } from '@utils';
+import { capitalizeArray, formatDuration, formatReleaseDate } from '@utils';
 
 import {
     DescriptionSection,
@@ -113,7 +112,13 @@ export const MovieDetail = () => {
                             color="secondary.light"
                         >
                             <Typography variant="h3">
-                                {`${formatReleaseDate(movie.release_date)} • ${formatDuration(movie.duration)} • ${capitalizeArray(movie.genres).join(', ')}`}
+                                {[
+                                    formatReleaseDate(movie.release_date),
+                                    formatDuration(movie.duration),
+                                    capitalizeArray(movie.genres).join(', '),
+                                ]
+                                    .filter(Boolean)
+                                    .join(' • ')}
                             </Typography>
                         </Box>
                         {/*Book Tickets and share buttons*/}

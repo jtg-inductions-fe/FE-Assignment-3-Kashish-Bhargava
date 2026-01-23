@@ -32,14 +32,16 @@ export const movieApi = baseApi.injectEndpoints({
         getMovieGenres: builder.query<string[], void>({
             query: () => ({ url: API_CONSTANT.GENRES }),
             transformResponse: (response: GenreResponse[]) =>
-                capitalizeArray(response.map((genre) => genre.genre)),
+                capitalizeArray((response ?? []).map((genre) => genre.genre)),
         }),
 
         //Fetch all languages for filters
         getMovieLanguages: builder.query<string[], void>({
             query: () => ({ url: API_CONSTANT.LANGUAGES }),
             transformResponse: (response: LanguageResponse[]) =>
-                capitalizeArray(response.map((language) => language.language)),
+                capitalizeArray(
+                    (response ?? []).map((language) => language.language),
+                ),
         }),
 
         //Fetch single movie by slug

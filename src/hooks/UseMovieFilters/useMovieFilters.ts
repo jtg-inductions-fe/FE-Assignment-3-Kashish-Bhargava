@@ -1,5 +1,6 @@
 import { UseMovieFiltersParams } from './useMovieFilters.types';
 
+//useMovieFilters hook used by both desktop and mobile movie filters.
 export const useMovieFilters = (props: UseMovieFiltersParams) => {
     const {
         availableLanguages,

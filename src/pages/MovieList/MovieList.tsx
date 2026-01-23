@@ -157,7 +157,7 @@ export const MovieList = () => {
                                 <MovieCard key={movie.id} movie={movie} />
                             ))}
                         </GridLayout>
-                    )}{' '}
+                    )}
                     {!isLoadingOrFetching && !hasMovies && (
                         /*Empty State*/
                         <Typography
