@@ -52,18 +52,35 @@ export const MovieDetail = () => {
             </Typography>
         );
 
-    //Share movie handler
-    const handleShare = () => {
-        if (navigator.share) {
-            void navigator.share({
-                title: movie.name,
-                text: movie.description,
-                url: window.location.href,
-            });
-        } else {
-            void navigator.clipboard.writeText(window.location.href);
-            alert('Link copied to clipboard!');
+    //Share movie
+    const handleShare = async () => {
+        const url = window.location.href;
+        try {
+            if (navigator.share) {
+                await navigator.share({
+                    title: movie.name,
+                    text: movie.description,
+                    url,
+                });
+
+                return;
+            }
+        } catch {
+            // fall through to clipboard fallback
         }
+
+        if (navigator.clipboard?.writeText) {
+            try {
+                await navigator.clipboard.writeText(url);
+                alert('Link copied to clipboard!');
+
+                return;
+            } catch {
+                // fall through to manual copy
+            }
+        }
+
+        window.prompt('Copy link:', url);
     };
 
     return (
@@ -112,7 +129,7 @@ export const MovieDetail = () => {
 
                             <Button
                                 variant="outlined"
-                                onClick={handleShare}
+                                onClick={() => void handleShare()}
                                 startIcon={<ShareIcon />}
                             >
                                 Share

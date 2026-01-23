@@ -1,5 +1,6 @@
 //Styled components for MovieFiltersMobile
 import { Divider, Drawer, styled } from '@mui/material';
+import { paperClasses } from '@mui/material/Paper';
 
 export const StyledDrawer = styled(Drawer)(
     ({
@@ -7,10 +8,13 @@ export const StyledDrawer = styled(Drawer)(
             palette: {
                 common: { white },
             },
+            spacing,
         },
     }) => ({
-        '& .MuiPaper-root': {
+        [`& .${paperClasses.root}`]: {
             backgroundColor: white,
+            padding: spacing(8),
+            gap: spacing(16),
         },
     }),
 );

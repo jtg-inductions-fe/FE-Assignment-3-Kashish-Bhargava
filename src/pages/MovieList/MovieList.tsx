@@ -50,11 +50,20 @@ export const MovieList = () => {
     const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
 
     // Fetch movies with filters + pagination
-    const { data, isLoading, isFetching } = useGetMoviesQuery({
+    const {
+        data: movies,
+        isLoading,
+        isFetching,
+    } = useGetMoviesQuery({
         languages: selectedLanguages,
         genres: selectedGenres,
         cursor,
     });
+
+    //Fetching and Loading State
+    const isLoadingOrFetching = isFetching || isLoading;
+    //Check for movies existence
+    const hasMovies = Boolean(movies?.results?.length);
 
     //Fetch available filter options
     const { data: languages = [] } = useGetMovieLanguagesQuery();
@@ -73,8 +82,10 @@ export const MovieList = () => {
     useEffect(() => {
         const params = new URLSearchParams();
 
-        selectedGenres.forEach((g) => params.append('genres', g));
-        selectedLanguages.forEach((l) => params.append('languages', l));
+        selectedGenres.forEach((genre) => params.append('genres', genre));
+        selectedLanguages.forEach((language) =>
+            params.append('languages', language),
+        );
         if (cursor) params.set('cursor', cursor);
 
         setSearchParams(params);
@@ -82,16 +93,16 @@ export const MovieList = () => {
 
     //Handle next page navigation
     const handleNext = () => {
-        if (data?.next) {
-            const nextCursor = new URL(data.next).searchParams.get('cursor');
+        if (movies?.next) {
+            const nextCursor = new URL(movies.next).searchParams.get('cursor');
             setCursor(nextCursor);
         }
     };
 
     //Handle previous page navigation
     const handlePrevious = () => {
-        if (data?.previous) {
-            const prevCursor = new URL(data.previous).searchParams.get(
+        if (movies?.previous) {
+            const prevCursor = new URL(movies.previous).searchParams.get(
                 'cursor',
             );
             setCursor(prevCursor);
@@ -121,8 +132,8 @@ export const MovieList = () => {
     return (
         <MovieListContainer>
             {/*Desktop filter sidebar*/}
-            <Box display={'flex'} flex={'0 0 25%'}>
-                {!isMobile && (
+            {!isMobile && (
+                <Box display="flex" flex="0 0 25%">
                     <MovieFiltersDesktop
                         availableLanguages={languages}
                         availableGenres={genres}
@@ -131,51 +142,52 @@ export const MovieList = () => {
                         setSelectedLanguages={setSelectedLanguages}
                         setSelectedGenres={setSelectedGenres}
                     />
-                )}
-            </Box>
+                </Box>
+            )}
             {/*Main movie list content*/}
             <MovieListMainContent>
                 <Typography variant="h2">Explore All Movies</Typography>
                 <Box>
                     {/*Loading State*/}
-                    {isLoading || isFetching ? (
-                        <CenteredLoader />
-                    ) : data?.results?.length ? (
+                    {isLoadingOrFetching && <CenteredLoader />}
+                    {!isLoadingOrFetching && hasMovies && movies && (
                         /*Movie Grid*/
                         <GridLayout columns={gridColumns}>
-                            {data.results.map((movie) => (
+                            {movies.results.map((movie) => (
                                 <MovieCard key={movie.id} movie={movie} />
                             ))}
                         </GridLayout>
-                    ) : (
+                    )}{' '}
+                    {!isLoadingOrFetching && !hasMovies && (
                         /*Empty State*/
                         <Typography
                             align="center"
                             color="text.secondary"
                             mt={4}
+                            variant="h2"
                         >
                             No movies found
                         </Typography>
                     )}
                 </Box>
                 {/*Pagination Buttons*/}
-                {data && (
+                {movies && (movies.next || movies.previous) && (
                     <Box
-                        display={'flex'}
-                        justifyContent={'center'}
-                        alignItems={'center'}
+                        display="flex"
+                        justifyContent="center"
+                        alignItems="center"
                         gap={20}
                     >
                         <Button
                             variant="outlined"
-                            disabled={!data.previous || isFetching || isLoading}
+                            disabled={!movies.previous || isLoadingOrFetching}
                             onClick={handlePrevious}
                         >
                             Previous
                         </Button>
                         <Button
                             variant="contained"
-                            disabled={!data.next || isFetching || isLoading}
+                            disabled={!movies.next || isLoadingOrFetching}
                             onClick={handleNext}
                         >
                             Next

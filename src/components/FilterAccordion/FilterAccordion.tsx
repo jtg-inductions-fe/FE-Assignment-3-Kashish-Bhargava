@@ -1,6 +1,8 @@
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { AccordionSummary, Stack, Typography } from '@mui/material';
 
+import { toggleValue } from '@utils';
+
 import {
     FilterChip,
     StyledAccordion,
@@ -8,15 +10,10 @@ import {
 } from './FilterAccordion.styles';
 import { FilterAccordionProps } from './FilterAccordion.types';
 
+/**Component for filters in desktop view */
 export const FilterAccordion = (props: FilterAccordionProps) => {
     //Props
     const { title, options, selectedValues, setSelectedValues } = props;
-
-    //Toggle selection
-    const toggleValue = (value: string) =>
-        selectedValues.includes(value)
-            ? selectedValues.filter((v) => v !== value)
-            : [...selectedValues, value];
 
     return (
         <StyledAccordion defaultExpanded disableGutters>
@@ -38,7 +35,9 @@ export const FilterAccordion = (props: FilterAccordionProps) => {
                                 color={isSelected ? 'primary' : 'default'}
                                 variant={isSelected ? 'filled' : 'outlined'}
                                 onClick={() =>
-                                    setSelectedValues(toggleValue(option))
+                                    setSelectedValues(
+                                        toggleValue(selectedValues, option),
+                                    )
                                 }
                             />
                         );

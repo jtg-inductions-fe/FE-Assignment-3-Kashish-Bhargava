@@ -29,6 +29,23 @@ const rawBaseQuery = fetchBaseQuery({
 
         return headers;
     },
+
+    //Centralized query param serialization
+    paramsSerializer: (params) => {
+        const searchParams = new URLSearchParams();
+
+        Object.entries(params).forEach(([key, value]) => {
+            if (Array.isArray(value)) {
+                value.forEach((v) => {
+                    searchParams.append(key, String(v));
+                });
+            } else if (value !== undefined && value !== null) {
+                searchParams.append(key, String(value));
+            }
+        });
+
+        return searchParams.toString();
+    },
 });
 
 //Base Query to handle token refresh on 401

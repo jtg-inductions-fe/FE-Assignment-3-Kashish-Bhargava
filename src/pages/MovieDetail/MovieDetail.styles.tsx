@@ -23,7 +23,7 @@ export const MovieDetailTopContentSection = styled(Box)<{
             rgba(0,0,0,0) 40%,
             rgba(0,0,0,0.85) 100%
         ),
-        url(${backdrop})
+        ${backdrop ? `url(${backdrop})` : 'none'}
     `,
         backgroundSize: 'cover',
         backgroundPosition: 'center',

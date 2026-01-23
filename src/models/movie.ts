@@ -4,6 +4,7 @@
 export interface Movie {
     /**Unique movie identifier */
     id: number;
+    /**URL-friendly identifier for routing */
     slug: string;
     /**Movie title */
     name: string;

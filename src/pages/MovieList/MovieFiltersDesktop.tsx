@@ -2,13 +2,13 @@ import { useNavigate } from 'react-router-dom';
 
 import { Box, Typography } from '@mui/material';
 
-import { FilterAccordion } from '@components';
-import { Button } from '@components';
+import { Button, FilterAccordion } from '@components';
 import { ROUTES } from '@constant';
+import { useMovieFilters } from '@hooks/UseMovieFilters';
 
-import { MovieFilterDesktopProps } from './MovieFiltersDesktop.types';
+import { MovieFiltersDesktopProps } from './MovieFiltersDesktop.types';
 
-export const MovieFiltersDesktop = (props: MovieFilterDesktopProps) => {
+export const MovieFiltersDesktop = (props: MovieFiltersDesktopProps) => {
     //Props
     const {
         availableLanguages,
@@ -19,23 +19,15 @@ export const MovieFiltersDesktop = (props: MovieFilterDesktopProps) => {
         setSelectedGenres,
     } = props;
 
-    //Filter Configuration
-    const filterConfig = [
-        {
-            id: 'languages',
-            title: 'Languages',
-            options: availableLanguages,
-            selectedValues: selectedLanguages,
-            setSelectedValues: setSelectedLanguages,
-        },
-        {
-            id: 'genres',
-            title: 'Genres',
-            options: availableGenres,
-            selectedValues: selectedGenres,
-            setSelectedValues: setSelectedGenres,
-        },
-    ];
+    //Custom Hook for movie filters
+    const { filterConfig } = useMovieFilters({
+        availableGenres,
+        availableLanguages,
+        selectedGenres,
+        selectedLanguages,
+        setSelectedGenres,
+        setSelectedLanguages,
+    });
 
     //Navigation
     const navigate = useNavigate();
@@ -47,17 +39,12 @@ export const MovieFiltersDesktop = (props: MovieFilterDesktopProps) => {
     };
 
     return (
-        <Box
-            marginBottom={12}
-            display={'flex'}
-            flexDirection={'column'}
-            gap={12}
-        >
+        <Box marginBottom={12} display="flex" flexDirection="column" gap={12}>
             {/*Header Section*/}
             <Box
-                display={'flex'}
-                justifyContent={'space-between'}
-                alignItems={'center'}
+                display="flex"
+                justifyContent="space-between"
+                alignItems="center"
             >
                 <Typography variant="h2">Filters</Typography>
                 <Button onClick={handleReset} variant="text">

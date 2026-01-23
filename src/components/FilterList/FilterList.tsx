@@ -1,16 +1,13 @@
 import { List, ListItemButton, Typography } from '@mui/material';
 
+import { toggleValue } from '@utils';
+
 import { StyledCheckbox } from './FilterList.styles';
 import { FilterListProps } from './FilterList.types';
 
+/**Component for filters in mobile view */
 export const FilterList = (props: FilterListProps) => {
     const { title, options, selectedValues, setSelectedValues } = props;
-
-    //Toggle selection
-    const toggleValue = (value: string) =>
-        selectedValues.includes(value)
-            ? selectedValues.filter((v) => v !== value)
-            : [...selectedValues, value];
 
     return (
         <>
@@ -24,7 +21,11 @@ export const FilterList = (props: FilterListProps) => {
                     <ListItemButton
                         disableGutters
                         key={option}
-                        onClick={() => setSelectedValues(toggleValue(option))}
+                        onClick={() =>
+                            setSelectedValues(
+                                toggleValue(selectedValues, option),
+                            )
+                        }
                     >
                         <StyledCheckbox
                             checked={selectedValues.includes(option)}
