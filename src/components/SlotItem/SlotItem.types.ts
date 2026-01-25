@@ -11,4 +11,18 @@ export interface SlotItemProps {
         /**Number of seats booked*/
         bookedSeats: number;
     };
+    /**unique identifier for cinema */
+    cinemaId: number;
+    /**unique identifier for slot */
+    slotId: number;
+    /**movie name */
+    movieName: string;
+    /**cinema name */
+    cinemaName: string;
+    /**date of slot */
+    date: string;
+    /**cinema location */
+    cinemaLocation: string;
+    /**price of seat */
+    seatPrice: number;
 }

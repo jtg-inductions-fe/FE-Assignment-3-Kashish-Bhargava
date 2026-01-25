@@ -82,6 +82,11 @@ export const CinemaMovieSlot = () => {
                     title={movie.name}
                     subtitle={`${movie.duration} • ${movie.genres.join(', ')} • ${movie.languages.join(', ')}`}
                     slots={movie.slots}
+                    cinemaId={cinema.id}
+                    cinemaName={cinema.name}
+                    movieName={movie.name}
+                    cinemaLocation={cinema.location}
+                    selectedDate={date}
                 />
             ))}
         </>

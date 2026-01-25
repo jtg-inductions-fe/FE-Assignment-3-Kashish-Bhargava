@@ -6,7 +6,16 @@ import { SlotItem } from '../SlotItem/SlotItem';
 
 export const SlotGroup = (props: SlotGroupProps) => {
     //Props
-    const { title, subtitle, slots } = props;
+    const {
+        title,
+        subtitle,
+        slots,
+        cinemaId,
+        cinemaName,
+        movieName,
+        selectedDate,
+        cinemaLocation,
+    } = props;
 
     //Styles using custom hook
     const { classes } = useSlotGroupStyles();
@@ -36,7 +45,17 @@ export const SlotGroup = (props: SlotGroupProps) => {
                 {/*Slots container*/}
                 <Box display="flex" gap={12} flexWrap="wrap">
                     {slots.map((slot) => (
-                        <SlotItem key={slot.id} startTime={slot.start_time} />
+                        <SlotItem
+                            key={slot.id}
+                            startTime={slot.start_time}
+                            cinemaId={cinemaId}
+                            slotId={slot.id}
+                            cinemaName={cinemaName}
+                            movieName={movieName}
+                            date={selectedDate}
+                            cinemaLocation={cinemaLocation}
+                            seatPrice={Number(slot.price)}
+                        />
                     ))}
                 </Box>
             </Box>

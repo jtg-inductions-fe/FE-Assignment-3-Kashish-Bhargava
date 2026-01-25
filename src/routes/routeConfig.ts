@@ -138,7 +138,7 @@ export const routeConfig: RouteConfig[] = [
                 handle: {
                     layout: {
                         showNavbar: false,
-                        isContainerized: true,
+                        isContainerized: false,
                     },
                 },
             },

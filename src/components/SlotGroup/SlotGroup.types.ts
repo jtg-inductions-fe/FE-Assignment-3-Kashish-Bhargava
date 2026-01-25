@@ -10,4 +10,14 @@ export interface SlotGroupProps {
     subtitle?: string;
     /**List of slots */
     slots: Slot[];
+    /**unique identifier for cinema*/
+    cinemaId: number;
+    /**cinema name */
+    cinemaName: string;
+    /**movie name */
+    movieName: string;
+    /** selected slot date*/
+    selectedDate: string;
+    /**cinema location */
+    cinemaLocation: string;
 }

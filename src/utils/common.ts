@@ -1,3 +1,6 @@
+import { SeatRow } from '@containers/SeatBooking.types';
+import { Seat } from '@services/SeatApi';
+
 //Format movie duration "HH:MM:SS" to "Hh MMm"
 export const formatDuration = (duration: string): string => {
     if (!duration || !duration.includes(':')) return '';
@@ -46,4 +49,44 @@ export const getSlotFillStatus = (fillPercentage: number) => {
     if (fillPercentage >= 60) return 'fast';
 
     return 'available';
+};
+
+/**Converts numeric row no. to alphabet label (1 to A, 2 to B ....) */
+export const getRowLabel = (rowNumber: number): string =>
+    String.fromCharCode(64 + rowNumber);
+
+/**Group seats into rows */
+export const groupSeatsByRow = (seats: Seat[]): SeatRow[] => {
+    const map = new Map<number, Seat[]>();
+
+    seats.forEach((seat) => {
+        if (!map.has(seat.row_number)) {
+            map.set(seat.row_number, []);
+        }
+        map.get(seat.row_number)!.push(seat);
+    });
+
+    const entries = Array.from(map.entries());
+
+    return entries.map(([rowNumber, rowSeats]) => ({
+        rowNumber,
+        rowLabel: getRowLabel(rowNumber),
+        seats: rowSeats.sort((a, b) => a.seat_number - b.seat_number),
+    }));
+};
+
+/**Returns indexes where aisle gaps should be inserted */
+export const getAisleIndexes = (seatCount: number): number[] => {
+    // No aisle
+    if (seatCount <= 10) return [];
+
+    // One aisle (center)
+    if (seatCount <= 15) {
+        return [Math.floor(seatCount / 2)];
+    }
+
+    // Two aisles ( three blocks)
+    const blockSize = Math.floor(seatCount / 3);
+
+    return [blockSize, blockSize * 2];
 };
