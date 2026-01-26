@@ -16,7 +16,7 @@ export const SeatItem = (props: SeatItemProps) => {
     return (
         <Box
             className={classes.seat}
-            onClick={() => onToggle(seat)}
+            onClick={seat.available ? () => onToggle(seat) : undefined}
             component="button"
             aria-disabled={!seat.available}
             width={32}
@@ -26,6 +26,8 @@ export const SeatItem = (props: SeatItemProps) => {
             justifyContent="center"
             fontSize={12}
             fontWeight={500}
+            type="button"
+            disabled={!seat.available}
         >
             {/*Seat Number*/}
             {seat.seat_number}

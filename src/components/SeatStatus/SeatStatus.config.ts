@@ -1,4 +1,4 @@
-import { SeatItems } from './SeatStatus.types';
+import type { SeatItems } from './SeatStatus.types';
 
 /**Configuration for seat status */
 export const STATUS_ITEMS: SeatItems[] = [

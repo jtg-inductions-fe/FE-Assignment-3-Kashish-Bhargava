@@ -93,6 +93,6 @@ export const baseApi = createApi({
     reducerPath: 'api',
     baseQuery: baseQueryWithReauth,
     //Tags used for automatic cache management (invalidate/refetch)
-    tagTypes: ['Movies', 'Cinemas', 'Bookings', 'User'],
+    tagTypes: ['Movies', 'Cinemas', 'Bookings', 'User', 'Seats'],
     endpoints: () => ({}),
 });

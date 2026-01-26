@@ -1,7 +1,6 @@
-import { SeatAisle } from 'components/SeatAisle/SeatAisle';
-
 import { Box } from '@mui/material';
 
+import { SeatAisle } from '@components';
 import { SeatItem } from '@components';
 import { getAisleIndexes } from '@utils';
 
@@ -36,7 +35,6 @@ export const SeatRow = (props: SeatRowProps) => {
                         )}
                         {/*Seat Item*/}
                         <SeatItem
-                            key={seat.id}
                             seat={seat}
                             isSelected={selectedSeatIds.includes(seat.id)}
                             onToggle={onToggleSeat}

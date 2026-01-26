@@ -1,4 +1,4 @@
-import { Seat } from '@services/SeatApi';
+import type { Seat } from '@services/SeatApi';
 
 export interface SeatRow {
     /**Row number */

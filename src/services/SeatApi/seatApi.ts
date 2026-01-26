@@ -1,14 +1,15 @@
+import { API_CONSTANT } from '@app/apiConstant';
 import { baseApi } from '@services/BaseApi';
 
-import { SeatQueryArgs, type SeatResponse } from './seatApi.types';
+import type { SeatQueryArgs, SeatResponse } from './seatApi.types';
 
 export const seatApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
         getSeats: builder.query<SeatResponse, SeatQueryArgs>({
             query: ({ cinemaId, slotId }) => ({
-                url: `/cinemas/${cinemaId}/slots/${slotId}/seats/`,
+                url: `${API_CONSTANT.CINEMAS}${cinemaId}/${API_CONSTANT.SLOTS}${slotId}/${API_CONSTANT.SEATS}`,
             }),
-            providesTags: ['Bookings'],
+            providesTags: ['Seats'],
         }),
     }),
 });

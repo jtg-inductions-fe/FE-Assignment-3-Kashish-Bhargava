@@ -12,6 +12,8 @@ export const SeatAisle = (props: SeatAisleProps) => {
             height={orientation === 'horizontal' ? 32 : 'auto'}
             width={orientation === 'vertical' ? 32 : '100%'}
             flexShrink={0}
+            role="presentation"
+            aria-hidden="true"
         />
     );
 };

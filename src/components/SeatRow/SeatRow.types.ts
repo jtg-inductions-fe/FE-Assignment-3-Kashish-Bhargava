@@ -5,7 +5,7 @@ export interface SeatRowProps {
     rowLabel: string;
     /**Seat of a row */
     seats: Seat[];
-    /**IDs of currently selected rows */
+    /**IDs of currently selected seats */
     selectedSeatIds: number[];
     /**Handler to toggle seat selection */
     onToggleSeat: (seat: Seat) => void;

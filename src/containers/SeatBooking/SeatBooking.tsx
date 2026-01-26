@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
 import dayjs from 'dayjs';
 import { useLocation } from 'react-router-dom';
@@ -101,17 +101,22 @@ export const SeatBookingContainer = (props: SeatBookingContainerProps) => {
           }
         : cinemas.find((cinema) => cinema.id === cinemaId);
 
+    const seatsArgs =
+        isCinemaSlotsError || isMovieSlotsError
+            ? skipToken
+            : { cinemaId, slotId };
+
     /*Fetch seats*/
     const {
         data: seats = [],
         isLoading: isSeatsLoading,
         isError: isSeatsError,
-    } = useGetSeatsQuery({ cinemaId, slotId });
+    } = useGetSeatsQuery(seatsArgs);
 
     /*Seat selection logic*/
     const [selectedSeatIds, setSelectedSeatIds] = useState<number[]>([]);
 
-    const toggleSeat = (seat: Seat) => {
+    const toggleSeat = useCallback((seat: Seat) => {
         if (!seat.available) return;
 
         setSelectedSeatIds((prev) =>
@@ -119,7 +124,7 @@ export const SeatBookingContainer = (props: SeatBookingContainerProps) => {
                 ? prev.filter((id) => id !== seat.id)
                 : [...prev, seat.id],
         );
-    };
+    }, []);
 
     /**Group seats into rows */
     const seatRows = groupSeatsByRow(seats);

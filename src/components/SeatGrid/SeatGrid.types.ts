@@ -1,4 +1,4 @@
-import type { SeatRow } from '@containers/SeatLayout/seatLayout.utils';
+import type { SeatRow } from '@containers/SeatBooking.types';
 import type { Seat } from '@services/SeatApi/seatApi.types';
 
 export interface SeatGridProps {
