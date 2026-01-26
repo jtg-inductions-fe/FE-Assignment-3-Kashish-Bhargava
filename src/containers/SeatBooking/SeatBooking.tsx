@@ -1,12 +1,13 @@
 import { useCallback, useMemo, useState } from 'react';
 
 import dayjs from 'dayjs';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Box, CircularProgress, Typography } from '@mui/material';
 
 import { skipToken } from '@reduxjs/toolkit/query';
 
+import { BookingSuccessModal } from '@components';
 import {
     SeatBookingHeader,
     SeatBookingSummary,
@@ -14,6 +15,8 @@ import {
     SeatScreenIndicator,
     SeatStatus,
 } from '@components';
+import { ROUTES } from '@constant';
+import { useCreateBookingMutation } from '@services/BookingApi';
 import { Seat, useGetSeatsQuery } from '@services/SeatApi';
 import {
     useGetCinemaMovieSlotsQuery,
@@ -31,6 +34,8 @@ export const SeatBookingContainer = (props: SeatBookingContainerProps) => {
 
     //Styles for custom hook
     const { classes } = useSeatBookingContainerStyles();
+
+    const navigate = useNavigate();
 
     /**
      * Navigation state
@@ -129,6 +134,28 @@ export const SeatBookingContainer = (props: SeatBookingContainerProps) => {
     /**Group seats into rows */
     const seatRows = groupSeatsByRow(seats);
 
+    /**Booking mutation */
+    const [createBooking, { isLoading: isBooking }] =
+        useCreateBookingMutation();
+
+    const [bookingId, setBookingId] = useState<number | null>(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    //Booking Handler
+    const handleBookTickets = async () => {
+        try {
+            const response = await createBooking({
+                cinemaId,
+                slotId,
+                seatIds: selectedSeatIds,
+            }).unwrap();
+            setBookingId(response.id);
+            setIsModalOpen(true);
+        } catch {
+            alert('Booking failed. Please try again.');
+        }
+    };
+
     /* Loading states */
     if (isCinemaSlotsLoading || isMovieSlotsLoading || isSeatsLoading) {
         return (
@@ -155,7 +182,7 @@ export const SeatBookingContainer = (props: SeatBookingContainerProps) => {
 
     return (
         <Box display="flex" flexDirection="column" gap={64}>
-            {/*Header and booking summary*/}
+            {/*Header, booking summary and Booking Success Modal*/}
             <Box>
                 <SeatBookingHeader
                     movieName={resolvedSlot.movieName}
@@ -168,6 +195,17 @@ export const SeatBookingContainer = (props: SeatBookingContainerProps) => {
                 <SeatBookingSummary
                     pricePerSeat={resolvedSlot.seatPrice}
                     selectedCount={selectedSeatIds.length}
+                    onBook={() => void handleBookTickets()}
+                    isBooking={isBooking}
+                />
+                <BookingSuccessModal
+                    open={isModalOpen}
+                    bookingId={bookingId}
+                    onClose={() => setIsModalOpen(false)}
+                    onViewTicket={() => {
+                        void navigate(ROUTES.PURCHASE_HISTORY);
+                        setIsModalOpen(false);
+                    }}
                 />
             </Box>
             {/*Seat Grid and Screen Indicator*/}

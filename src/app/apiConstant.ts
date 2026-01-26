@@ -13,4 +13,5 @@ export const API_CONSTANT = {
     CINEMAS: 'cinemas/',
     SLOTS: 'slots/',
     SEATS: 'seats/',
+    BOOKINGS: 'bookings/',
 } as const;

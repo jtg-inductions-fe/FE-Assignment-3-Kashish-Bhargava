@@ -8,7 +8,7 @@ import { SeatBookingSummaryProps } from './SeatBookingSummary.types';
 /**Displays seat price, total amount and booking button */
 export const SeatBookingSummary = (props: SeatBookingSummaryProps) => {
     //Props
-    const { pricePerSeat, selectedCount } = props;
+    const { pricePerSeat, selectedCount, onBook, isBooking } = props;
 
     //Total Amount
     const total = pricePerSeat * selectedCount;
@@ -33,10 +33,11 @@ export const SeatBookingSummary = (props: SeatBookingSummaryProps) => {
                     {/*Booking button*/}
                     <Button
                         variant="contained"
-                        disabled={selectedCount === 0}
+                        disabled={selectedCount === 0 || isBooking}
                         aria-label="Click to book tickets"
+                        onClick={onBook}
                     >
-                        Book Tickets
+                        {isBooking ? 'Booking...' : 'Book Tickets'}
                     </Button>
                     {/*Total calculation*/}
                     <Typography variant="h3" aria-label="Total Amount">
