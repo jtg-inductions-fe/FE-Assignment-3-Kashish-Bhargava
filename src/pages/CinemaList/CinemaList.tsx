@@ -42,6 +42,7 @@ export const CinemaList = () => {
     });
 
     //Merge results for infinite scroll
+
     useEffect(() => {
         if (data?.results) {
             setCinemas((prev) => {
@@ -60,7 +61,6 @@ export const CinemaList = () => {
 
     // Infinite scroll
     const loaderRef = useRef<HTMLDivElement | null>(null);
-
     const handleObserver = useCallback(
         (entries: IntersectionObserverEntry[]) => {
             const target = entries[0];
@@ -84,17 +84,27 @@ export const CinemaList = () => {
         return () => observer.disconnect();
     }, [handleObserver]);
 
+    let content = null;
+
     /*Initial loading*/
-    if (isLoading && !cinemas.length)
-        return (
+    if (isLoading && !cinemas.length) {
+        content = (
             <Box display="flex" justifyContent="center" mt={4}>
                 <CircularProgress />
             </Box>
         );
-
-    //Empty State
-    if (!(cinemas.length > 0))
-        return (
+        /*Cinemas Grid*/
+    } else if (cinemas.length > 0) {
+        content = (
+            <GridLayout columns={gridColumns}>
+                {cinemas.map((cinema) => (
+                    <CinemaCard key={cinema.id} cinema={cinema} />
+                ))}
+            </GridLayout>
+        );
+        /*Empty state*/
+    } else {
+        content = (
             <Typography
                 align="center"
                 color="text.secondary"
@@ -104,6 +114,7 @@ export const CinemaList = () => {
                 No cinemas found
             </Typography>
         );
+    }
 
     return (
         <Box display="flex" flexDirection="column" gap={20}>
@@ -120,11 +131,9 @@ export const CinemaList = () => {
                     aria-label="Search cinemas by location"
                 />
             </CinemaListHeader>
-            <GridLayout columns={gridColumns}>
-                {cinemas.map((cinema) => (
-                    <CinemaCard key={cinema.id} cinema={cinema} />
-                ))}
-            </GridLayout>
+            {/*Main Content*/}
+            {content}
+
             {/*Pagination loader*/}
             <Box display="flex" justifyContent="center" minHeight={48}>
                 {isFetching && cinemas.length > 0 && (
