@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
-import { Box, CircularProgress, Typography } from '@mui/material';
+import { Box, Button, CircularProgress, Typography } from '@mui/material';
 
 import { ActionModal, GridLayout, TicketCard } from '@components';
 import { GRID_CONSTANTS, ROUTES } from '@constant';
@@ -52,10 +52,19 @@ export const PurchaseHistoryContainer = ({
     }, [activeTab]);
 
     /* Merge paginated results */
+    const mergeById = (
+        prev: PurchaseHistoryTicket[],
+        next: PurchaseHistoryTicket[],
+    ) => {
+        const map = new Map(prev.map((booking) => [booking.id, booking]));
+        next.forEach((booking) => map.set(booking.id, booking));
+
+        return Array.from(map.values());
+    };
     useEffect(() => {
         if (data?.results) {
             setItems((prev) =>
-                cursor ? [...prev, ...data.results] : data.results,
+                cursor ? mergeById(prev, data.results) : data.results,
             );
         }
     }, [data, cursor]);
@@ -83,7 +92,7 @@ export const PurchaseHistoryContainer = ({
 
     if (isError) {
         return (
-            <Typography align="center" color="error">
+            <Typography align="center" color="error" variant="h2">
                 Failed to load bookings
             </Typography>
         );
@@ -91,7 +100,7 @@ export const PurchaseHistoryContainer = ({
 
     if (!items.length) {
         return (
-            <Typography align="center" mt={6}>
+            <Typography align="center" mt={6} variant="h2">
                 No bookings found
             </Typography>
         );
@@ -125,16 +134,18 @@ export const PurchaseHistoryContainer = ({
             {/*Pagination*/}
             {data?.next && (
                 <Box textAlign="center">
-                    <Typography
-                        sx={{ cursor: 'pointer' }}
+                    <Button
+                        variant="text"
+                        disabled={isFetching}
                         onClick={() =>
                             setCursor(
                                 new URL(data.next!).searchParams.get('cursor'),
                             )
                         }
+                        aria-label="Load more bookings"
                     >
                         {isFetching ? 'Loading…' : 'Load more'}
-                    </Typography>
+                    </Button>
                 </Box>
             )}
         </>

@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import { useNavigate } from 'react-router-dom';
+
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { Box, IconButton, Tab, Tabs, Typography } from '@mui/material';
 
@@ -9,6 +11,8 @@ import type { BookingStatusFilter } from '@services/BookingApi';
 import { usePurchaseHistoryStyles } from './PurchaseHistory.styles';
 
 export const PurchaseHistory = () => {
+    //Navigation
+    const navigate = useNavigate();
     /**Currently selected booking filter tab defaults to upcoming*/
     const [activeTab, setActiveTab] = useState<BookingStatusFilter>('upcoming');
 
@@ -19,7 +23,7 @@ export const PurchaseHistory = () => {
         <Box display="flex" flexDirection="column" gap={32} marginBottom={12}>
             {/* Header */}
             <Box display="flex" alignItems="center" gap={12}>
-                <IconButton onClick={() => window.history.back()}>
+                <IconButton onClick={() => void navigate(-1)}>
                     <ArrowBackIosNewIcon />
                 </IconButton>
                 <Typography variant="h2">Your Orders</Typography>

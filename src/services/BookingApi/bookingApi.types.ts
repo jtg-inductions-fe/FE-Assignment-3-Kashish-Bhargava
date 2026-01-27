@@ -41,7 +41,7 @@ export interface PurchaseHistorySlot {
 export interface PurchaseHistoryTicket {
     /**booking id */
     id: number;
-    /**Booking status */
+    /**Booking status: 'B'=Booked, 'C'=Cancelled*/
     status: 'B' | 'C';
     /**Booking creation time */
     created_at: string;

@@ -50,7 +50,7 @@ export const bookingApi = baseApi.injectEndpoints({
         /**Cancel a booking for selected seats in a slot*/
         cancelBooking: builder.mutation<void, number>({
             query: (bookingId) => ({
-                url: `/${API_CONSTANT.CINEMAS}${API_CONSTANT.BOOKINGS}${bookingId}/`,
+                url: `${API_CONSTANT.CINEMAS}${API_CONSTANT.BOOKINGS}${bookingId}/`,
                 method: 'PATCH',
             }),
             invalidatesTags: ['Bookings'],
