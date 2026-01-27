@@ -11,3 +11,4 @@ export * from './PurchaseHistory';
 export * from './SeatBooking';
 export * from './Signup';
 export * from './MovieCinemaSlot';
+export * from './PurchaseHistory';

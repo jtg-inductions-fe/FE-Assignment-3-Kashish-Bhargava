@@ -50,13 +50,6 @@ export const Home = () => {
         return <ErrorMessageBox>Failed to load movies</ErrorMessageBox>;
     }
 
-    //Show empty state if no movies available
-    if (movies.length === 0) {
-        return (
-            <ErrorMessageBox>No movies available at the moment</ErrorMessageBox>
-        );
-    }
-
     return (
         <HomeLayout>
             {/*Top banner section*/}
@@ -79,12 +72,18 @@ export const Home = () => {
                         aria-label="See all movies"
                     />
                 </HomePageHeading>
-                {/*Movies grid layout*/}
-                <GridLayout columns={gridColumns}>
-                    {movies.map((movie) => (
-                        <MovieCard key={movie.id} movie={movie} />
-                    ))}
-                </GridLayout>
+                {/* Show empty state if no movies available otherwise Movies grid layout*/}
+                {movies.length === 0 ? (
+                    <ErrorMessageBox>
+                        No movies available at the moment
+                    </ErrorMessageBox>
+                ) : (
+                    <GridLayout columns={gridColumns}>
+                        {movies.map((movie) => (
+                            <MovieCard key={movie.id} movie={movie} />
+                        ))}
+                    </GridLayout>
+                )}
             </HomePageMainSection>
             {/*Browse by cinema section*/}
             <CinemaBlock
