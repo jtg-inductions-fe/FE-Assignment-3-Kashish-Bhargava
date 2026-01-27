@@ -103,7 +103,7 @@ export const MovieDetail = () => {
                             onClick={() => void navigate(-1)}
                             aria-label="Click to go back"
                         >
-                            {<ArrowBackIosNewIcon />}
+                            <ArrowBackIosNewIcon />
                         </IconButton>
                         {/* Movie Poster */}
                         <Poster
