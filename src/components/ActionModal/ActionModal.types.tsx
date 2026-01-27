@@ -1,6 +1,6 @@
 /**Props for ActionModal component */
 export interface ActionModalProps {
-    /**Controls model : open or close */
+    /**Controls modal : open or close */
     open: boolean;
     /**Modal title */
     title: string;
@@ -13,7 +13,7 @@ export interface ActionModalProps {
     /**Secondary action button label */
     secondaryActionLabel?: string;
     /**Secondary action handler */
-    onSecondaryAction?: () => string;
+    onSecondaryAction?: () => void;
     /**Handler to close the modal */
     onClose: () => void;
 }

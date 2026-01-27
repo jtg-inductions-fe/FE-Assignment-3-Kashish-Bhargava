@@ -34,9 +34,11 @@ export const ActionModal = (props: ActionModalProps) => {
                     {title}
                 </Typography>
                 {/*Booking id*/}
-                <Typography>
-                    Your booking ID is <strong>{bookingId}</strong>
-                </Typography>
+                {bookingId !== null && (
+                    <Typography>
+                        Your booking ID is <strong>{bookingId}</strong>
+                    </Typography>
+                )}
                 {/*Close modal button*/}
                 <Box display="flex" gap={12} justifyContent="center">
                     {secondaryActionLabel && (
@@ -53,7 +55,7 @@ export const ActionModal = (props: ActionModalProps) => {
                         <Button
                             variant="contained"
                             onClick={onPrimaryAction}
-                            aria-label="Click to view ticket"
+                            aria-label={primaryActionLabel}
                         >
                             {primaryActionLabel}
                         </Button>
