@@ -45,6 +45,7 @@ export const FirstContentSection = styled(Box)(
     }) => ({
         flexDirection: 'column',
         gap: spacing(4),
+
         [up('sm')]: {
             flexDirection: 'row',
             gap: spacing(10),
