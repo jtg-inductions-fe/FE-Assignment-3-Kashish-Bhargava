@@ -7,7 +7,7 @@ import { Box, CircularProgress, Typography } from '@mui/material';
 
 import { skipToken } from '@reduxjs/toolkit/query';
 
-import { BookingSuccessModal } from '@components';
+import { ActionModal } from '@components';
 import {
     SeatBookingHeader,
     SeatBookingSummary,
@@ -198,11 +198,13 @@ export const SeatBookingContainer = (props: SeatBookingContainerProps) => {
                     onBook={() => void handleBookTickets()}
                     isBooking={isBooking}
                 />
-                <BookingSuccessModal
+                <ActionModal
                     open={isModalOpen}
+                    title="Booking Confirmed"
                     bookingId={bookingId}
+                    primaryActionLabel="View Ticket"
                     onClose={() => setIsModalOpen(false)}
-                    onViewTicket={() => {
+                    onPrimaryAction={() => {
                         void navigate(ROUTES.PURCHASE_HISTORY);
                         setIsModalOpen(false);
                     }}

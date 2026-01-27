@@ -21,4 +21,4 @@ export * from './SeatRow';
 export * from './SeatScreenIndicator';
 export * from './SeatStatus';
 export * from './SeatAisle';
-export * from './BookingSuccessModal';
+export * from './ActionModal';
