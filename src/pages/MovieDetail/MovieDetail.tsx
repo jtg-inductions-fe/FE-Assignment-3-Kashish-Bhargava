@@ -1,7 +1,8 @@
 import { useNavigate, useParams } from 'react-router-dom';
 
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ShareIcon from '@mui/icons-material/Share';
-import { Box, CircularProgress, Typography } from '@mui/material';
+import { Box, CircularProgress, IconButton, Typography } from '@mui/material';
 
 import DummyPoster from '@assets/images/movie-poster.png';
 import { Button } from '@components';
@@ -11,6 +12,7 @@ import { capitalizeArray, formatDuration, formatReleaseDate } from '@utils';
 
 import {
     DescriptionSection,
+    FirstContentSection,
     LanguageChip,
     MovieDetailTopContentSection,
     Poster,
@@ -94,8 +96,22 @@ export const MovieDetail = () => {
                     maxWidth={1440}
                     margin="auto"
                 >
-                    {/* Movie Poster */}
-                    <Poster src={DummyPoster} alt={movie.name} width="100%" />
+                    <FirstContentSection display="flex" alignItems="flex-start">
+                        {/*Go back button*/}
+                        <IconButton
+                            color="primary"
+                            onClick={() => void navigate(-1)}
+                            aria-label="Click to go back"
+                        >
+                            {<ArrowBackIosNewIcon />}
+                        </IconButton>
+                        {/* Movie Poster */}
+                        <Poster
+                            src={DummyPoster}
+                            alt={movie.name}
+                            width="100%"
+                        />
+                    </FirstContentSection>
 
                     {/* Movie info and action*/}
                     <Box display="flex" flexDirection="column" gap={16}>
