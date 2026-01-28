@@ -33,4 +33,5 @@ export const COMMON_CONSTANTS = {
         'Signup failed. Please check your details and try again.',
     SIGNUP_UNEXPECTED_ERROR:
         'Unexpected error occurred. Please try again later.',
+    BOOKING_FAILED: 'Some selected seats are already booked. Please reselect.',
 } as const;

@@ -87,6 +87,11 @@ export const MovieCinemaSlot = () => {
                     title={cinema.name}
                     subtitle={cinema.location}
                     slots={cinema.slots}
+                    cinemaId={cinema.id}
+                    movieName={movie.name}
+                    cinemaName={cinema.name}
+                    selectedDate={date}
+                    cinemaLocation={cinema.location}
                 />
             ))}
         </>

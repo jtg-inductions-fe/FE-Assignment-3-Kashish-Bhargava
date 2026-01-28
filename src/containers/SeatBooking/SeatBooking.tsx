@@ -1,0 +1,283 @@
+import { useCallback, useMemo, useState } from 'react';
+
+import dayjs from 'dayjs';
+import { useLocation, useNavigate } from 'react-router-dom';
+
+import {
+    Alert,
+    Box,
+    CircularProgress,
+    Snackbar,
+    Typography,
+} from '@mui/material';
+
+import { skipToken } from '@reduxjs/toolkit/query';
+
+import {
+    ActionModal,
+    SeatBookingHeader,
+    SeatBookingSummary,
+    SeatGrid,
+    SeatScreenIndicator,
+    SeatStatus,
+} from '@components';
+import { COMMON_CONSTANTS } from '@constant';
+import { ROUTES } from '@constant';
+import { useCreateBookingMutation } from '@services/BookingApi';
+import { Seat, useGetSeatsQuery } from '@services/SeatApi';
+import {
+    useGetCinemaMovieSlotsQuery,
+    useGetMovieCinemaSlotsQuery,
+} from '@services/SlotApi';
+import { groupSeatsByRow } from '@utils';
+
+import { useSeatBookingContainerStyles } from './SeatBooking.styles';
+import type {
+    SeatBookingContainerProps,
+    SeatBookingNavigationState,
+    SnackbarState,
+} from './SeatBooking.types';
+
+export const SeatBookingContainer = (props: SeatBookingContainerProps) => {
+    //Props
+    const { cinemaId, slotId } = props;
+
+    //Styles for custom hook
+    const { classes } = useSeatBookingContainerStyles();
+
+    //Navigation
+    const navigate = useNavigate();
+
+    /**
+     * Navigation state
+     * Available only when user navigates via SlotItem
+     * Helps avoid extra API calls on first load
+     */
+    const location = useLocation();
+    const navigationState = location.state as SeatBookingNavigationState | null;
+
+    const cinemaSlotsArgs = navigationState ? skipToken : { cinemaId };
+
+    /* Fetch all movies and slots for this cinema */
+    const {
+        data: cinemaMovies = [],
+        isLoading: isCinemaSlotsLoading,
+        isError: isCinemaSlotsError,
+    } = useGetCinemaMovieSlotsQuery(cinemaSlotsArgs);
+
+    /* Resolve slot details: navigation state for the first navigation and API calls for refresh or direct URL*/
+    const resolvedSlot = useMemo(() => {
+        // for first navigation
+        if (navigationState) {
+            return {
+                movieName: navigationState.movieName,
+                startTime: navigationState.startTime,
+                date: navigationState.date,
+                seatPrice: navigationState.seatPrice,
+            };
+        }
+
+        // for refresh or direct URL
+        for (const movie of cinemaMovies) {
+            const slot = movie.slots.find((s) => s.id === slotId);
+            if (slot) {
+                return {
+                    movieId: movie.id,
+                    movieName: movie.name,
+                    startTime: slot.start_time,
+                    date: dayjs(slot.start_time).format('YYYY-MM-DD'),
+                    seatPrice: Number(slot.price),
+                };
+            }
+        }
+
+        return null;
+    }, [navigationState, cinemaMovies, slotId]);
+
+    const movieSlotsArgs =
+        resolvedSlot && resolvedSlot.movieId
+            ? {
+                  movieId: resolvedSlot.movieId,
+                  date: resolvedSlot.date,
+              }
+            : skipToken;
+
+    /* Fetch cinema info using movieId and date */
+    const {
+        data: cinemas = [],
+        isLoading: isMovieSlotsLoading,
+        isError: isMovieSlotsError,
+    } = useGetMovieCinemaSlotsQuery(movieSlotsArgs);
+
+    /**Prefer navigation state and fallback to API call on refresh or direct URL */
+    const cinemaInfo = navigationState
+        ? {
+              name: navigationState.cinemaName,
+              location: navigationState.cinemaLocation,
+          }
+        : cinemas.find((cinema) => cinema.id === cinemaId);
+
+    const seatsArgs =
+        isCinemaSlotsError || isMovieSlotsError
+            ? skipToken
+            : { cinemaId, slotId };
+
+    /*Fetch seats*/
+    const {
+        data: seats = [],
+        isLoading: isSeatsLoading,
+        isError: isSeatsError,
+    } = useGetSeatsQuery(seatsArgs);
+
+    /*Seat selection logic*/
+    const [selectedSeatIds, setSelectedSeatIds] = useState<number[]>([]);
+
+    const toggleSeat = useCallback((seat: Seat) => {
+        if (!seat.available) return;
+
+        setSelectedSeatIds((prev) =>
+            prev.includes(seat.id)
+                ? prev.filter((id) => id !== seat.id)
+                : [...prev, seat.id],
+        );
+    }, []);
+
+    /**Group seats into rows */
+    const seatRows = groupSeatsByRow(seats);
+
+    /**Booking mutation */
+    const [createBooking, { isLoading: isBooking }] =
+        useCreateBookingMutation();
+
+    const [bookingId, setBookingId] = useState<number | null>(null);
+
+    //Booking successful modal state
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    //Snackbar state
+    const [snackbar, setSnackbar] = useState<SnackbarState>({
+        open: false,
+        message: '',
+        severity: 'success',
+    });
+
+    //Booked seats to be displayed on the modal after successful booking
+    const [BookedSeatLabels, setBookedSeatLabels] = useState<string>('');
+
+    //Booking Handler
+    const handleBookTickets = async () => {
+        try {
+            const seatLabels = seats
+                .filter((seat) => selectedSeatIds.includes(seat.id))
+                .map((seat) => `R${seat.row_number} S${seat.seat_number}`)
+                .join(', ');
+
+            const response = await createBooking({
+                cinemaId,
+                slotId,
+                seatIds: selectedSeatIds,
+            }).unwrap();
+            setBookingId(response.id);
+            setBookedSeatLabels(seatLabels);
+            setIsModalOpen(true);
+            setSelectedSeatIds([]);
+        } catch {
+            setSnackbar({
+                open: true,
+                message: COMMON_CONSTANTS.BOOKING_FAILED,
+                severity: 'error',
+            });
+        }
+    };
+
+    /* Loading states */
+    if (isCinemaSlotsLoading || isMovieSlotsLoading || isSeatsLoading) {
+        return (
+            <Box display="flex" justifyContent="center" mt={6}>
+                <CircularProgress />
+            </Box>
+        );
+    }
+
+    /*Error States / invalid data*/
+    if (
+        isCinemaSlotsError ||
+        isMovieSlotsError ||
+        isSeatsError ||
+        !resolvedSlot ||
+        !cinemaInfo
+    ) {
+        return (
+            <Typography align="center" color="error">
+                Failed to load seat booking details
+            </Typography>
+        );
+    }
+
+    return (
+        <Box display="flex" flexDirection="column" gap={64}>
+            <Snackbar
+                open={snackbar.open}
+                autoHideDuration={4000}
+                onClose={() => setSnackbar({ ...snackbar, open: false })}
+            >
+                <Alert severity={snackbar.severity}>{snackbar.message}</Alert>
+            </Snackbar>
+            {/*Header, booking summary and Booking Success Modal*/}
+            <Box>
+                <SeatBookingHeader
+                    movieName={resolvedSlot.movieName}
+                    cinemaName={cinemaInfo.name}
+                    cinemaLocation={cinemaInfo.location}
+                    date={resolvedSlot.date}
+                    startTime={resolvedSlot.startTime}
+                />
+
+                <SeatBookingSummary
+                    pricePerSeat={resolvedSlot.seatPrice}
+                    selectedCount={selectedSeatIds.length}
+                    onBook={() => void handleBookTickets()}
+                    isBooking={isBooking}
+                />
+                <ActionModal
+                    open={isModalOpen}
+                    title="Booking Confirmed"
+                    bookingId={bookingId}
+                    description={
+                        <>
+                            <Typography>
+                                Movie: <strong>{resolvedSlot.movieName}</strong>
+                            </Typography>
+                            <Typography>
+                                Seats: <strong>{BookedSeatLabels}</strong>
+                            </Typography>
+                        </>
+                    }
+                    primaryActionLabel="View Ticket"
+                    onClose={() => setIsModalOpen(false)}
+                    onPrimaryAction={() => {
+                        void navigate(ROUTES.PURCHASE_HISTORY);
+                        setIsModalOpen(false);
+                    }}
+                />
+            </Box>
+            {/*Seat Grid and Screen Indicator*/}
+            <Box
+                display="flex"
+                flexDirection="column"
+                gap={48}
+                className={classes.seatLayout}
+                padding={6}
+            >
+                <SeatGrid
+                    rows={seatRows}
+                    selectedSeatIds={selectedSeatIds}
+                    onToggleSeat={toggleSeat}
+                />
+                <SeatScreenIndicator />
+            </Box>
+            {/*Seat Status component*/}
+            <SeatStatus />
+        </Box>
+    );
+};

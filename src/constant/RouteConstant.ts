@@ -13,7 +13,7 @@ export const ROUTES = {
 
     CINEMAS: '/cinemas',
     CINEMA_MOVIE_SLOTS: '/cinemas/:slug/slots',
-    BOOK_SEATS: '/cinemas/:slug/slot/:slotId/bookings',
+    BOOK_SEATS: '/cinemas/:cinemaId/slots/:slotId/seats',
 
     PURCHASE_HISTORY: '/bookings/history',
 

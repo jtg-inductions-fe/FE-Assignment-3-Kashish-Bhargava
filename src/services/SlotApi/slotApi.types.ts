@@ -39,7 +39,7 @@ export type MovieCinemaSlotResponse = CinemaWithSlots[];
 /** Common query args */
 export interface SlotQueryArgs {
     /*Selected date*/
-    date: string;
+    date?: string;
 }
 
 /**Query args for fetching slots of a movie in different cinemas */
