@@ -1,6 +1,8 @@
 import dayjs from 'dayjs';
+import { useNavigate } from 'react-router-dom';
 
-import { Box, Chip, Divider, Typography } from '@mui/material';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import { Box, Chip, Divider, IconButton, Typography } from '@mui/material';
 
 import { formatDuration } from '@utils';
 
@@ -11,6 +13,9 @@ export const SlotStructure = (props: SlotStructureProps) => {
     //Props
     const { title, duration, genres, languages, selectedDate, onDateChange } =
         props;
+
+    //Navigation
+    const navigate = useNavigate();
 
     //Styles using custom hook
     const { classes } = useSlotStructureStyles();
@@ -29,13 +34,21 @@ export const SlotStructure = (props: SlotStructureProps) => {
                 flexDirection="column"
                 gap={12}
             >
-                <Typography
-                    variant="h1"
-                    color="common.black"
-                    textTransform="capitalize"
-                >
-                    {title}
-                </Typography>
+                <Box display="flex">
+                    <IconButton
+                        aria-label="Click to go back"
+                        onClick={() => void navigate(-1)}
+                    >
+                        <ArrowBackIosNewIcon />
+                    </IconButton>
+                    <Typography
+                        variant="h1"
+                        color="common.black"
+                        textTransform="capitalize"
+                    >
+                        {title}
+                    </Typography>
+                </Box>
 
                 <Box
                     display="flex"

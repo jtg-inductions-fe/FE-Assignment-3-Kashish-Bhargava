@@ -73,7 +73,7 @@ export const CinemaMovieSlot = () => {
             )}
             {/*Empty state handling*/}
             {movies?.length === 0 && (
-                <Typography>No slots available on this date.</Typography>
+                <Typography>No movies available on this date.</Typography>
             )}
             {/*Slots groups*/}
             {movies?.map((movie) => (
