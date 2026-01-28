@@ -37,11 +37,11 @@ export const SeatBookingSummary = (props: SeatBookingSummaryProps) => {
                         aria-label="Click to book tickets"
                         onClick={onBook}
                     >
-                        {isBooking ? 'Booking...' : 'Book Tickets'}
+                        {isBooking ? 'Booking...' : 'Pay Now'}
                     </Button>
                     {/*Total calculation*/}
                     <Typography variant="h3" aria-label="Total Amount">
-                        ₹{pricePerSeat} x {selectedCount} = ₹{total}
+                        ₹{pricePerSeat} x {selectedCount} seat(s) = ₹{total}
                     </Typography>
                 </Box>
             </Box>

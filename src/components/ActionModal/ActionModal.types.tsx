@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 /**Props for ActionModal component */
 export interface ActionModalProps {
     /**Controls modal : open or close */
@@ -6,6 +8,8 @@ export interface ActionModalProps {
     title: string;
     /**Booking ID */
     bookingId: number | null;
+    /**Extra details to be displayed */
+    description?: ReactNode;
     /**Primary action button label */
     primaryActionLabel?: string;
     /**Primary action handler */

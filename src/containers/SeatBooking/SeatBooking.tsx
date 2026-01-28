@@ -7,8 +7,8 @@ import { Box, CircularProgress, Typography } from '@mui/material';
 
 import { skipToken } from '@reduxjs/toolkit/query';
 
-import { ActionModal } from '@components';
 import {
+    ActionModal,
     SeatBookingHeader,
     SeatBookingSummary,
     SeatGrid,
@@ -156,6 +156,11 @@ export const SeatBookingContainer = (props: SeatBookingContainerProps) => {
         }
     };
 
+    const selectedSeatLabels = seats
+        .filter((s) => selectedSeatIds.includes(s.id))
+        .map((s) => `R${s.row_number} S${s.seat_number}`)
+        .join(',');
+
     /* Loading states */
     if (isCinemaSlotsLoading || isMovieSlotsLoading || isSeatsLoading) {
         return (
@@ -202,6 +207,16 @@ export const SeatBookingContainer = (props: SeatBookingContainerProps) => {
                     open={isModalOpen}
                     title="Booking Confirmed"
                     bookingId={bookingId}
+                    description={
+                        <>
+                            <Typography>
+                                Movie: <strong>{resolvedSlot.movieName}</strong>
+                            </Typography>
+                            <Typography>
+                                Seats: <strong>{selectedSeatLabels}</strong>
+                            </Typography>
+                        </>
+                    }
                     primaryActionLabel="View Ticket"
                     onClose={() => setIsModalOpen(false)}
                     onPrimaryAction={() => {

@@ -17,7 +17,7 @@ export const SeatBooking = () => {
     }
 
     return (
-        <Box marginTop={20}>
+        <Box marginTop={4}>
             <SeatBookingContainer
                 cinemaId={Number(cinemaId)}
                 slotId={Number(slotId)}

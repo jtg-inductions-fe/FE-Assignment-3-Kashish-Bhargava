@@ -1,5 +1,7 @@
 import { Box, Button, Modal, Typography } from '@mui/material';
+import { ModalProps } from '@mui/material';
 
+import { useActionModalStyles } from './ActionModal.styles';
 import { ActionModalProps } from './ActionModal.types';
 
 export const ActionModal = (props: ActionModalProps) => {
@@ -13,34 +15,50 @@ export const ActionModal = (props: ActionModalProps) => {
         onPrimaryAction,
         secondaryActionLabel = 'Close',
         onSecondaryAction,
+        description,
     } = props;
 
+    const handleModalClose: ModalProps['onClose'] = (_, reason) => {
+        if (reason === 'backdropClick' || reason === 'escapeKeyDown') {
+            return;
+        }
+        onClose();
+    };
+
+    /**Styles using custom hook */
+    const { classes } = useActionModalStyles();
+
     return (
-        <Modal open={open} onClose={onClose}>
+        <Modal open={open} onClose={handleModalClose}>
             <Box
+                className={classes.mainContainer}
                 bgcolor="common.white"
                 p={18}
-                borderRadius={4}
-                width={320}
+                borderRadius={2}
                 mx="auto"
-                mt="20vh"
+                mt="40vh"
                 display="flex"
                 flexDirection="column"
                 gap={16}
-                textAlign="center"
             >
                 {/*Modal title*/}
                 <Typography variant="h2" color="success.main">
                     {title}
                 </Typography>
+                {/**Modal description*/}
+                {description && (
+                    <Box display="flex" flexDirection="column" gap={8}>
+                        {description}
+                    </Box>
+                )}
                 {/*Booking id*/}
                 {bookingId !== null && (
                     <Typography>
                         Your booking ID is <strong>{bookingId}</strong>
                     </Typography>
                 )}
-                {/*Close modal button*/}
-                <Box display="flex" gap={12} justifyContent="center">
+                <Box display="flex" gap={12} justifyContent="flex-end">
+                    {/*Close modal button*/}
                     {secondaryActionLabel && (
                         <Button
                             variant="outlined"

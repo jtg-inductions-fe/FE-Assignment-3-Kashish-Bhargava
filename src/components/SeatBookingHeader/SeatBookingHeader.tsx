@@ -40,7 +40,7 @@ export const SeatBookingHeader = (props: SeatBookingHeaderProps) => {
                         {movieName}
                     </Typography>
                     {/*Cinema name, location, date and show time*/}
-                    <Typography variant="h3" textTransform="capitalize">
+                    <Typography variant="subtitle1" textTransform="capitalize">
                         {cinemaName}, {cinemaLocation} •&nbsp;
                         {dayjs(date).format('ddd, DD MMM')} •&nbsp;
                         {dayjs(startTime).format('hh:mm A')}
