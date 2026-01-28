@@ -36,23 +36,6 @@ export const MovieDetailTopContentSection = styled(Box)<{
     }),
 );
 
-export const FirstContentSection = styled(Box)(
-    ({
-        theme: {
-            breakpoints: { up },
-            spacing,
-        },
-    }) => ({
-        flexDirection: 'column',
-        gap: spacing(4),
-
-        [up('sm')]: {
-            flexDirection: 'row',
-            gap: spacing(10),
-        },
-    }),
-);
-
 export const Poster = styled('img')(({ theme: { spacing, shadows } }) => ({
     maxWidth: spacing(260),
     borderRadius: spacing(8),

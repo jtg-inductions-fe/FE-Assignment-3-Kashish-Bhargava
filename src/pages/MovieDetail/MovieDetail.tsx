@@ -2,17 +2,16 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ShareIcon from '@mui/icons-material/Share';
-import { Box, CircularProgress, IconButton, Typography } from '@mui/material';
+import { Box, CircularProgress, Typography } from '@mui/material';
 
 import DummyPoster from '@assets/images/movie-poster.png';
-import { Button } from '@components';
+import { AppLink, Button } from '@components';
 import { ROUTES } from '@constant';
 import { useGetMovieBySlugQuery } from '@services/MovieApi';
 import { capitalizeArray, formatDuration, formatReleaseDate } from '@utils';
 
 import {
     DescriptionSection,
-    FirstContentSection,
     LanguageChip,
     MovieDetailTopContentSection,
     Poster,
@@ -96,22 +95,32 @@ export const MovieDetail = () => {
                     maxWidth={1440}
                     margin="auto"
                 >
-                    <FirstContentSection display="flex" alignItems="flex-start">
-                        {/*Go back button*/}
-                        <IconButton
+                    <Box
+                        display="flex"
+                        alignItems="flex-start"
+                        flexDirection="column"
+                        gap={8}
+                    >
+                        {/*Go back link*/}
+                        <AppLink
                             color="primary"
-                            onClick={() => void navigate(-1)}
+                            to={'..'}
+                            onClick={(e) => {
+                                e.preventDefault();
+                                void navigate(-1);
+                            }}
                             aria-label="Click to go back"
-                        >
-                            <ArrowBackIosNewIcon />
-                        </IconButton>
+                            label="Go Back"
+                            startIcon={<ArrowBackIosNewIcon />}
+                        />
+
                         {/* Movie Poster */}
                         <Poster
                             src={DummyPoster}
                             alt={movie.name}
                             width="100%"
                         />
-                    </FirstContentSection>
+                    </Box>
 
                     {/* Movie info and action*/}
                     <Box display="flex" flexDirection="column" gap={16}>

@@ -22,8 +22,8 @@ export const FilterList = (props: FilterListProps) => {
                         disableGutters
                         key={option}
                         onClick={() =>
-                            setSelectedValues(
-                                toggleValue(selectedValues, option),
+                            setSelectedValues((prev) =>
+                                toggleValue(prev, option),
                             )
                         }
                     >

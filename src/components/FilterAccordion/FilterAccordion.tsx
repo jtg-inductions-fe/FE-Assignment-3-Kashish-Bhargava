@@ -35,8 +35,8 @@ export const FilterAccordion = (props: FilterAccordionProps) => {
                                 color={isSelected ? 'primary' : 'default'}
                                 variant={isSelected ? 'filled' : 'outlined'}
                                 onClick={() =>
-                                    setSelectedValues(
-                                        toggleValue(selectedValues, option),
+                                    setSelectedValues((prev) =>
+                                        toggleValue(prev, option),
                                     )
                                 }
                             />
