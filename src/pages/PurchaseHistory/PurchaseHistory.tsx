@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { Box, IconButton, Tab, Tabs, Typography } from '@mui/material';
 
+import { ROUTES } from '@constant';
 import { PurchaseHistoryContainer } from '@containers/PurchaseHistory';
 import type { BookingStatusFilter } from '@services/BookingApi';
 
@@ -23,7 +24,10 @@ export const PurchaseHistory = () => {
         <Box display="flex" flexDirection="column" gap={32} marginBottom={12}>
             {/* Header */}
             <Box display="flex" alignItems="center" gap={12}>
-                <IconButton onClick={() => void navigate(-1)}>
+                <IconButton
+                    onClick={() => void navigate(ROUTES.HOME)}
+                    aria-label="Click to Go back home"
+                >
                     <ArrowBackIosNewIcon />
                 </IconButton>
                 <Typography variant="h2">Your Orders</Typography>
