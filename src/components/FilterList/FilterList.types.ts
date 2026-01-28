@@ -7,5 +7,5 @@ export interface FilterListProps {
     //Currently selected values
     selectedValues: string[];
     //Setter for selected values
-    setSelectedValues: (values: string[]) => void;
+    setSelectedValues: (updater: (prev: string[]) => string[]) => void;
 }

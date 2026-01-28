@@ -1,7 +1,7 @@
 /**
- * Props for the desktop movie filters section.
+ * Props for the desktop and mobile movie filters section.
  */
-export interface MovieFiltersDesktopProps {
+export interface UseMovieFiltersParams {
     /**List of available languages to filter movies by.*/
     availableLanguages: string[];
     /**List of available genres to filter movies by.*/

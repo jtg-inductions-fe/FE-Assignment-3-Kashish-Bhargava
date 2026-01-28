@@ -30,7 +30,9 @@ export const MovieCard = (props: MovieCardProps) => {
 
     return (
         <StyledCard>
-            <CardActionArea onClick={() => void navigate(ROUTES.MOVIES)}>
+            <CardActionArea
+                onClick={() => void navigate(`${ROUTES.MOVIES}/${movie.slug}`)}
+            >
                 <StyledCardMedia image={DummyPoster} title={movie.name} />
                 <StyledCardContent>
                     <Typography

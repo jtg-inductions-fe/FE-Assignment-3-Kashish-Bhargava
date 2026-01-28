@@ -30,6 +30,7 @@ export interface GenreResponse {
     genre: string;
 }
 
+/**API response structure for a single movie language */
 export interface LanguageResponse {
     /**Name of the language*/
     language: string;
