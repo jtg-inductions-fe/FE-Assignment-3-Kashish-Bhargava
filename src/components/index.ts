@@ -22,3 +22,4 @@ export * from './SeatScreenIndicator';
 export * from './SeatStatus';
 export * from './SeatAisle';
 export * from './ActionModal';
+export * from './TicketCard';

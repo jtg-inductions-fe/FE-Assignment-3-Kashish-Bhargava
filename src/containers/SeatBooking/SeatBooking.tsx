@@ -42,7 +42,7 @@ export const SeatBookingContainer = (props: SeatBookingContainerProps) => {
     //Props
     const { cinemaId, slotId } = props;
 
-    //Styles for custom hook
+    //Styles using custom hook
     const { classes } = useSeatBookingContainerStyles();
 
     //Navigation
