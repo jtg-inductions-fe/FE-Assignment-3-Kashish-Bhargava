@@ -14,8 +14,8 @@ import {
 
 import { CinemaCard, GridLayout } from '@components';
 import { GRID_CONSTANTS } from '@constant';
+import type { Cinema } from '@models/cinema';
 import { useGetCinemasQuery } from '@services/CinemaApi/cinemaApi';
-import type { Cinema } from '@services/CinemaApi/cinemaApi.types';
 
 import { CinemaListHeader, LocationTextField } from './CinemaList.styles';
 

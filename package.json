@@ -20,11 +20,13 @@
         "@mui/icons-material": "6.4.1",
         "@mui/material": "6.4.1",
         "@reduxjs/toolkit": "^2.11.0",
+        "dayjs": "^1.11.19",
         "react": "19.0.0",
         "react-dom": "19.0.0",
         "react-hook-form": "^7.68.0",
         "react-redux": "^9.2.0",
-        "react-router-dom": "^7.9.6"
+        "react-router-dom": "^7.9.6",
+        "tss-react": "^4.9.20"
     },
     "devDependencies": {
         "@types/eslint-plugin-jsx-a11y": "6",

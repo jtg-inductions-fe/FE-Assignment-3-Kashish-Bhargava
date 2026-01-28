@@ -11,4 +11,5 @@ export const API_CONSTANT = {
     GENRES: 'movies/genres/',
     LANGUAGES: 'movies/languages/',
     CINEMAS: 'cinemas/',
+    SLOTS: 'slots/',
 } as const;

@@ -4,7 +4,7 @@ import { CardActionArea, Typography } from '@mui/material';
 
 import CinemaPoster from '@assets/images/cinemas.jpg';
 import { ROUTES } from '@constant';
-import type { Cinema } from '@services/CinemaApi/cinemaApi.types';
+import type { Cinema } from '@models/cinema';
 
 import {
     StyledCinemaCard,
@@ -20,7 +20,9 @@ export const CinemaCard = ({ cinema }: { cinema: Cinema }) => {
         <StyledCinemaCard>
             <CardActionArea
                 onClick={() =>
-                    void navigate(`${ROUTES.CINEMAS}/${cinema.slug}`)
+                    void navigate(
+                        `${ROUTES.CINEMA_MOVIE_SLOTS.replace(':slug', cinema.slug)}`,
+                    )
                 }
             >
                 {/*Cinema Poster*/}
