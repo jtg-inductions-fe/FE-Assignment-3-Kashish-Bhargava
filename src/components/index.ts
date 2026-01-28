@@ -5,6 +5,7 @@ export * from './GridStructure';
 export * from './MovieCard';
 export * from './AuthForm';
 export * from './Button';
+export * from './CinemaCard';
 export * from './AppLink';
 export * from './AccountMenu';
 export * from './FilterAccordion';
