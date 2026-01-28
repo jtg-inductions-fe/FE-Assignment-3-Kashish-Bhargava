@@ -12,7 +12,7 @@ export const CinemaListHeader = styled(Box)(
         justifyContent: 'space-between',
         alignItems: 'flex-start',
         flexDirection: 'column',
-        gap: spacing(8),
+        gap: spacing(12),
 
         [up('md')]: {
             flexDirection: 'row',

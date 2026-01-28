@@ -1,6 +1,16 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-import { Box, CircularProgress, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import ClearIcon from '@mui/icons-material/Clear';
+import {
+    Box,
+    CircularProgress,
+    IconButton,
+    InputAdornment,
+    Typography,
+} from '@mui/material';
 
 import { CinemaCard, GridLayout } from '@components';
 import { GRID_CONSTANTS } from '@constant';
@@ -10,6 +20,9 @@ import type { Cinema } from '@services/CinemaApi/cinemaApi.types';
 import { CinemaListHeader, LocationTextField } from './CinemaList.styles';
 
 export const CinemaList = () => {
+    //Navigation
+    const navigate = useNavigate();
+
     //Grid column configuration
     const gridColumns = GRID_CONSTANTS.CINEMA_LIST_GRID;
 
@@ -36,10 +49,14 @@ export const CinemaList = () => {
     }, [location]);
 
     //Fetch using debouncedSearch
-    const { data, isLoading, isFetching } = useGetCinemasQuery({
+    const { data, isFetching } = useGetCinemasQuery({
         cursor,
         location: debouncedSearch,
     });
+
+    const isTyping = location !== debouncedSearch;
+
+    const isSearching = isTyping || isFetching;
 
     //Merge results for infinite scroll
 
@@ -86,14 +103,13 @@ export const CinemaList = () => {
 
     let content = null;
 
-    /*Initial loading*/
-    if (isLoading && !cinemas.length) {
+    /**Searching / Loading State*/
+    if (isSearching) {
         content = (
             <Box display="flex" justifyContent="center" mt={4}>
                 <CircularProgress />
             </Box>
         );
-        /*Cinemas Grid*/
     } else if (cinemas.length > 0) {
         content = (
             <GridLayout columns={gridColumns}>
@@ -120,7 +136,15 @@ export const CinemaList = () => {
         <Box display="flex" flexDirection="column" gap={20}>
             {/*Page Header*/}
             <CinemaListHeader>
-                <Typography variant="h2">Browse Cinemas</Typography>
+                <Box display="flex" alignItems="center">
+                    <IconButton
+                        onClick={() => void navigate(-1)}
+                        aria-label="Click to go back"
+                    >
+                        <ArrowBackIosNewIcon />
+                    </IconButton>
+                    <Typography variant="h2">Browse Cinemas</Typography>
+                </Box>
                 {/*Search field*/}
                 <LocationTextField
                     variant="outlined"
@@ -129,6 +153,22 @@ export const CinemaList = () => {
                     onChange={(e) => setSearch(e.target.value)}
                     fullWidth
                     aria-label="Search cinemas by location"
+                    slotProps={{
+                        input: {
+                            endAdornment: location ? (
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label="Clear search"
+                                        onClick={() => setSearch('')}
+                                        edge="end"
+                                        size="small"
+                                    >
+                                        <ClearIcon />
+                                    </IconButton>
+                                </InputAdornment>
+                            ) : null,
+                        },
+                    }}
                 />
             </CinemaListHeader>
             {/*Main Content*/}
