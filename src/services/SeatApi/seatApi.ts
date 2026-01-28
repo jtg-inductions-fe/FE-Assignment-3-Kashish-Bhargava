@@ -9,7 +9,9 @@ export const seatApi = baseApi.injectEndpoints({
             query: ({ cinemaId, slotId }) => ({
                 url: `${API_CONSTANT.CINEMAS}${cinemaId}/${API_CONSTANT.SLOTS}${slotId}/${API_CONSTANT.SEATS}`,
             }),
-            providesTags: ['Seats'],
+            providesTags: (_result, _error, { cinemaId, slotId }) => [
+                { type: 'Seats', id: `${cinemaId}-${slotId}` },
+            ],
         }),
     }),
 });

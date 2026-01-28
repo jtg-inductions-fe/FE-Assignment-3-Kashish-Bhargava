@@ -30,3 +30,12 @@ export interface SeatBookingNavigationState {
     /**Price per seat */
     seatPrice: number;
 }
+
+export interface SnackbarState {
+    /**Snackbar visibility */
+    open: boolean;
+    /**Message to be displayed */
+    message: string;
+    /**state of the message */
+    severity: 'success' | 'error';
+}

@@ -3,7 +3,13 @@ import { useCallback, useMemo, useState } from 'react';
 import dayjs from 'dayjs';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { Box, CircularProgress, Typography } from '@mui/material';
+import {
+    Alert,
+    Box,
+    CircularProgress,
+    Snackbar,
+    Typography,
+} from '@mui/material';
 
 import { skipToken } from '@reduxjs/toolkit/query';
 
@@ -15,6 +21,7 @@ import {
     SeatScreenIndicator,
     SeatStatus,
 } from '@components';
+import { COMMON_CONSTANTS } from '@constant';
 import { ROUTES } from '@constant';
 import { useCreateBookingMutation } from '@services/BookingApi';
 import { Seat, useGetSeatsQuery } from '@services/SeatApi';
@@ -25,8 +32,11 @@ import {
 import { groupSeatsByRow } from '@utils';
 
 import { useSeatBookingContainerStyles } from './SeatBooking.styles';
-import type { SeatBookingNavigationState } from './SeatBooking.types';
-import type { SeatBookingContainerProps } from './SeatBooking.types';
+import type {
+    SeatBookingContainerProps,
+    SeatBookingNavigationState,
+    SnackbarState,
+} from './SeatBooking.types';
 
 export const SeatBookingContainer = (props: SeatBookingContainerProps) => {
     //Props
@@ -35,6 +45,7 @@ export const SeatBookingContainer = (props: SeatBookingContainerProps) => {
     //Styles for custom hook
     const { classes } = useSeatBookingContainerStyles();
 
+    //Navigation
     const navigate = useNavigate();
 
     /**
@@ -139,27 +150,45 @@ export const SeatBookingContainer = (props: SeatBookingContainerProps) => {
         useCreateBookingMutation();
 
     const [bookingId, setBookingId] = useState<number | null>(null);
+
+    //Booking successful modal state
     const [isModalOpen, setIsModalOpen] = useState(false);
+
+    //Snackbar state
+    const [snackbar, setSnackbar] = useState<SnackbarState>({
+        open: false,
+        message: '',
+        severity: 'success',
+    });
+
+    //Booked seats to be displayed on the modal after successful booking
+    const [BookedSeatLabels, setBookedSeatLabels] = useState<string>('');
 
     //Booking Handler
     const handleBookTickets = async () => {
         try {
+            const seatLabels = seats
+                .filter((seat) => selectedSeatIds.includes(seat.id))
+                .map((seat) => `R${seat.row_number} S${seat.seat_number}`)
+                .join(', ');
+
             const response = await createBooking({
                 cinemaId,
                 slotId,
                 seatIds: selectedSeatIds,
             }).unwrap();
             setBookingId(response.id);
+            setBookedSeatLabels(seatLabels);
             setIsModalOpen(true);
+            setSelectedSeatIds([]);
         } catch {
-            alert('Booking failed. Please try again.');
+            setSnackbar({
+                open: true,
+                message: COMMON_CONSTANTS.BOOKING_FAILED,
+                severity: 'error',
+            });
         }
     };
-
-    const selectedSeatLabels = seats
-        .filter((s) => selectedSeatIds.includes(s.id))
-        .map((s) => `R${s.row_number} S${s.seat_number}`)
-        .join(',');
 
     /* Loading states */
     if (isCinemaSlotsLoading || isMovieSlotsLoading || isSeatsLoading) {
@@ -187,6 +216,13 @@ export const SeatBookingContainer = (props: SeatBookingContainerProps) => {
 
     return (
         <Box display="flex" flexDirection="column" gap={64}>
+            <Snackbar
+                open={snackbar.open}
+                autoHideDuration={4000}
+                onClose={() => setSnackbar({ ...snackbar, open: false })}
+            >
+                <Alert severity={snackbar.severity}>{snackbar.message}</Alert>
+            </Snackbar>
             {/*Header, booking summary and Booking Success Modal*/}
             <Box>
                 <SeatBookingHeader
@@ -213,7 +249,7 @@ export const SeatBookingContainer = (props: SeatBookingContainerProps) => {
                                 Movie: <strong>{resolvedSlot.movieName}</strong>
                             </Typography>
                             <Typography>
-                                Seats: <strong>{selectedSeatLabels}</strong>
+                                Seats: <strong>{BookedSeatLabels}</strong>
                             </Typography>
                         </>
                     }

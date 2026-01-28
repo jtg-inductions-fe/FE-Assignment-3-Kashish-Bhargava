@@ -19,6 +19,12 @@ export const bookingApi = baseApi.injectEndpoints({
                     status: 'B',
                 },
             }),
+            invalidatesTags: (_result, _error, { cinemaId, slotId }) => [
+                {
+                    type: 'Seats',
+                    id: `${cinemaId}-${slotId}`,
+                },
+            ],
         }),
     }),
 });
